@@ -19,7 +19,19 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2133dba9-aa52-48e0-8693-56988c6adc2f" name="Default Changelist" comment="" />
+    <list default="true" id="2133dba9-aa52-48e0-8693-56988c6adc2f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reportWebVitals.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setupTests.js" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,6 +66,11 @@
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
   </component>
   <component name="RunManager" selected="npm.npm start">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
@@ -90,7 +107,7 @@
       <option name="presentableId" value="Default" />
       <updated>1621367705905</updated>
       <workItem from="1621367706999" duration="934000" />
-      <workItem from="1621666759407" duration="3578000" />
+      <workItem from="1621666759407" duration="6419000" />
     </task>
     <servers />
   </component>
@@ -113,6 +130,22 @@
       <screen x="72" y="27" width="1608" height="1023" />
     </state>
     <state x="556" y="340" width="630" height="403" key="#com.intellij.fileTypes.FileTypeChooser/72.27.1608.1023@72.27.1608.1023" timestamp="1621667697737" />
+    <state width="1562" height="349" key="GridCell.Tab.0.bottom" timestamp="1621678481428">
+      <screen x="72" y="27" width="1608" height="1023" />
+    </state>
+    <state width="1562" height="349" key="GridCell.Tab.0.bottom/72.27.1608.1023@72.27.1608.1023" timestamp="1621678481428" />
+    <state width="1562" height="349" key="GridCell.Tab.0.center" timestamp="1621678481427">
+      <screen x="72" y="27" width="1608" height="1023" />
+    </state>
+    <state width="1562" height="349" key="GridCell.Tab.0.center/72.27.1608.1023@72.27.1608.1023" timestamp="1621678481427" />
+    <state width="1562" height="349" key="GridCell.Tab.0.left" timestamp="1621678481426">
+      <screen x="72" y="27" width="1608" height="1023" />
+    </state>
+    <state width="1562" height="349" key="GridCell.Tab.0.left/72.27.1608.1023@72.27.1608.1023" timestamp="1621678481426" />
+    <state width="1562" height="349" key="GridCell.Tab.0.right" timestamp="1621678481428">
+      <screen x="72" y="27" width="1608" height="1023" />
+    </state>
+    <state width="1562" height="349" key="GridCell.Tab.0.right/72.27.1608.1023@72.27.1608.1023" timestamp="1621678481428" />
     <state x="185" y="265" width="1372" height="554" key="new project wizard" timestamp="1621667684236">
       <screen x="72" y="27" width="1608" height="1023" />
     </state>
