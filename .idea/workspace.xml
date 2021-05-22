@@ -31,8 +31,11 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="show.migrate.to.gradle.popup" value="false" />
@@ -61,7 +64,7 @@
       <option name="presentableId" value="Default" />
       <updated>1621367705905</updated>
       <workItem from="1621367706999" duration="934000" />
-      <workItem from="1621666759407" duration="1727000" />
+      <workItem from="1621666759407" duration="2824000" />
     </task>
     <servers />
   </component>
