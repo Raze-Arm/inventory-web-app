@@ -1,9 +1,23 @@
 import {takeEvery, call, put} from 'redux-saga/effects';
-import {DELETE_CUSTOMER, GET_CUSTOMER, GET_CUSTOMER_LIST, SAVE_CUSTOMER, UPDATE_CUSTOMER} from "../actions/types";
-import {deleteCustomer, fetchCustomer, fetchCustomerList, postCustomer, updateCustomer} from "../services/customer";
+import {
+    DELETE_CUSTOMER,
+    GET_CUSTOMER,
+    GET_CUSTOMER_LIST,
+    GET_CUSTOMER_PAGE,
+    SAVE_CUSTOMER,
+    UPDATE_CUSTOMER
+} from "../actions/types";
+import {
+    deleteCustomer,
+    fetchCustomer,
+    fetchCustomerList,
+    fetchCustomerPage,
+    postCustomer,
+    updateCustomer
+} from "../services/customer";
 import {
     deleteCustomerSuccess,
-    getCustomerListSuccess,
+    getCustomerListSuccess, getCustomerPageSuccess,
     getCustomerSuccess,
     saveCustomerSuccess,
     updateCustomerSuccess
@@ -12,6 +26,7 @@ import {
 
 
 function* customerWatcher(action) {
+    yield takeEvery(GET_CUSTOMER_PAGE.LOAD, getCustomerPageFlow);
     yield takeEvery(GET_CUSTOMER_LIST.LOAD, getCustomerListFlow);
     yield takeEvery(GET_CUSTOMER.LOAD, getCustomerFlow);
     yield takeEvery(SAVE_CUSTOMER.LOAD, saveCustomerFlow);
@@ -19,6 +34,16 @@ function* customerWatcher(action) {
     yield takeEvery(DELETE_CUSTOMER.LOAD, deleteCustomerFlow);
 }
 
+function* getCustomerPageFlow(action) {
+    const {page, size, sort, search} = action.payload;
+    try {
+        const customerPage = yield call(fetchCustomerPage, {page, size, sort, search});
+        console.log('customer page', customerPage);
+        yield put(getCustomerPageSuccess(customerPage));
+    }catch (e) {
+
+    }
+}
 
 function* getCustomerListFlow(action) {
     try {

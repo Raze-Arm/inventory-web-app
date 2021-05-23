@@ -1,11 +1,22 @@
 import _ from  'lodash';
-import {DELETE_CUSTOMER, GET_CUSTOMER, GET_CUSTOMER_LIST, SAVE_CUSTOMER, UPDATE_CUSTOMER} from "../actions/types";
+import {
+    DELETE_CUSTOMER,
+    GET_CUSTOMER,
+    GET_CUSTOMER_LIST,
+    GET_CUSTOMER_PAGE,
+    SAVE_CUSTOMER,
+    UPDATE_CUSTOMER
+} from "../actions/types";
 const INITIAL_VALUES = {
     items: {},
 }
 
 export const customerReducer = (state = INITIAL_VALUES, action) => {
     switch (action.type) {
+        case GET_CUSTOMER_PAGE.SUCCESS: {
+            const data = action.payload;
+            return {...state,items: {..._.mapKeys(data.content, 'id')}};
+        }
         case GET_CUSTOMER_LIST.SUCCESS: {
             const data = action.payload;
             return {...state , items: {..._.mapKeys(data, 'id')}};

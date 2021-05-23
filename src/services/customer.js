@@ -1,5 +1,15 @@
 import Api from '../apis/inventory-api';
 
+export const fetchCustomerPage = async ({page, size,sort, search}) => {
+    const response = await Api.get(`/customer` , { params: {
+            page,
+            size,
+            sort,
+            search
+        }});
+    return response.data;
+}
+
 
 export const fetchCustomerList = async () => {
     const response = await Api.get('/customer');

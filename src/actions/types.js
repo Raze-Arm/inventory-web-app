@@ -1,4 +1,9 @@
 //////////////////////////////////////////////////////////////////////////////Customer
+export const GET_CUSTOMER_PAGE = {
+    LOAD: 'GET CUSTOMER PAGE LOAD',
+    SUCCESS: 'GET CUSTOMER PAGE SUCCESS',
+    FAILED: 'GET CUSTOMER PAGE FAILED'
+}
 export const GET_CUSTOMER_LIST = {
     LOAD: 'GET CUSTOMER LIST LOAD',
     SUCCESS: 'GET CUSTOMER LIST SUCCESS',
@@ -25,6 +30,11 @@ export const DELETE_CUSTOMER = {
     FAILED: 'DELETE CUSTOMER FAILED'
 }
 //////////////////////////////////////////////////////////////////////////////Supplier
+export const GET_SUPPLIER_PAGE = {
+    LOAD: 'GET SUPPLIER PAGE LOAD',
+    SUCCESS: 'GET SUPPLIER PAGE SUCCESS',
+    FAILED: 'GET SUPPLIER PAGE FAILED'
+}
 export const GET_SUPPLIER_LIST = {
     LOAD: 'GET SUPPLIER LIST LOAD',
     SUCCESS: 'GET SUPPLIER LIST SUCCESS',

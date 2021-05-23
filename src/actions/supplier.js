@@ -1,4 +1,21 @@
-import {DELETE_SUPPLIER, GET_SUPPLIER, GET_SUPPLIER_LIST, SAVE_SUPPLIER, UPDATE_SUPPLIER} from "./types";
+import {
+    DELETE_SUPPLIER,
+    GET_SUPPLIER,
+    GET_SUPPLIER_LIST,
+    GET_SUPPLIER_PAGE,
+    SAVE_SUPPLIER,
+    UPDATE_SUPPLIER
+} from "./types";
+
+export const getSupplierPage = ({page, size,sort = 'id',search = ''}) => {
+    return {type: GET_SUPPLIER_PAGE.LOAD, payload: {page, size,sort ,search}};
+}
+export const getSupplierPageSuccess = (supplierPage) => {
+    return {type: GET_SUPPLIER_PAGE.SUCCESS, payload: supplierPage};
+}
+export const getSupplierPageFailed = (error) => {
+    return {type: GET_SUPPLIER_PAGE.FAILED, payload: error};
+}
 
 
 export const getSupplierList = () => {

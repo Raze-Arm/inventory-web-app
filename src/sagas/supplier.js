@@ -1,9 +1,23 @@
 import {takeEvery, call, put} from 'redux-saga/effects';
-import {DELETE_SUPPLIER, GET_SUPPLIER, GET_SUPPLIER_LIST, SAVE_SUPPLIER, UPDATE_SUPPLIER} from "../actions/types";
-import {deleteSupplier, fetchSupplier, fetchSupplierList, postSupplier, updateSupplier} from "../services/supplier";
+import {
+    DELETE_SUPPLIER,
+    GET_SUPPLIER,
+    GET_SUPPLIER_LIST,
+    GET_SUPPLIER_PAGE,
+    SAVE_SUPPLIER,
+    UPDATE_SUPPLIER
+} from "../actions/types";
+import {
+    deleteSupplier,
+    fetchSupplier,
+    fetchSupplierList,
+    fetchSupplierPage,
+    postSupplier,
+    updateSupplier
+} from "../services/supplier";
 import {
     deleteSupplierSuccess,
-    getSupplierListSuccess,
+    getSupplierListSuccess, getSupplierPageSuccess,
     getSupplierSuccess,
     saveSupplierSuccess,
     updateSupplierSuccess
@@ -12,7 +26,8 @@ import {
 
 
 
-function* supplierWatcher(action) {
+function* supplierWatcher() {
+    yield takeEvery(GET_SUPPLIER_PAGE.LOAD, getSupplierPageFlow);
     yield takeEvery(GET_SUPPLIER_LIST.LOAD, getSupplierListFlow);
     yield takeEvery(GET_SUPPLIER.LOAD, getSupplierFlow);
     yield takeEvery(SAVE_SUPPLIER.LOAD, saveSupplierFlow);
@@ -20,6 +35,16 @@ function* supplierWatcher(action) {
     yield takeEvery(DELETE_SUPPLIER.LOAD, deleteSupplierFlow);
 }
 
+function* getSupplierPageFlow(action) {
+    const {page, size, sort, search} = action.payload;;
+    try {
+        const supplierPage = yield call(fetchSupplierPage, {page, size, sort, search});
+        console.log('supplier page', supplierPage);
+        yield put(getSupplierPageSuccess(supplierPage));
+    }catch (e) {
+
+    }
+}
 
 function* getSupplierListFlow(action) {
     try {

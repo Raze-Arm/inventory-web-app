@@ -1,5 +1,24 @@
-import {DELETE_CUSTOMER, GET_CUSTOMER, GET_CUSTOMER_LIST, SAVE_CUSTOMER, UPDATE_CUSTOMER} from "./types";
+import {
+    DELETE_CUSTOMER,
+    GET_CUSTOMER,
+    GET_CUSTOMER_LIST,
+    GET_CUSTOMER_PAGE,
+    SAVE_CUSTOMER,
+    UPDATE_CUSTOMER
+} from "./types";
+import customer from "../sagas/customer";
 
+
+export const getCustomerPage = ({page, size,sort = 'id',search = ''}) => {
+    return {type: GET_CUSTOMER_PAGE.LOAD, payload: {page, size,sort ,search }};
+}
+
+export const getCustomerPageSuccess = (customerPage) => {
+    return {type: GET_CUSTOMER_PAGE.SUCCESS, payload: customerPage};
+}
+export const getCustomerPageFailed = (error) => {
+    return {type: GET_CUSTOMER_PAGE.FAILED, payload: error};
+}
 
 export const getCustomerList = () => {
     return {type: GET_CUSTOMER_LIST.LOAD};

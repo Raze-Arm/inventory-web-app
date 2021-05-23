@@ -1,5 +1,12 @@
 import _ from  'lodash';
-import {DELETE_SUPPLIER, GET_SUPPLIER, GET_SUPPLIER_LIST, SAVE_SUPPLIER, UPDATE_SUPPLIER} from "../actions/types";
+import {
+    DELETE_SUPPLIER,
+    GET_SUPPLIER,
+    GET_SUPPLIER_LIST,
+    GET_SUPPLIER_PAGE,
+    SAVE_SUPPLIER,
+    UPDATE_SUPPLIER
+} from "../actions/types";
 
 const INITIAL_VALUES = {
     items: {},
@@ -8,6 +15,10 @@ const INITIAL_VALUES = {
 
 export const supplierReducer = (state = INITIAL_VALUES, action) => {
     switch (action.type) {
+        case GET_SUPPLIER_PAGE.SUCCESS: {
+            const data = action.payload;
+            return {...state , items: {..._.mapKeys(data, 'id')}};
+        }
         case GET_SUPPLIER_LIST.SUCCESS: {
             const data = action.payload;
             return {...state , items: {..._.mapKeys(data, 'id')}};
