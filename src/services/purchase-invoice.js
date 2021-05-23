@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import Api from '../apis/inventory-api';
 
 
