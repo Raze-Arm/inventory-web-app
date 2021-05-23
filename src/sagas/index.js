@@ -1,7 +1,9 @@
 import {all} from 'redux-saga/effects';
 import purchaseInvoiceWatcher from './purchase-invoice';
-
+import saleInvoiceWatcher from './sale-invoice';
+import supplierWatcher from './supplier';
+import customerWatcher from './customer';
 export default function* () {
-    yield all([purchaseInvoiceWatcher]);
+    yield all([purchaseInvoiceWatcher, saleInvoiceWatcher, supplierWatcher, customerWatcher]);
 }
 
