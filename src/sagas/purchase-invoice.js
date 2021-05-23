@@ -46,9 +46,10 @@ function* getInvoiceFlow(action) {
 function* saveInvoiceFlow(action) {
     const invoice = action.payload;
     try {
-        const savedInvoice = yield call(postPInvoice, invoice);
-        console.log('saved invoice', savedInvoice);
-        yield put(savePInvoiceSuccess(savedInvoice));
+        const id = yield call(postPInvoice, invoice);
+        invoice.id = id;
+        console.log('saved invoice', invoice);
+        yield put(savePInvoiceSuccess(invoice));
     }catch (e) {
 
     }
