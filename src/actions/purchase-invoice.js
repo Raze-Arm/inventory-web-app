@@ -25,8 +25,8 @@ export const getPInvoiceFailed = (error) => {
 export const savePInvoice = (invoice) => {
     return {type: SAVE_PURCHASE_INVOICE.LOAD, payload: invoice};
 }
-export const savePInvoiceSuccess = (id) => {
-    return {type: SAVE_PURCHASE_INVOICE.SUCCESS, payload:id };
+export const savePInvoiceSuccess = (invoice) => {
+    return {type: SAVE_PURCHASE_INVOICE.SUCCESS, payload: invoice };
 }
 export const savePInvoiceFailed = (error) => {
     return {type: SAVE_PURCHASE_INVOICE.FAILED, payload: error};
