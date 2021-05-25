@@ -10,7 +10,7 @@ export const fetchSInvoice = async (id) => {
     return response.data;
 }
 export const postSInvoice = async (invoice) => {
-    const response = await Api.post(`/sale-invoice`, {invoice});
+    const response = await Api.post(`/sale-invoice`, invoice);
     return response.data;
 }
 

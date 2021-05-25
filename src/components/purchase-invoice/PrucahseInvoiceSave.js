@@ -1,19 +1,23 @@
 import React from "react";
+import {connect} from "react-redux";
+import PurchaseInvoiceForm from "./PurchaseInvoiceForm";
+import {Container} from "semantic-ui-react";
 
+import {savePInvoice} from '../../actions/purchase-invoice';
 
-const FIELDS = {
-    supplierId: {},
-    supplierFirstName: {},
-    supplierLastName: {},
-    createdDate: {},
-};
+const PurchaseInvoiceSave = ({savePInvoice}) => {
 
-const PurchaseInvoiceSave = (props) => {
-
+    const onSubmit = formValues =>{
+        console.log(formValues);
+        savePInvoice(formValues);
+    }
 
     return (
-        <div></div>
+        <Container >
+
+            <PurchaseInvoiceForm onSubmit={onSubmit} />
+        </Container>
     );
 }
 
-export default PurchaseInvoiceSave;
+export default connect(null, {savePInvoice})(PurchaseInvoiceSave);

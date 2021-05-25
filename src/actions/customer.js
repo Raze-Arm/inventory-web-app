@@ -6,7 +6,6 @@ import {
     SAVE_CUSTOMER,
     UPDATE_CUSTOMER
 } from "./types";
-import customer from "../sagas/customer";
 
 
 export const getCustomerPage = ({page, size,sort = 'id',search = ''}) => {

@@ -22,12 +22,12 @@ export const fetchSupplier = async (id) => {
 }
 
 export const postSupplier = async (supplier)  => {
-    const response = await Api.post(`/supplier`, {supplier});
+    const response = await Api.post(`/supplier`, supplier);
     return response.data;
 }
 
 export const updateSupplier = async (supplier) => {
-    const response = await Api.put(`supplier` , {supplier});
+    const response = await Api.put(`supplier` , supplier);
     return response.data;
 }
 

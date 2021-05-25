@@ -13,7 +13,8 @@ export const fetchPInvoice = async (id) => {
 }
 
 export const postPInvoice = async (invoice) => {
-    const response = await Api.post(`/purchase-invoice`, {invoice});
+    console.log('posting invoice ', invoice);
+    const response = await Api.post(`/purchase-invoice`, invoice, );
     return response.data;
 }
 

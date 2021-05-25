@@ -1,28 +1,29 @@
 import React from 'react';
 import _ from 'lodash';
-import SearchSupplier from "./SearchSupplier";
+import SearchCustomer from "./SearchCustomer";
 import {Field, Form, reduxForm} from "redux-form";
 import {Button, Container, Divider} from "semantic-ui-react";
-import TransactionForm from "./TransactionForm";
-import * as validator from '../../utility/formValidators';
+import TransactionForm from './TransactionForm';
+import *  as validator from '../../utility/formValidators';
+
+
 
 const FIELDS = {
-    supplierId: {
-        name: 'supplier.id',
-        render({input, meta,...rest}) {
+    customerId: {
+        name: 'customer.id',
+        render({input, meta, ...rest}) {
             const hasError = !!(meta.error && meta.touched);
             return (
-                <SearchSupplier key={'supplier'} input={input} hasError={hasError} {...rest} />
+                <SearchCustomer key={'customer'} input={input} hasError={hasError} {...rest} />
             );
         },
         validate: [
             validator.required,
         ]
-
     }
 }
 
-const PurchaseInvoiceForm = (props) => {
+const SaleInvoiceForm = (props) => {
     return (
         <Container>
             <Form className={'ui form error'} onSubmit={props.handleSubmit}>
@@ -39,9 +40,9 @@ const PurchaseInvoiceForm = (props) => {
     );
 }
 
-
 const form = reduxForm({
-    form: 'purchaseInvoiceForm',
-})(PurchaseInvoiceForm);
+    form: 'saleInvoiceForm',
+})(SaleInvoiceForm);
+
 
 export default form;

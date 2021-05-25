@@ -25,7 +25,7 @@ import {
 
 
 
-function* customerWatcher(action) {
+function* customerWatcher() {
     yield takeEvery(GET_CUSTOMER_PAGE.LOAD, getCustomerPageFlow);
     yield takeEvery(GET_CUSTOMER_LIST.LOAD, getCustomerListFlow);
     yield takeEvery(GET_CUSTOMER.LOAD, getCustomerFlow);

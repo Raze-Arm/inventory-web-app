@@ -7,36 +7,32 @@ import AppSidebar from "./AppSidebar";
 const NavigationBar = (props) => {
     const [activeItem, setActiveItem] = useState('');
 
-    const [sidebarVisible, setSidebarVisible] = useState(false);
 
 
     const onClickHandler = (e, {name}) => {
-        if(activeItem === 'bars') setSidebarVisible(true);
-        else setActiveItem(name);
+         setActiveItem(name);
     }
 
 
 
     return (
       <React.Fragment>
-          <Menu color={"blue"} inverted  style={{margin: 0, direction: 'rtl'}}  >
-              <Menu.Item name={'bars'}  active={activeItem === 'bars' && sidebarVisible === true} onClick={onClickHandler} >
+          <Menu color={"blue"} inverted  style={{paddingTop: '7px',direction: 'rtl', position: 'fixed', zIndex: '1000', width: '100%', height: '63px'}}  >
+              <Menu.Item name={'bars'}  active={activeItem === 'bars' } onClick={onClickHandler}  >
                   <Icon name={'bars'} size={"large"}/>
               </Menu.Item>
               <Menu.Item name={'home'} active={activeItem === 'home'} onClick={onClickHandler} >
                   Home
               </Menu.Item>
 
-
               <Menu.Item position={'left'}>
                   <Icon name={"user circle"} size={"big"}  link />
                   {/*<Icon name={"user circle"} size={"big"} link />*/}
-
               </Menu.Item>
 
           </Menu>
           <RightNavigationBar  />
-          <AppSidebar visible={sidebarVisible} setVisible={setSidebarVisible} />
+          <AppSidebar visible={activeItem === 'bars'} setVisible={() => setActiveItem('')} />
       </React.Fragment>
     );
 

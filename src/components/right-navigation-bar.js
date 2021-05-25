@@ -11,7 +11,7 @@ const RightNavigationBar = (props) => {
 
     const color = '#576573';
     return (
-        <Menu icon vertical floated={'right'}  style={{height: '100vh' }} size={"huge"} compact >
+        <Menu icon   vertical floated={'right'}  style={{height: '100vh', position: 'fixed'  , margin: '63px 0 0 0' ,right: '0' }}  size={"huge"} compact >
             <Menu.Item name={'transaction'} active={activeItem === 'transaction'} onClick={setActiveItem}>
                 <Popup position={"left center"} content={'Transactions'}
                        trigger={<Icon style={{color: color}} name={"clipboard list"}/>}/>

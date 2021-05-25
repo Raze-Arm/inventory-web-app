@@ -12,6 +12,7 @@ import {
     getPInvoicesSuccess,
     savePInvoiceSuccess
 } from "../actions/purchase-invoice";
+import {showErrorMessage, showSuccessMessage} from "../actions/app-message";
 
 
 
@@ -50,7 +51,11 @@ function* saveInvoiceFlow(action) {
         invoice.id = id;
         console.log('saved invoice', invoice);
         yield put(savePInvoiceSuccess(invoice));
+        yield put(showSuccessMessage({title: 'Saved Successfully',content: 'Invoice created successfully'}));
     }catch (e) {
+        console.log('error', e);
+        yield put(showErrorMessage({title: 'Error' , content: 'Could not save your invoice '}))
+    }finally {
 
     }
 }

@@ -3,3 +3,8 @@
     direction: rtl;
     text-align: right;
 }
+
+.form-input__rtl input {
+    direction: inherit !important;
+    text-align: inherit !important;
+}

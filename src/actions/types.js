@@ -1,3 +1,19 @@
+//////////////////////////////////////////////////////////////////////////////
+export const SHOW_SUCCESS_MESSAGE = {
+    LOAD: 'SHOW SUCCESS MESSAGE LOAD',
+    SUCCESS: 'SHOW SUCCESS MESSAGE SUCCESS',
+    FAILED: 'SHOW SUCCESS MESSAGE FAILED'
+}
+export const SHOW_ERROR_MESSAGE = {
+    LOAD: 'SHOW ERROR MESSAGE LOAD',
+    SUCCESS: 'SHOW ERROR MESSAGE SUCCESS',
+    FAILED: 'SHOW ERROR MESSAGE FAILED'
+}
+
+
+
+
+
 //////////////////////////////////////////////////////////////////////////////Customer
 export const GET_CUSTOMER_PAGE = {
     LOAD: 'GET CUSTOMER PAGE LOAD',
@@ -109,5 +125,39 @@ export const DELETE_SALE_INVOICE = {
     SUCCESS: 'DELETE SALE INVOICE SUCCESS',
     FAILED: 'DELETE SALE INVOICE FAILED'
 }
+
+//////////////////////////////////////////////////////////////////////////////Product
+
+export const GET_PRODUCT_PAGE = {
+    LOAD: 'GET PRODUCT PAGE LOAD',
+    SUCCESS: 'GET PRODUCT PAGE SUCCESS',
+    FAILED: 'GET PRODUCT PAGE FAILED'
+}
+export const GET_PRODUCT_LIST = {
+    LOAD: 'GET PRODUCT LIST LOAD',
+    SUCCESS: 'GET PRODUCT LIST SUCCESS',
+    FAILED: 'GET PRODUCT LIST FAILED'
+}
+export const GET_PRODUCT = {
+    LOAD: 'GET PRODUCT LOAD',
+    SUCCESS: 'GET PRODUCT SUCCESS',
+    FAILED: 'GET PRODUCT FAILED'
+}
+export const SAVE_PRODUCT = {
+    LOAD: 'SAVE PRODUCT LOAD',
+    SUCCESS: 'SAVE PRODUCT SUCCESS',
+    FAILED: 'SAVE PRODUCT FAILED'
+}
+export const UPDATE_PRODUCT = {
+    LOAD: 'UPDATE PRODUCT LOAD',
+    SUCCESS: 'UPDATE PRODUCT SUCCESS',
+    FAILED: 'UPDATE PRODUCT FAILED'
+}
+export const DELETE_PRODUCT = {
+    LOAD: 'DELETE PRODUCT LOAD',
+    SUCCESS: 'DELETE PRODUCT SUCCESS',
+    FAILED: 'DELETE PRODUCT FAILED'
+}
+
 
 

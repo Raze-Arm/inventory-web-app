@@ -24,7 +24,7 @@ const AppSidebar = ({visible, setVisible}) => {
                         vertical
                         visible={visible}
                         width='thin'
-                        style={{ minWidth: '6em', maxWidth: '13%'}}
+                        style={{ minWidth: '6em', maxWidth: '13%', zIndex: '1001'}}
 
                     >
                         <Menu.Item as='a' >

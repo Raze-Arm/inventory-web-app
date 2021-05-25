@@ -15,7 +15,10 @@ export const customerReducer = (state = INITIAL_VALUES, action) => {
     switch (action.type) {
         case GET_CUSTOMER_PAGE.SUCCESS: {
             const data = action.payload;
-            return {...state,items: {..._.mapKeys(data.content, 'id')}};
+            if(_.size(state.items) > 50)
+                return {...state,items: {...state.items ,..._.mapKeys(data.content, 'id')}};
+            else
+                return {...state,items: {..._.mapKeys(data.content, 'id')}};
         }
         case GET_CUSTOMER_LIST.SUCCESS: {
             const data = action.payload;

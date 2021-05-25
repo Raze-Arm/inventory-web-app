@@ -21,11 +21,11 @@ export const fetchCustomer = async (id) => {
 }
 
 export const postCustomer = async (customer)  => {
-    const response = await Api.post(`/customer`, {customer});
+    const response = await Api.post(`/customer`, customer);
     return response.data;
 }
 export const updateCustomer = async (customer) => {
-    const response = await Api.put(`customer` , {customer});
+    const response = await Api.put(`customer` , customer);
     return response.data;
 }
 
