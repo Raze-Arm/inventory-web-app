@@ -13,7 +13,7 @@ export const fetchProductPage = async ({page, size,sort, search}) => {
 
 
 export const fetchProductList = async () => {
-    const response = await Api.get('/product');
+    const response = await Api.get('/product', {params: {'search-type': 'list'}});
     return response.data;
 }
 export const fetchProduct = async (id) => {

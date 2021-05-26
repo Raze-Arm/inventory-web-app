@@ -22,6 +22,7 @@ import {
     saveCustomerSuccess,
     updateCustomerSuccess
 } from "../actions/customer";
+import {showErrorMessage, showSuccessMessage} from "../actions/app-message";
 
 
 
@@ -61,7 +62,8 @@ function* getCustomerFlow(action) {
         console.log('customer', customer);
         yield put(getCustomerSuccess(customer));
     }catch (e) {
-
+        console.log('error', e);
+        yield put(showErrorMessage({title: 'Error' , content: 'Failed to show customer'}));
     }
 }
 
@@ -72,8 +74,10 @@ function* saveCustomerFlow(action) {
         customer.id = id ;
         console.log('saved customer', customer);
         yield put(saveCustomerSuccess(customer));
+        yield put(showSuccessMessage({title: 'Saved Successfully',content: 'Customer created successfully'}));
     }catch (e) {
-
+        console.log('error', e);
+        yield put(showErrorMessage({title: 'Error' , content: 'Failed to save customer'}));
     }
 }
 
@@ -84,8 +88,10 @@ function* updateCustomerFlow(action) {
         const updatedCustomer = yield call(updateCustomer, customer);
         console.log('updated customer', updatedCustomer);
         yield put(updateCustomerSuccess(updatedCustomer));
+        yield put(showSuccessMessage({title: 'Updated Successfully',content: 'Customer updated successfully'}));
     } catch (e) {
-
+        console.log('error', e);
+        yield put(showErrorMessage({title: 'Error' , content: 'Failed to update customer'}));
     }
 }
 
@@ -95,8 +101,10 @@ function* deleteCustomerFlow(action) {
         yield call(deleteCustomer, id);
         console.log('deleted customer', id);
         yield put(deleteCustomerSuccess(id));
+        yield put(showSuccessMessage({title: 'Customer Deleted ',content: 'Customer deleted successfully'}));
     }catch (e) {
-
+        console.log('error', e);
+        yield put(showErrorMessage({title: 'Error' , content: 'Failed to delete customer'}));
     }
 }
 

@@ -12,7 +12,7 @@ export const fetchCustomerPage = async ({page, size,sort, search}) => {
 
 
 export const fetchCustomerList = async () => {
-    const response = await Api.get('/customer');
+    const response = await Api.get('/customer' ,{params: {'search-type': 'list'}});
     return response.data;
 }
 export const fetchCustomer = async (id) => {

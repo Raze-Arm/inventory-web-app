@@ -22,9 +22,10 @@ import {
     getProductSuccess,
     saveProductSuccess, updateProductSuccess
 } from "../actions/product";
+import {showErrorMessage, showSuccessMessage} from "../actions/app-message";
 
 
-function* productWatcher(action) {
+function* productWatcher() {
     yield takeEvery(GET_PRODUCT_PAGE.LOAD, getProductPageFlow);
     yield takeEvery(GET_PRODUCT_LIST.LOAD, getProductListFlow);
     yield takeEvery(GET_PRODUCT.LOAD, getProductFlow);
@@ -60,7 +61,8 @@ function* getProductFlow(action) {
         console.log('product', product);
         yield put(getProductSuccess(product));
     }catch (e) {
-
+        console.log('error', e);
+        yield put(showErrorMessage({title: 'Error' , content: 'Failed to show product'}));
     }
 }
 
@@ -71,8 +73,10 @@ function* saveProductFlow(action) {
         product.id = id ;
         console.log('saved product', product);
         yield put(saveProductSuccess(product));
+        yield put(showSuccessMessage({title: 'Saved Successfully',content: 'Product created successfully'}));
     }catch (e) {
-
+        console.log('error', e);
+        yield put(showErrorMessage({title: 'Error' , content: 'Failed to save product'}));
     }
 }
 
@@ -83,8 +87,10 @@ function* updateProductFlow(action) {
         const updatedProduct = yield call(updateProduct, product);
         console.log('updated product', updatedProduct);
         yield put(updateProductSuccess(updatedProduct));
+        yield put(showSuccessMessage({title: 'Updated Successfully',content: 'Product updated successfully'}));
     } catch (e) {
-
+        console.log('error', e);
+        yield put(showErrorMessage({title: 'Error' , content: 'Failed to update product'}));
     }
 }
 
@@ -94,8 +100,10 @@ function* deleteProductFlow(action) {
         yield call(deleteProduct, id);
         console.log('deleted product', id);
         yield put(deleteProductSuccess(id));
+        yield put(showSuccessMessage({title: 'Product Deleted ',content: 'Product deleted successfully'}));
     }catch (e) {
-
+        console.log('error', e);
+        yield put(showErrorMessage({title: 'Error' , content: 'Failed to delete product'}));
     }
 }
 

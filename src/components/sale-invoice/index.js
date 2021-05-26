@@ -4,13 +4,14 @@ import _ from 'lodash';
 import Moment from "react-moment";
 import {Container, Header, Segment, Table} from "semantic-ui-react";
 
+import {getSInvoiceList} from "../../actions/sale-invoice";
 
-import {getPInvoiceList} from '../../actions/purchase-invoice';
+
 
 class Index extends React.Component {
 
     componentDidMount() {
-        this.props.getPInvoiceList();
+        this.props.getSInvoiceList();
     }
 
     renderHeaders() {
@@ -18,7 +19,7 @@ class Index extends React.Component {
             <React.Fragment>
                 <Table.Row>
                     <Table.HeaderCell>Id</Table.HeaderCell>
-                    <Table.HeaderCell>Supplier</Table.HeaderCell>
+                    <Table.HeaderCell>Customer</Table.HeaderCell>
                     <Table.HeaderCell>Total Price</Table.HeaderCell>
                     <Table.HeaderCell>Created</Table.HeaderCell>
                 </Table.Row>
@@ -31,11 +32,11 @@ class Index extends React.Component {
         return (
             _.map(items , (i) => {
                 if(!i) return ;
-               const totalPrice =_.reduce(i?.transactions, (result, value) => result + parseFloat(value.price), 0.0);
+                const totalPrice =_.reduce(i?.transactions, (result, value) => result + parseFloat(value.price), 0.0);
                 return (
                     <Table.Row key={i.id}>
                         <Table.Cell>{i.id}</Table.Cell>
-                        <Table.Cell>{i?.supplier?.firstName} {i?.supplier?.lastName}</Table.Cell>
+                        <Table.Cell>{i?.customer?.firstName} {i?.customer?.lastName}</Table.Cell>
                         <Table.Cell>{totalPrice || 0}</Table.Cell>
                         <Table.Cell>   <Moment
                             format={'YYYY/MM/DD hh:mm'}>{i.createdDate}</Moment></Table.Cell>
@@ -50,7 +51,7 @@ class Index extends React.Component {
         return (
             <Container style={{width: '80%', margin: 'auto', marginTop: '1rem'}}>
                 <Segment  secondary  style={{position :'inherited'}} >
-                    <Header>Purchase Invoice</Header>
+                    <Header>Sale Invoice</Header>
                     <Table  celled stackable style={{width: '80%', margin: 'auto'}}>
                         <Table.Header>
                             {this.renderHeaders()}
@@ -66,11 +67,8 @@ class Index extends React.Component {
 
 }
 
-
-
 const mapStateToProps = (state) => {
-    return {invoices: state.purchaseInvoice.items};
+    return {invoices: state.saleInvoice.items};
 }
 
-
-export default connect(mapStateToProps , {getPInvoiceList})(Index);
+export default connect(mapStateToProps, {getSInvoiceList})(Index);

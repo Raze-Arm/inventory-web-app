@@ -77,9 +77,9 @@ const TransactionForm = (props) => {
                 <FormButton type={'button'} style={{marginTop: '25px'}} color={'green'} floated={"left"}  onClick={() => {
                     if(!_.find(fieldList.getAll(), {'productId': product.id})){
 
-                        const {id, quantity, price} = transaction;
+                        const {id, quantity, price, description} = transaction;
                        if(quantity > 0) {
-                           fieldList.push({productId: id, productName: product.name, quantity, price});
+                           fieldList.push({productId: id, productName: product.name, quantity, price,description});
                        }
                     }
                 }}>Add</FormButton>

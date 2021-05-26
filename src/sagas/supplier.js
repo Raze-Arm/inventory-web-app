@@ -22,6 +22,7 @@ import {
     saveSupplierSuccess,
     updateSupplierSuccess
 } from "../actions/supplier";
+import {showErrorMessage, showSuccessMessage} from "../actions/app-message";
 
 
 
@@ -63,7 +64,8 @@ function* getSupplierFlow(action) {
         console.log('supplier', supplier);
         yield put(getSupplierSuccess(supplier));
     }catch (e) {
-
+        console.log('error', e);
+        yield put(showErrorMessage({title: 'Error' , content: 'Failed to show supplier'}));
     }
 }
 
@@ -74,8 +76,10 @@ function* saveSupplierFlow(action) {
         supplier.id = id;
         console.log('saved supplier', supplier);
         yield put(saveSupplierSuccess(supplier));
+        yield put(showSuccessMessage({title: 'Saved Successfully',content: 'Supplier created successfully'}));
     }catch (e) {
-
+        console.log('error', e);
+        yield put(showErrorMessage({title: 'Error' , content: 'Failed to save supplier'}));
     }
 }
 
@@ -85,8 +89,10 @@ function* updateSupplierFlow(action) {
         const updatedSupplier = yield call(updateSupplier, supplier);
         console.log('updated supplier', updatedSupplier);
         yield put(updateSupplierSuccess(supplier));
+        yield put(showSuccessMessage({title: 'Updated Successfully',content: 'Supplier updated successfully'}));
     }catch (e) {
-
+        console.log('error', e);
+        yield put(showErrorMessage({title: 'Error' , content: 'Failed to update supplier'}));
     }
 }
 
@@ -96,8 +102,10 @@ function* deleteSupplierFlow(action) {
         yield call(deleteSupplier, id);
         console.log('deleted supplier', id);
         yield put(deleteSupplierSuccess(id));
+        yield put(showSuccessMessage({title: 'Supplier Deleted ',content: 'Supplier deleted successfully'}));
     }catch (e) {
-
+        console.log('error', e);
+        yield put(showErrorMessage({title: 'Error' , content: 'Failed to delete supplier'}));
     }
 }
 

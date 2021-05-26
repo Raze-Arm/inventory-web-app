@@ -12,7 +12,7 @@ export const fetchSupplierPage = async  ({page, size, sort,search}) => {
 }
 
 export const fetchSupplierList = async () => {
-    const response = await Api.get('/supplier');
+    const response = await Api.get('/supplier' ,{params: {'search-type': 'list'}});
     return response.data;
 }
 

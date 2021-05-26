@@ -1,25 +1,27 @@
 import React from 'react';
 import {connect} from "react-redux";
 import _ from 'lodash';
-import Moment from "react-moment";
 import {Container, Header, Segment, Table} from "semantic-ui-react";
+import Moment from "react-moment";
 
+import {getCustomerList} from "../../actions/customer";
 
-import {getPInvoiceList} from '../../actions/purchase-invoice';
 
 class Index extends React.Component {
 
     componentDidMount() {
-        this.props.getPInvoiceList();
+        this.props.getCustomerList();
     }
+
 
     renderHeaders() {
         return (
             <React.Fragment>
                 <Table.Row>
                     <Table.HeaderCell>Id</Table.HeaderCell>
-                    <Table.HeaderCell>Supplier</Table.HeaderCell>
-                    <Table.HeaderCell>Total Price</Table.HeaderCell>
+                    <Table.HeaderCell>First Name</Table.HeaderCell>
+                    <Table.HeaderCell>Last Name</Table.HeaderCell>
+                    <Table.HeaderCell>Address</Table.HeaderCell>
                     <Table.HeaderCell>Created</Table.HeaderCell>
                 </Table.Row>
             </React.Fragment>
@@ -27,19 +29,18 @@ class Index extends React.Component {
     }
 
     renderRows() {
-        const items = Object.values(this.props.invoices);
+        const items = Object.values(this.props.customers);
         return (
-            _.map(items , (i) => {
-                if(!i) return ;
-               const totalPrice =_.reduce(i?.transactions, (result, value) => result + parseFloat(value.price), 0.0);
+            _.map(items , (c) => {
+                if(!c) return ;
                 return (
-                    <Table.Row key={i.id}>
-                        <Table.Cell>{i.id}</Table.Cell>
-                        <Table.Cell>{i?.supplier?.firstName} {i?.supplier?.lastName}</Table.Cell>
-                        <Table.Cell>{totalPrice || 0}</Table.Cell>
-                        <Table.Cell>   <Moment
-                            format={'YYYY/MM/DD hh:mm'}>{i.createdDate}</Moment></Table.Cell>
-
+                    <Table.Row key={c.id}>
+                        <Table.Cell>{c.id}</Table.Cell>
+                        <Table.Cell>{c.firstName}</Table.Cell>
+                        <Table.Cell>{c.lastName}</Table.Cell>
+                        <Table.Cell>{c.address}</Table.Cell>
+                        <Table.Cell> {c.createdDate ?  <Moment
+                            format={'YYYY/MM/DD hh:mm'}>{c.createdDate}</Moment> : ''}</Table.Cell>
                     </Table.Row>
                 );
             })
@@ -48,9 +49,9 @@ class Index extends React.Component {
 
     render() {
         return (
-            <Container style={{width: '80%', margin: 'auto', marginTop: '1rem'}}>
+            <Container style={{width: '80%', margin: 'auto', marginTop: '1rem'}} >
                 <Segment  secondary  style={{position :'inherited'}} >
-                    <Header>Purchase Invoice</Header>
+                    <Header>Customer</Header>
                     <Table  celled stackable style={{width: '80%', margin: 'auto'}}>
                         <Table.Header>
                             {this.renderHeaders()}
@@ -64,13 +65,13 @@ class Index extends React.Component {
         );
     }
 
-}
 
+}
 
 
 const mapStateToProps = (state) => {
-    return {invoices: state.purchaseInvoice.items};
+    return {customers: state.customer.items};
 }
 
 
-export default connect(mapStateToProps , {getPInvoiceList})(Index);
+export default connect(mapStateToProps, {getCustomerList})(Index);

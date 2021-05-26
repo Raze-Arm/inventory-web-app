@@ -35,7 +35,8 @@ function* getInvoiceFlow(action) {
         console.log("sale invoice", invoice);
         yield put(getSInvoiceSuccess(invoice));
     }catch (e) {
-
+        console.log('error', e);
+        yield put(showErrorMessage({title: 'Error' , content: 'Failed to show invoice'}));
     }
 }
 function* saveInvoiceFlow(action) {
@@ -48,7 +49,7 @@ function* saveInvoiceFlow(action) {
         yield put(showSuccessMessage({title: 'Saved Successfully',content: 'Invoice created successfully'}));
     }catch (e) {
         console.log('error', e);
-        yield put(showErrorMessage({title: 'Error' , content: 'Could not save your invoice '}))
+        yield put(showErrorMessage({title: 'Error' , content: 'Failed to save product'}));
     }
 }
 function* deleteInvoiceFlow(action) {
@@ -58,8 +59,10 @@ function* deleteInvoiceFlow(action) {
         yield call(deleteSInvoice, id);
         console.log('deleted sale invoice', id);
         yield put(deleteSInvoiceSuccess(id));
+        yield put(showSuccessMessage({title: 'Saved Successfully',content: 'Invoice created successfully'}));
     }catch (e) {
-
+        console.log('error', e);
+        yield put(showErrorMessage({title: 'Error' , content: 'Failed to save invoice'}))
     }
 }
 
