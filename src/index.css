@@ -12,5 +12,13 @@
 input {
     direction: inherit !important;
     text-align: inherit !important;
+}
 
+.ui.vertical.menu .active.item {
+    background-color: #9dd5ff !important;
+}
+
+
+.ui.menu .ui.dropdown .menu>.item .icon:not(.dropdown) {
+    margin: 0 0.8rem!important;
 }

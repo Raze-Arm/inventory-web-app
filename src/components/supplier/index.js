@@ -1,10 +1,11 @@
 import React from 'react';
 import {connect} from "react-redux";
 import _ from 'lodash';
-import {Container, Header, Segment, Table} from "semantic-ui-react";
+import {Button, Container, Header, Segment, Table} from "semantic-ui-react";
 import Moment from "react-moment";
 
 import {getSupplierList} from "../../actions/supplier";
+import history from "../../history";
 
 
 
@@ -23,6 +24,7 @@ class Index extends React.Component {
                     <Table.HeaderCell>Last Name</Table.HeaderCell>
                     <Table.HeaderCell>Address</Table.HeaderCell>
                     <Table.HeaderCell>Created</Table.HeaderCell>
+                    <Table.HeaderCell></Table.HeaderCell>
                 </Table.Row>
             </React.Fragment>
         );
@@ -41,6 +43,11 @@ class Index extends React.Component {
                         <Table.Cell>{s.address}</Table.Cell>
                         <Table.Cell> {s.createdDate ?  <Moment
                             format={'YYYY/MM/DD hh:mm'}>{s.createdDate}</Moment> : ''}</Table.Cell>
+                        <Table.Cell collapsing   >
+                            <Button color={"green"} onClick={() => history.push(`/supplier/show/${s.id}`)}  >Show</Button>
+                            <Button color={"facebook"} onClick={() => history.push(`/supplier/update/${s.id}`)}  >Update</Button>
+                            <Button color={"red"} onClick={() => history.push(`/supplier/delete/${s.id}`)}>Delete</Button>
+                        </Table.Cell>
                     </Table.Row>
                 );
             })
@@ -50,9 +57,9 @@ class Index extends React.Component {
     render() {
         return (
             <Container style={{width: '80%', margin: 'auto', marginTop: '1rem'}} >
-                <Segment  secondary  style={{position :'inherited'}} >
+                <Segment  secondary  basic style={{ margin: '0', padding: '0'}}  >
                     <Header>Supplier</Header>
-                    <Table  celled stackable style={{width: '80%', margin: 'auto'}}>
+                    <Table  celled stackable style={{width: '100%', margin: '0', padding: '0'}}>
                         <Table.Header>
                             {this.renderHeaders()}
                         </Table.Header>

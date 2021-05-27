@@ -160,4 +160,17 @@ export const DELETE_PRODUCT = {
 }
 
 
+//////////////////////////////////////////////////////////////////////////////Invoice
+export const GET_INVOICE_PAGE = {
+    LOAD: 'GET INVOICE PAGE LOAD',
+    SUCCESS: 'GET INVOICE PAGE SUCCESS',
+    FAILED: 'GET INVOICE PAGE FAILED'
+}
+
+//////////////////////////////////////////////////////////////////////////////TRANSACTION
+export const GET_TRANSACTION_PAGE = {
+    LOAD: 'GET TRANSACTION PAGE LOAD',
+    SUCCESS: 'GET TRANSACTION PAGE SUCCESS',
+    FAILED: 'GET TRANSACTION PAGE FAILED'
+}
 

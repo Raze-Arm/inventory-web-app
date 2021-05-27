@@ -2,10 +2,12 @@ import React from 'react';
 import {connect} from "react-redux";
 import _ from 'lodash';
 import Moment from "react-moment";
-import {Container, Header, Segment, Table} from "semantic-ui-react";
+import {Button, Container, Header, Segment, Table} from "semantic-ui-react";
 
 
 import {getPInvoiceList} from '../../actions/purchase-invoice';
+import history from "../../history";
+
 
 class Index extends React.Component {
 
@@ -21,6 +23,7 @@ class Index extends React.Component {
                     <Table.HeaderCell>Supplier</Table.HeaderCell>
                     <Table.HeaderCell>Total Price</Table.HeaderCell>
                     <Table.HeaderCell>Created</Table.HeaderCell>
+                    <Table.HeaderCell></Table.HeaderCell>
                 </Table.Row>
             </React.Fragment>
         );
@@ -39,7 +42,10 @@ class Index extends React.Component {
                         <Table.Cell>{totalPrice || 0}</Table.Cell>
                         <Table.Cell>   <Moment
                             format={'YYYY/MM/DD hh:mm'}>{i.createdDate}</Moment></Table.Cell>
-
+                        <Table.Cell>
+                                <Button color={"green"} onClick={() => history.push(`/purchase-invoice/show/${i.id}`)}  >Show</Button>
+                                <Button color={"red"} onClick={() => history.push(`/purchase-invoice/delete/${i.id}`)}>Delete</Button>
+                        </Table.Cell>
                     </Table.Row>
                 );
             })
@@ -49,9 +55,9 @@ class Index extends React.Component {
     render() {
         return (
             <Container style={{width: '80%', margin: 'auto', marginTop: '1rem'}}>
-                <Segment  secondary  style={{position :'inherited'}} >
+                <Segment  secondary  basic style={{ margin: '0', padding: '0'}} >
                     <Header>Purchase Invoice</Header>
-                    <Table  celled stackable style={{width: '80%', margin: 'auto'}}>
+                    <Table  celled stackable style={{width: '100%', margin: '0', padding: '0'}}>
                         <Table.Header>
                             {this.renderHeaders()}
                         </Table.Header>

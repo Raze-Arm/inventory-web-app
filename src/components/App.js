@@ -3,11 +3,12 @@ import {Router, Route, Switch} from 'react-router-dom';
 
 import history from "../history";
 import PurchaseInvoice from './purchase-invoice/index';
-import NavigationBar from "./navigation-bar";
+import NavigationBar from "./navigation/navigation-bar";
 import PurchaseInvoiceSave from "./purchase-invoice/PrucahseInvoiceSave";
 import SaleInvoicePage from './sale-invoice';
 import SaleInvoiceSave from "./sale-invoice/SaleInvoiceSave";
 import SaleInvoiceDelete from "./sale-invoice/SaleInvoiceDelete";
+import SaleInvoiceShow from "./sale-invoice/SaleInvoiceShow";
 import SuccessMessage from "./SuccessMessage";
 import ErrorMessage from "./ErrorMessage";
 import ProductSave from "./product/ProductSave";
@@ -27,7 +28,9 @@ import SupplierShow from "./supplier/SupplierShow";
 import SupplierPage from './supplier';
 import PurchaseInvoiceDelete from "./purchase-invoice/PurchaseInvoiceDelete";
 import PurchaseInvoiceShow from "./purchase-invoice/PurchaseInvoiceShow";
-import SaleInvoiceShow from "./sale-invoice/SaleInvoiceShow";
+import InvoicePage from  './invoice';
+import TransactionPage from './transaction';
+
 
 class App extends React.Component {
 
@@ -43,6 +46,10 @@ class App extends React.Component {
                     {/*<PurchaseInvoiceSave />*/}
                     <Router history={history}>
                         <Switch>
+                            <Route exact path={'/invoice'} component={InvoicePage} />
+
+                            <Route exact path={'/transaction'} component={TransactionPage} />
+
                             <Route exact path={'/purchase-invoice'} component={PurchaseInvoice} />
                             <Route exact path={'/purchase-invoice/save'} component={PurchaseInvoiceSave} />
                             <Route exact path={'/purchase-invoice/delete/:id'} component={PurchaseInvoiceDelete} />

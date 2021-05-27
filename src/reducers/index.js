@@ -6,6 +6,8 @@ import {customerReducer} from "./customer";
 import {supplierReducer} from "./supplier";
 import {productReducer} from "./product";
 import {appMessageReducer} from "./app-message";
+import  {invoiceReducer} from "./invoice";
+import {transactionReducer} from "./transaction";
 
 export default combineReducers({
     form: formReducer,
@@ -15,5 +17,7 @@ export default combineReducers({
     supplier: supplierReducer,
     product: productReducer,
     message: appMessageReducer,
+    invoice: invoiceReducer,
+    transaction: transactionReducer,
 
 })

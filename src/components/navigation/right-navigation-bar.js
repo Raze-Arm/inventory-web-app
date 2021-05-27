@@ -1,34 +1,40 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Icon, Menu, Popup} from "semantic-ui-react";
 
-const RightNavigationBar = (props) => {
-    const [activeItem, setActiveItem] = useState('');
 
+const TRANSACTION = 'transaction';
+const INVOICE = 'invoice';
+const SALE_INVOICE  = 'sale-invoice';
+const PURCHASE_INVOICE  = 'purchase-invoice';
+const PRODUCT  = 'product';
+const SUPPLIER  = 'supplier';
+const CUSTOMER  = 'customer';
+const RightNavigationBar = ({selectedItem, setSelectedItem}) => {
 
     const onClickHandler = (e, {name}) => {
-        setActiveItem(name);
+        setSelectedItem(name);
     }
 
     const color = '#576573';
     return (
-        <Menu icon   vertical floated={'right'}  style={{height: '100vh', position: 'fixed'  , margin: '63px 0 0 0' ,right: '0' }}  size={"huge"} compact >
-            <Menu.Item name={'transaction'} active={activeItem === 'transaction'} onClick={setActiveItem}>
+        <Menu icon    vertical floated={'right'}  style={{height: '100vh', position: 'fixed'  , margin: '63px 0 0 0' ,right: '0' }}  size={"huge"} compact >
+            <Menu.Item name={'transaction'} active={selectedItem === TRANSACTION} onClick={onClickHandler}>
                 <Popup position={"left center"} content={'Transactions'}
                        trigger={<Icon style={{color: color}} name={"clipboard list"}/>}/>
             </Menu.Item>
-            <Menu.Item name={'invoice'} active={activeItem === 'invoice'} onClick={setActiveItem}>
+            <Menu.Item name={INVOICE} active={selectedItem === INVOICE} onClick={onClickHandler}>
                 <Popup position={"left center"} content={'Invoices'}
                        trigger={<Icon style={{color: color}} name={"warehouse"}/>}/>
             </Menu.Item>
-            <Menu.Item name={'product'} active={activeItem === 'product'} onClick={setActiveItem}>
+            <Menu.Item name={PRODUCT} active={selectedItem === PRODUCT} onClick={onClickHandler}>
                 <Popup position={"left center"} content={'Products'}
                        trigger={<Icon style={{color: color}} name={"box"}/>}/>
             </Menu.Item>
-            <Menu.Item name={'customer'} active={activeItem === 'customer'} onClick={setActiveItem}>
+            <Menu.Item name={CUSTOMER} active={selectedItem === CUSTOMER} onClick={onClickHandler}>
                 <Popup position={"left center"} content={'Customers'}
                        trigger={<Icon style={{color: color}} name={"user"}/>}/>
             </Menu.Item>
-            <Menu.Item name={'supplier'} active={activeItem === 'supplier'} onClick={setActiveItem}>
+            <Menu.Item name={SUPPLIER} active={selectedItem === SUPPLIER} onClick={onClickHandler}>
                 <Popup position={"left center"} content={'Suppliers'} trigger={
                     <Icon.Group>
                         <Icon name={'user'} color={"grey"}/>
