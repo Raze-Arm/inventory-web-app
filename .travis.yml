@@ -14,3 +14,9 @@ before_install:
 
 script:
   - docker run -e CI=true razear/inventory-web-app npm test
+
+deploy:
+  provider: script
+  script: bashe ./deploy.sh
+  on:
+    branch: master
