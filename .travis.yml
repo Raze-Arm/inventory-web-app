@@ -9,6 +9,7 @@ env:
     - SHA=$(git rev-parse HEAD)
 
 before_install:
+  - pip install fandogh-cli --upgrade
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker build -t razear/inventory-web-app -f Dockerfile.dev .
 
@@ -16,7 +17,6 @@ script:
   - docker run -e CI=true razear/inventory-web-app npm test
 
 after_success:
-  - pip install fandogh-cli --updagrade
   - fandogh login --username $FANDOGH_USERNAME --password $FANDOGH_PASSWORD
   - fandogh namespace active --name $FANDOGH_NAMESPACE
 deploy:
