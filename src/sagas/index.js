@@ -6,7 +6,15 @@ import customerWatcher from './customer';
 import productWatcher from './product';
 import invoiceWatcher from './invoice';
 import transactionWatcher from './transaction';
+import profileWatcher from './profile';
+import authWatcher from "./auth";
+
+
 export default function* () {
-    yield all([purchaseInvoiceWatcher, saleInvoiceWatcher, supplierWatcher, customerWatcher, productWatcher, invoiceWatcher, transactionWatcher]);
+    yield all(
+        [purchaseInvoiceWatcher, saleInvoiceWatcher, supplierWatcher
+            , customerWatcher, productWatcher, invoiceWatcher
+            , transactionWatcher, authWatcher, profileWatcher]
+    );
 }
 

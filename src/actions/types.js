@@ -10,6 +10,22 @@ export const SHOW_ERROR_MESSAGE = {
     FAILED: 'SHOW ERROR MESSAGE FAILED'
 }
 
+export const LOADING = {
+    START: 'LOADING START',
+    STOP: 'LOADING STOP',
+}
+
+//////////////////////////////////////////////////////////////////////////////AUTH
+export const LOGIN = {
+    LOAD: 'LOGIN LOAD',
+    SUCCESS: 'LOGIN SUCCESS',
+    FAILED: 'LOGIN FAILED'
+}
+export const LOGOUT = {
+    LOAD: 'LOGOUT LOAD',
+    SUCCESS: 'LOGOUT SUCCESS',
+    FAILED: 'LOGOUT FAILED'
+}
 
 
 
@@ -173,4 +189,14 @@ export const GET_TRANSACTION_PAGE = {
     SUCCESS: 'GET TRANSACTION PAGE SUCCESS',
     FAILED: 'GET TRANSACTION PAGE FAILED'
 }
-
+//////////////////////////////////////////////////////////////////////////////PROFILE
+export const GET_USER_PROFILE = {
+    LOAD: 'GET USER PROFILE LOAD',
+    SUCCESS: 'GET USER PROFILE SUCCESS',
+    FAILED: 'GET USER PROFILE FAILED'
+}
+export const UPDATE_USER_PROFILE = {
+    LOAD: 'UPDATE USER PROFILE LOAD',
+    SUCCESS: 'UPDATE USER PROFILE SUCCESS',
+    FAILED: 'UPDATE USER PROFILE FAILED'
+}

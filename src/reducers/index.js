@@ -8,6 +8,8 @@ import {productReducer} from "./product";
 import {appMessageReducer} from "./app-message";
 import  {invoiceReducer} from "./invoice";
 import {transactionReducer} from "./transaction";
+import {authReducer} from "./auth";
+import {profileReducer} from "./profile";
 
 export default combineReducers({
     form: formReducer,
@@ -19,5 +21,7 @@ export default combineReducers({
     message: appMessageReducer,
     invoice: invoiceReducer,
     transaction: transactionReducer,
+    profile: profileReducer,
+    auth: authReducer,
 
 })

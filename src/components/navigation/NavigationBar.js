@@ -1,6 +1,6 @@
 import React , {useState, useEffect} from 'react';
 import {Icon, Menu, Dropdown} from "semantic-ui-react";
-import RightNavigationBar from "./right-navigation-bar";
+import RightNavigationBar from "./RightNavigationBar";
 import AppSidebar from "./AppSidebar";
 import history from "../../history";
 
@@ -51,7 +51,12 @@ const NavigationBar = (props) => {
          setActiveItem(name);
     }
 
-
+    const onLogout = () => {
+        history.push('/logout');
+    }
+    const onProfileClick = () => {
+        history.push('/profile');
+    }
 
     return (
       <React.Fragment>
@@ -66,9 +71,9 @@ const NavigationBar = (props) => {
               <Menu.Item  position={'left'}>
                   <Dropdown  icon={{name: 'user circle', size: 'big'}} >
                       <Dropdown.Menu>
-                          <Dropdown.Item text='Profile' as={'a'} />
+                          <Dropdown.Item onClick={onProfileClick} text='Profile' as={'a'} />
                           <Dropdown.Divider   />
-                          <Dropdown.Item as={'a'}><Icon name={'log out'}  color={'red'}   /><b>Log out</b><span
+                          <Dropdown.Item as={'a'} onClick={onLogout}><Icon name={'log out'}  color={'red'}   /><b>Log out</b><span
                               className={'description'}>ctrl + o</span> </Dropdown.Item>
                       </Dropdown.Menu>
                   </Dropdown>

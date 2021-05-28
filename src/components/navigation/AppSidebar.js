@@ -1,12 +1,12 @@
 import React from 'react';
 import {
+    Divider,
     Grid,
     Icon,
     Menu,
     Sidebar,
 } from 'semantic-ui-react'
-
-
+import history from "../../history";
 
 const TRANSACTION = 'transaction';
 const INVOICE = 'invoice';
@@ -63,6 +63,11 @@ const AppSidebar = ({visible, setVisible, selectedItem, setSelectedItem}) => {
                               </Icon.Group>
                           </Icon>
                             Supplier
+                        </Menu.Item>
+
+                        <Menu.Item name={'logout'} style={{borderTop: '1px solid grey'}} as='a' onClick={() => history.push('/logout')}>
+                            <Icon size={"small"}  name='log out' />
+                            Logout
                         </Menu.Item>
                     </Sidebar>
 
