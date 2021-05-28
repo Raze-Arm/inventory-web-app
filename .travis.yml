@@ -18,8 +18,8 @@ script:
   - docker run -e CI=true razear/inventory-web-app npm test
 
 after_success:
-  - fandogh login --username $FANDOGH_USERNAME --password $FANDOGH_PASSWORD -y
-  - fandogh namespace active --name $FANDOGH_NAMESPACE -y
+  - fandogh login --username $FANDOGH_USERNAME --password $FANDOGH_PASSWORD
+  - fandogh namespace active --name $FANDOGH_NAMESPACE
 deploy:
   provider: script
   script: bash ./deploy.sh
