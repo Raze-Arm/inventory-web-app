@@ -5,6 +5,7 @@
 /src/test/javascript/coverage/
 /src/test/javascript/PhantomJS*/
 
+
 ######################
 # Node
 ######################
@@ -12,6 +13,15 @@
 node_tmp/
 node_modules/
 npm-debug.log.*
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+.idea
+# testing
+/coverage
+
 
 ######################
 # SASS
@@ -138,4 +148,6 @@ Desktop.ini
 ######################
 # ESLint
 ######################
+
 .eslintcache
+
