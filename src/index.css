@@ -15,7 +15,8 @@ input {
 }
 
 .ui.vertical.menu .active.item {
-    background-color: #9dd5ff !important;
+    background-color: #3dabff !important;
+    border-radius: 0!important;
 }
 
 

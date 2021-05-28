@@ -60,7 +60,7 @@ const NavigationBar = (props) => {
 
     return (
       <React.Fragment>
-          <Menu color={"blue"} inverted  style={{paddingTop: '7px',direction: 'rtl', position: 'fixed', zIndex: '1000', margin: '0', width: '100%', height: '63px'}}  >
+          <Menu  inverted  style={{backgroundColor: '#2496ed' ,paddingTop: '7px',direction: 'rtl', position: 'fixed', zIndex: '1000', margin: '0', width: '100%', height: '63px'}}  >
               <Menu.Item name={BARS}  active={showSidebar } onClick={() => setShowSidebar(!showSidebar)}  >
                   <Icon name={'bars'} size={"large"}/>
               </Menu.Item>

@@ -17,7 +17,7 @@ const RightNavigationBar = ({selectedItem, setSelectedItem}) => {
 
     const color = '#576573';
     return (
-        <Menu icon    vertical floated={'right'}  style={{height: '100vh', position: 'fixed'  , margin: '63px 0 0 0' ,right: '0' }}  size={"huge"} compact >
+        <Menu icon    vertical floated={'right'}  style={{height: '100vh', position: 'fixed'  , margin: '62px 0 0 0' ,right: '0' }}  size={"huge"} compact >
             <Menu.Item name={'transaction'} active={selectedItem === TRANSACTION} onClick={onClickHandler}>
                 <Popup position={"left center"} content={'Transactions'}
                        trigger={<Icon style={{color: color}} name={"clipboard list"}/>}/>
