@@ -15,6 +15,9 @@ before_install:
 script:
   - docker run -e CI=true razear/inventory-web-app npm test
 
+after_success:
+  - pip install fandogh-cli --updagrade
+  - fandogh login --username $FANDOGH_USERNAME --password $FANDOGH_PASSWORD
 deploy:
   provider: script
   script: bash ./deploy.sh
