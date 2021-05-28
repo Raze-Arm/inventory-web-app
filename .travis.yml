@@ -7,6 +7,7 @@ services:
 env:
   global:
     - SHA=$(git rev-parse HEAD)
+    - COLLECT_ERROR= 1
 
 before_install:
   - pip install fandogh-cli --upgrade
