@@ -18,6 +18,7 @@ script:
 after_success:
   - pip install fandogh-cli --updagrade
   - fandogh login --username $FANDOGH_USERNAME --password $FANDOGH_PASSWORD
+  - fandogh namespace active --name $FANDOGH_NAMESPACE
 deploy:
   provider: script
   script: bash ./deploy.sh
