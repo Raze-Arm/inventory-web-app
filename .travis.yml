@@ -8,4 +8,4 @@ before_install:
   - docker build -t razear/inventory-web-app -f Dockerfile.dev .
 
 script:
-  - docker run -e CI=true razear/inventory-web-app npm test --passWithNoTests
+  - docker run -e CI=true razear/inventory-web-app npm test
