@@ -5,8 +5,6 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-ARG REACT_APP_HOST=localhost:3000
-ENV REACT_APP_HOST ${REACT_APP_HOST}
 
 
 FROM nginx
