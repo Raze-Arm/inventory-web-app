@@ -2,7 +2,8 @@ FROM node:alpine as builder
 WORKDIR '/app'
 COPY ./package.json ./
 RUN npm install
-ENV REACT_APP_HOST  https://mega-electric-app/api/v1
+ARG REACT_APP_HOST
+ENV REACT_APP_HOST  ${REACT_APP_HOST}
 
 COPY . .
 RUN npm run build
