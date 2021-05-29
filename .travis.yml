@@ -19,7 +19,7 @@ script:
 
 after_success:
   - fandogh login --username $FANDOGH_USERNAME --password $FANDOGH_PASSWORD
-  - fandogh namespace active --name $FANDOGH_NAMESPACE
+#  - fandogh namespace active --name $FANDOGH_NAMESPACE
 deploy:
   provider: script
   script: bash ./deploy.sh
