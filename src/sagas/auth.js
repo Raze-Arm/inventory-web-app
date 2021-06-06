@@ -14,18 +14,23 @@ const getAuth = state => state.auth;
 
 function* authWatcher() {
     while (true) {
-        const token = yield call(autoLoginFlow);
-        if(!token) {
-            const {payload} = yield take(LOGIN.LOAD);
-            yield put(showLoadingScreen());
-            const task = yield fork(loginFlow, payload);
+        try {
+            const token = yield call(autoLoginFlow);
+            if(!token) {
+                const {payload} = yield take(LOGIN.LOAD);
+                yield put(showLoadingScreen());
+                const task = yield fork(loginFlow, payload);
 
-            yield take([LOGIN.FAILED, LOGOUT.LOAD] );
+                yield take([LOGIN.FAILED, LOGOUT.LOAD] );
+                yield put(stopLoadingScreen());
+
+                yield cancel(task);
+                const {isLoggedIn} = yield select(getAuth);
+                if(isLoggedIn)yield  call(logoutFlow);
+            }
+        }catch (e) {
             yield put(stopLoadingScreen());
 
-            yield cancel(task);
-            const {isLoggedIn} = yield select(getAuth);
-            if(isLoggedIn)yield  call(logoutFlow);
         }
     }
 

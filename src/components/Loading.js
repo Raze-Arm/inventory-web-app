@@ -4,10 +4,10 @@ import loading from '../images/loading.svg';
 import {Dimmer, Image} from "semantic-ui-react";
 
 
-import {showErrorMessage} from '../actions/app-message';
+import {showErrorMessage, stopLoadingScreen} from '../actions/app-message';
 import history from "../history";
 
-const Loading = ({showErrorMessage}) => {
+const Loading = ({showErrorMessage, stopLoadingScreen}) => {
     // const [active, setActive] = useState(false);
     const handleClose = () => {
         // setActive(false);
@@ -20,7 +20,11 @@ const Loading = ({showErrorMessage}) => {
             showErrorMessage({title: 'Error', content: 'Please try again later'});
             history.goBack();
         }, 5000);
-        return () => clearTimeout(ref);
+        return () => {
+            clearTimeout(ref);
+            stopLoadingScreen();
+
+        };
     } , []);
 
 
@@ -36,4 +40,4 @@ const Loading = ({showErrorMessage}) => {
 }
 
 
-export default connect(null, {showErrorMessage})(Loading);
+export default connect(null, {showErrorMessage, stopLoadingScreen})(Loading);

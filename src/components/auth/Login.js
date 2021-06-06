@@ -6,6 +6,7 @@ import {Button, Container, Form, Grid, Header, Segment} from "semantic-ui-react"
 
 import * as validator from '../../utility/formValidators';
 import {login} from "../../actions/auth";
+import Loading from "../Loading";
 
 
 const FIELDS  = {
@@ -40,11 +41,14 @@ const FIELDS  = {
 }
 
 
-const Login = ({ handleSubmit, login}) => {
+const Login = ({ handleSubmit, login, isLoading}) => {
 
     const onSubmit = ({username, password}) => {
         login({username, password});
     }
+
+
+    if(isLoading) return <Loading />;
 
     return (
         <Container>
@@ -74,5 +78,10 @@ const form = reduxForm({
 })(Login);
 
 
-export default connect(null, {login})(form);
+const mapStateToProps = (state) => {
+    const {isLoading} = state.auth;
+    return {isLoading};
+}
+
+export default connect(mapStateToProps, {login})(form);
 
