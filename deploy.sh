@@ -5,6 +5,7 @@ docker push razear/mega-electric-web-app:latest
 docker push razear/mega-electric-web-app:$SHA
 
 
+fandogh  secret create --name backend-api  -t environment-secret -f SECRET_KEY=$REACT_APP_HOST
 fandogh  secret put --name backend-api  -t environment-secret -f SECRET_KEY=$REACT_APP_HOST
 fandogh service apply -f web-app-deployment.yml  \
                  -p SHA=$SHA
