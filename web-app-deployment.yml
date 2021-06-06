@@ -10,6 +10,5 @@ spec:
   port_mapping:
     - port: 3000
       target_port: 3000
-      # default protocol is TCP
   resources:
     memory: 200Mi
