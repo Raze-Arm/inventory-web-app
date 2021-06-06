@@ -7,8 +7,8 @@ spec:
 #    - name: REACT_APP_HOST
 #      secret: backend-api
 
-#  port_mapping:
-#    - port: 3000
-#      target_port: 3000
+  port_mapping:
+    - port: 3000
+      target_port: 3000
   resources:
     memory: 200Mi
