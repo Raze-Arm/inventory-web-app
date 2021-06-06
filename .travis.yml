@@ -12,10 +12,10 @@ env:
 before_install:
   - pip install fandogh-cli --upgrade
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker build -t razear/inventory-web-app -f Dockerfile.dev .
+  - docker build -t razear/inventory-web-app-dev -f Dockerfile.dev .
 
 script:
-  - docker run -e CI=true razear/inventory-web-app npm test
+  - docker run -e CI=true razear/inventory-web-app-dev npm test
 
 after_success:
   - fandogh login --username $FANDOGH_USERNAME --password $FANDOGH_PASSWORD
