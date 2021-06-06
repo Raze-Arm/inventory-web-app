@@ -1,7 +1,8 @@
 #docker build --build-arg REACT_APP_HOST=$REACT_APP_HOST -t razear/mega-electric-web-app:latest -t razear/mega-electric-web-app:$SHA -f Dockerfile .
+docker build  --build-arg BACKEND_API=$BACKEND_API -t razear/mega-electric-web-app:latest -t razear/mega-electric-web-app:$SHA -f Dockerfile .
 
-docker push razear/mega-electric-web-app:latest
 docker push razear/mega-electric-web-app:$SHA
+docker push razear/mega-electric-web-app:latest
 
 
 #fandogh  secret create --name backend-api  -t environment-secret -f SECRET_KEY=$BACKEND_API
