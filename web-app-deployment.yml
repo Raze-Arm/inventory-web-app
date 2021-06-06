@@ -2,9 +2,9 @@ kind: ExternalService
 name: mega-electric-web-app
 spec:
   image:  razear/mega-electric-web-app:${SHA}
-  env:
-    - name: REACT_APP_HOST
-      secret: backend-api
+#  env:
+#    - name: REACT_APP_HOST
+#      secret: backend-api
 
   port_mapping:
     - port: 3000
