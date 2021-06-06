@@ -1,9 +1,10 @@
 import React from "react";
 import {connect} from 'react-redux';
-import {Button, Dimmer, Loader} from "semantic-ui-react";
+import {Button} from "semantic-ui-react";
 
 import Modal from "../Modal";
 import {getSInvoice, deleteSInvoice} from "../../actions/sale-invoice";
+import Loading from "../Loading";
 
 
 class SaleInvoiceDelete extends React.Component {
@@ -34,7 +35,7 @@ class SaleInvoiceDelete extends React.Component {
 
     render() {
         const invoice = this.props.invoice;
-        if(!invoice) return <Dimmer><Loader /></Dimmer>;
+        if(!invoice) return <Loading />;
 
         return  (
             <Modal

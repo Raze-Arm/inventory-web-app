@@ -1,0 +1,18 @@
+/*.user-segment.ui.list .list>.item .header, .ui.list>.item .header  {*/
+/*    text-align: center;*/
+/*}*/
+
+/*.user-segment.ui.relaxed.list:not(.horizontal)>.item:not(:last-child)  {*/
+/*    text-align: center;*/
+/*}*/
+.custom-segment .ui.header {
+    text-align: center!important;
+}
+.custom-segment div .item {
+    text-align: center!important;
+}
+
+.custom-segment div .item .header {
+    text-align: center!important;
+}
+

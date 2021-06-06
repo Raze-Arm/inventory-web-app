@@ -1,6 +1,14 @@
 import Api from '../apis/inventory-api';
 
-
+export const fetchPInvoicePage =  async ({page, size, sort, search}) => {
+    const response = await Api.get('/purchase-invoice', {params: {
+            page,
+            size,
+            sort,
+            search
+        }});
+    return response.data;
+}
 
 export const fetchPInvoiceList = async () => {
     const response = await Api.get('/purchase-invoice' ,{params: {'search-type': 'list'}});

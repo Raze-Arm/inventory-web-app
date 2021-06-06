@@ -1,23 +1,48 @@
 import {takeEvery, call, put} from 'redux-saga/effects';
-import {DELETE_SALE_INVOICE, GET_SALE_INVOICE, GET_SALE_INVOICE_LIST, SAVE_SALE_INVOICE} from "../actions/types";
+import {
+    DELETE_SALE_INVOICE,
+    GET_SALE_INVOICE,
+    GET_SALE_INVOICE_LIST,
+    GET_SALE_INVOICE_PAGE,
+    SAVE_SALE_INVOICE
+} from "../actions/types";
 import {
     deleteSInvoiceSuccess,
-    getSInvoiceListSuccess,
+    getSInvoiceListSuccess, getSInvoicePageSuccess,
     getSInvoiceSuccess,
     saveSInvoiceSuccess
 } from "../actions/sale-invoice";
-import {deleteSInvoice, fetchSInvoice, fetchSInvoiceList, postSInvoice} from "../services/sale-invoice";
-import {showErrorMessage, showSuccessMessage} from "../actions/app-message";
-
+import {
+    deleteSInvoice,
+    fetchSInvoice,
+    fetchSInvoiceList,
+    fetchSInvoicePage,
+    postSInvoice
+} from "../services/sale-invoice";
+import {showErrorMessage, showModalErrorMessage, showSuccessMessage} from "../actions/app-message";
+import history from "../history";
 
 
 function* saleInvoiceWatcher() {
+    yield takeEvery(GET_SALE_INVOICE_PAGE.LOAD , getInvoicePageFlow) ;
     yield takeEvery(GET_SALE_INVOICE_LIST.LOAD, getInvoiceListFlow);
     yield takeEvery(GET_SALE_INVOICE.LOAD, getInvoiceFlow);
     yield takeEvery(SAVE_SALE_INVOICE.LOAD, saveInvoiceFlow);
     yield takeEvery(DELETE_SALE_INVOICE.LOAD, deleteInvoiceFlow);
 }
 
+function* getInvoicePageFlow(action) {
+    const {page, size, sort, search} = action.payload;
+    try {
+        const invoicePage = yield call(fetchSInvoicePage, {page, size, sort, search});
+        console.log('sale invoice page', invoicePage);
+        yield put(getSInvoicePageSuccess(invoicePage));
+    }catch (e) {
+        console.log('error', e);
+        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  invoice list', details: e}));
+        history.push('/');
+    }
+}
 
 function* getInvoiceListFlow(action) {
     try {
@@ -25,7 +50,9 @@ function* getInvoiceListFlow(action) {
         console.log('sale invoice list', invoiceList);
         yield put(getSInvoiceListSuccess(invoiceList));
     }catch (e) {
-
+        console.log('error', e);
+        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  invoice', details: e}));
+        history.push('/');
     }
 }
 function* getInvoiceFlow(action) {
@@ -37,6 +64,7 @@ function* getInvoiceFlow(action) {
     }catch (e) {
         console.log('error', e);
         yield put(showErrorMessage({title: 'Error' , content: 'Failed to show invoice'}));
+        history.push('/sale-invoice');
     }
 }
 function* saveInvoiceFlow(action) {
@@ -46,10 +74,12 @@ function* saveInvoiceFlow(action) {
         invoice.id = id;
         console.log('saved sale invoice', invoice);
         yield put(saveSInvoiceSuccess(invoice));
+        history.push(`/sale-invoice/show/${id}`);
         yield put(showSuccessMessage({title: 'Saved Successfully',content: 'Invoice created successfully'}));
     }catch (e) {
         console.log('error', e);
         yield put(showErrorMessage({title: 'Error' , content: 'Failed to save product'}));
+        history.push('/sale-invoice');
     }
 }
 function* deleteInvoiceFlow(action) {
@@ -59,10 +89,12 @@ function* deleteInvoiceFlow(action) {
         yield call(deleteSInvoice, id);
         console.log('deleted sale invoice', id);
         yield put(deleteSInvoiceSuccess(id));
+        history.push('/sale-invoice');
         yield put(showSuccessMessage({title: 'Saved Successfully',content: 'Invoice created successfully'}));
     }catch (e) {
         console.log('error', e);
-        yield put(showErrorMessage({title: 'Error' , content: 'Failed to save invoice'}))
+        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to save invoice', details: e}))
+        history.push('/sale-invoice');
     }
 }
 

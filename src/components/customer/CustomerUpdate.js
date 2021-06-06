@@ -1,10 +1,10 @@
 import React from "react";
 import {connect} from 'react-redux';
 import _ from 'lodash';
-import {Dimmer, Loader} from "semantic-ui-react";
 
 import CustomerForm from './CustomerForm';
 import {getCustomer, updateCustomer} from "../../actions/customer";
+import Loading from "../Loading";
 
 
 class CustomerUpdate extends React.Component {
@@ -23,7 +23,7 @@ class CustomerUpdate extends React.Component {
 
     render() {
         const customer = this.props.customer;
-        if(!customer) return <Dimmer><Loader/></Dimmer>;
+        if(!customer) return <Loading />;
         return (
             <CustomerForm initialValues = {_.omit(customer, 'id')} onSubmit = {this.onUpdate} type={'Update'} />
         );

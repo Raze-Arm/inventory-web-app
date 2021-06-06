@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import SearchCustomer from "./SearchCustomer";
+import SearchCustomer from "../search/SearchCustomer";
 import {Field, Form, reduxForm} from "redux-form";
 import {Button, Container, Divider} from "semantic-ui-react";
 import TransactionForm from './TransactionForm';

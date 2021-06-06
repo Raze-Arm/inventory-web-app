@@ -1,9 +1,10 @@
 import React from "react";
 import {connect} from 'react-redux';
-import {Button, Dimmer, Loader} from "semantic-ui-react";
+import {Button} from "semantic-ui-react";
 
 import Modal from "../Modal";
 import {getProduct, deleteProduct} from '../../actions/product';
+import Loading from "../Loading";
 
 
 
@@ -34,7 +35,7 @@ class ProductDelete extends React.Component {
 
     render() {
         const product = this.props.product;
-        if(!product) return <Dimmer><Loader/></Dimmer>
+        if(!product) return <Loading />
 
         return  (
             <Modal

@@ -22,8 +22,8 @@ import {
     saveSupplierSuccess,
     updateSupplierSuccess
 } from "../actions/supplier";
-import {showErrorMessage, showSuccessMessage} from "../actions/app-message";
-
+import {showErrorMessage, showModalErrorMessage, showSuccessMessage} from "../actions/app-message";
+import history from "../history";
 
 
 
@@ -43,7 +43,9 @@ function* getSupplierPageFlow(action) {
         console.log('supplier page', supplierPage);
         yield put(getSupplierPageSuccess(supplierPage));
     }catch (e) {
-
+        console.log('error', e);
+        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  supplier list', details: e}));
+        history.push('/');
     }
 }
 
@@ -53,7 +55,9 @@ function* getSupplierListFlow(action) {
         console.log('supplier list', supplierList);
         yield put(getSupplierListSuccess(supplierList));
     }catch (e) {
-
+        console.log('error', e);
+        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  supplier', details: e}));
+        history.push('/');
     }
 }
 
@@ -65,7 +69,8 @@ function* getSupplierFlow(action) {
         yield put(getSupplierSuccess(supplier));
     }catch (e) {
         console.log('error', e);
-        yield put(showErrorMessage({title: 'Error' , content: 'Failed to show supplier'}));
+        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to show supplier', details: e}));
+        history.push('/supplier');
     }
 }
 
@@ -76,10 +81,12 @@ function* saveSupplierFlow(action) {
         supplier.id = id;
         console.log('saved supplier', supplier);
         yield put(saveSupplierSuccess(supplier));
+        history.push(`/supplier/show/${id}`);
         yield put(showSuccessMessage({title: 'Saved Successfully',content: 'Supplier created successfully'}));
     }catch (e) {
         console.log('error', e);
         yield put(showErrorMessage({title: 'Error' , content: 'Failed to save supplier'}));
+        history.push('/supplier');
     }
 }
 
@@ -93,6 +100,7 @@ function* updateSupplierFlow(action) {
     }catch (e) {
         console.log('error', e);
         yield put(showErrorMessage({title: 'Error' , content: 'Failed to update supplier'}));
+        history.push('/supplier');
     }
 }
 
@@ -102,10 +110,12 @@ function* deleteSupplierFlow(action) {
         yield call(deleteSupplier, id);
         console.log('deleted supplier', id);
         yield put(deleteSupplierSuccess(id));
+        history.push('/supplier');
         yield put(showSuccessMessage({title: 'Supplier Deleted ',content: 'Supplier deleted successfully'}));
     }catch (e) {
         console.log('error', e);
-        yield put(showErrorMessage({title: 'Error' , content: 'Failed to delete supplier'}));
+        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to delete supplier', details: e}));
+        history.push('/supplier');
     }
 }
 

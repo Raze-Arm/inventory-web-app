@@ -22,8 +22,8 @@ import {
     getProductSuccess,
     saveProductSuccess, updateProductSuccess
 } from "../actions/product";
-import {showErrorMessage, showSuccessMessage} from "../actions/app-message";
-
+import {showErrorMessage, showModalErrorMessage, showSuccessMessage} from "../actions/app-message";
+import history from "../history";
 
 function* productWatcher() {
     yield takeEvery(GET_PRODUCT_PAGE.LOAD, getProductPageFlow);
@@ -41,7 +41,9 @@ function* getProductPageFlow(action) {
         console.log('product page', productPage);
         yield put(getProductPageSuccess(productPage));
     }catch (e) {
-
+        console.log('error', e);
+        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  product list', details: e}));
+        history.push('/');
     }
 }
 
@@ -51,7 +53,9 @@ function* getProductListFlow(action) {
         console.log('product list', productList);
         yield put(getProductListSuccess(productList));
     }catch (e) {
-
+        console.log('error', e);
+        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  product list', details: e}));
+        history.push('/');
     }
 }
 function* getProductFlow(action) {
@@ -62,7 +66,8 @@ function* getProductFlow(action) {
         yield put(getProductSuccess(product));
     }catch (e) {
         console.log('error', e);
-        yield put(showErrorMessage({title: 'Error' , content: 'Failed to show product'}));
+        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to show product', details: e}));
+        history.push('/product');
     }
 }
 
@@ -73,10 +78,12 @@ function* saveProductFlow(action) {
         product.id = id ;
         console.log('saved product', product);
         yield put(saveProductSuccess(product));
+        history.push(`/product/show/${id}`);
         yield put(showSuccessMessage({title: 'Saved Successfully',content: 'Product created successfully'}));
     }catch (e) {
         console.log('error', e);
         yield put(showErrorMessage({title: 'Error' , content: 'Failed to save product'}));
+        history.push('/product');
     }
 }
 
@@ -91,6 +98,7 @@ function* updateProductFlow(action) {
     } catch (e) {
         console.log('error', e);
         yield put(showErrorMessage({title: 'Error' , content: 'Failed to update product'}));
+        history.push('/product');
     }
 }
 
@@ -100,10 +108,12 @@ function* deleteProductFlow(action) {
         yield call(deleteProduct, id);
         console.log('deleted product', id);
         yield put(deleteProductSuccess(id));
+        history.push('/product');
         yield put(showSuccessMessage({title: 'Product Deleted ',content: 'Product deleted successfully'}));
     }catch (e) {
         console.log('error', e);
-        yield put(showErrorMessage({title: 'Error' , content: 'Failed to delete product'}));
+        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to delete product', details: e}));
+        history.push('/product');
     }
 }
 

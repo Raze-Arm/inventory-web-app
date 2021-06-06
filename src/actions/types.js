@@ -10,6 +10,28 @@ export const SHOW_ERROR_MESSAGE = {
     FAILED: 'SHOW ERROR MESSAGE FAILED'
 }
 
+export const SHOW_MODAL_ERROR_MESSAGE = {
+    LOAD: 'SHOW MODAL ERROR MESSAGE LOAD',
+    SUCCESS: 'SHOW MODAL ERROR MESSAGE SUCCESS',
+    FAILED: 'SHOW MODAL ERROR MESSAGE FAILED'
+}
+
+export const LOADING = {
+    START: 'LOADING START',
+    STOP: 'LOADING STOP',
+}
+
+//////////////////////////////////////////////////////////////////////////////AUTH
+export const LOGIN = {
+    LOAD: 'LOGIN LOAD',
+    SUCCESS: 'LOGIN SUCCESS',
+    FAILED: 'LOGIN FAILED'
+}
+export const LOGOUT = {
+    LOAD: 'LOGOUT LOAD',
+    SUCCESS: 'LOGOUT SUCCESS',
+    FAILED: 'LOGOUT FAILED'
+}
 
 
 
@@ -78,6 +100,12 @@ export const DELETE_SUPPLIER = {
 }
 
 //////////////////////////////////////////////////////////////////////////////Purchase Invoice
+
+export const GET_PURCHASE_INVOICE_PAGE = {
+    LOAD: 'GET PURCHASE INVOICE PAGE LOAD',
+    SUCCESS: 'GET PURCHASE INVOICE PAGE SUCCESS',
+    FAILED: 'GET PURCHASE INVOICE PAGE FAILED'
+}
 export const GET_PURCHASE_INVOICE_LIST = {
     LOAD: 'GET PURCHASE INVOICE LIST LOAD',
     SUCCESS: 'GET PURCHASE INVOICE LIST SUCCESS',
@@ -102,7 +130,11 @@ export const DELETE_PURCHASE_INVOICE = {
     FAILED: 'DELETE PURCHASE INVOICE FAILED'
 }
 //////////////////////////////////////////////////////////////////////////////Sale Invoice
-
+export const GET_SALE_INVOICE_PAGE = {
+    LOAD: 'GET SALE INVOICE PAGE LOAD',
+    SUCCESS: 'GET SALE INVOICE PAGE SUCCESS',
+    FAILED: 'GET SALE INVOICE PAGE FAILED'
+}
 
 export const GET_SALE_INVOICE_LIST = {
     LOAD: 'GET SALE INVOICE LIST LOAD',
@@ -160,4 +192,93 @@ export const DELETE_PRODUCT = {
 }
 
 
+//////////////////////////////////////////////////////////////////////////////Invoice
+export const GET_INVOICE_PAGE = {
+    LOAD: 'GET INVOICE PAGE LOAD',
+    SUCCESS: 'GET INVOICE PAGE SUCCESS',
+    FAILED: 'GET INVOICE PAGE FAILED'
+}
 
+//////////////////////////////////////////////////////////////////////////////TRANSACTION
+export const GET_TRANSACTION_PAGE = {
+    LOAD: 'GET TRANSACTION PAGE LOAD',
+    SUCCESS: 'GET TRANSACTION PAGE SUCCESS',
+    FAILED: 'GET TRANSACTION PAGE FAILED'
+}
+export const GET_SALE_TRANSACTION_PAGE = {
+    LOAD: 'GET SALE TRANSACTION PAGE LOAD',
+    SUCCESS: 'GET SALE TRANSACTION PAGE SUCCESS',
+    FAILED: 'GET SALE TRANSACTION PAGE FAILED'
+}
+export const GET_PURCHASE_TRANSACTION_PAGE = {
+    LOAD: 'GET PURCHASE TRANSACTION PAGE LOAD',
+    SUCCESS: 'GET PURCHASE TRANSACTION PAGE SUCCESS',
+    FAILED: 'GET PURCHASE TRANSACTION PAGE FAILED'
+}
+
+//////////////////////////////////////////////////////////////////////////////USER
+export const GET_USER_PAGE = {
+    LOAD: 'GET USER PAGE LOAD',
+    SUCCESS: 'GET USER PAGE SUCCESS',
+    FAILED: 'GET USER PAGE FAILED'
+}
+export const SAVE_USER = {
+    LOAD: 'SAVE USER  LOAD',
+    SUCCESS: 'SAVE USER  SUCCESS',
+    FAILED: 'SAVE USER  FAILED'
+}
+
+export const GET_USER = {
+    LOAD: 'GET USER LOAD',
+    SUCCESS: 'GET USER SUCCESS',
+    FAILED: 'GET USER FAILED'
+}
+export const UPDATE_USER = {
+    LOAD: 'UPDATE USER LOAD',
+    SUCCESS: 'UPDATE USER SUCCESS',
+    FAILED: 'UPDATE USER FAILED'
+}
+export const GET_USER_PHOTO = {
+    LOAD: 'GET USER PHOTO LOAD',
+    SUCCESS: 'GET USER PHOTO SUCCESS',
+    FAILED: 'GET USER PHOTO FAILED'
+}
+export const DELETE_USER = {
+    LOAD: 'DELETE USER LOAD',
+    SUCCESS: 'DELETE USER SUCCESS',
+    FAILED: 'DELETE USER FAILED'
+}
+//////////////////////////////////////////////////////////////////////////////PROFILE
+
+export const GET_PROFILE = {
+    LOAD: 'GET USER PROFILE LOAD',
+    SUCCESS: 'GET USER PROFILE SUCCESS',
+    FAILED: 'GET USER PROFILE FAILED'
+}
+export const UPDATE_PROFILE = {
+    LOAD: 'UPDATE USER PROFILE LOAD',
+    SUCCESS: 'UPDATE USER PROFILE SUCCESS',
+    FAILED: 'UPDATE USER PROFILE FAILED'
+}
+
+export const GET_PROFILE_PHOTO = {
+    LOAD: 'GET PROFILE PHOTO LOAD',
+    SUCCESS: 'GET PROFILE PHOTO SUCCESS',
+    FAILED: 'GET PROFILE PHOTO FAILED'
+}
+//////////////////////////////////////////////////////////////////////////////PROFILE
+export const GET_USER_ACTIVITY_PAGE = {
+    LOAD: 'GET USER ACTIVITY PAGE LOAD',
+    SUCCESS: 'GET USER ACTIVITY PAGE SUCCESS',
+    FAILED: 'GET USER ACTIVITY PAGE FAILED'
+}
+export const GET_ACTIVITY_PAGE = {
+    LOAD: 'GET ACTIVITY PAGE LOAD',
+    SUCCESS: 'GET ACTIVITY PAGE SUCCESS',
+    FAILED: 'GET ACTIVITY PAGE FAILED'
+}
+export const GET_ACTIVITY_PAGE_BY_USERNAME = {
+    LOAD: 'GET ACTIVITY PAGE BY USERNAME LOAD',
+    SUCCESS: 'GET ACTIVITY PAGE BY USERNAME SUCCESS',
+    FAILED: 'GET ACTIVITY PAGE BY USERNAME FAILED'
+}

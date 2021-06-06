@@ -23,6 +23,15 @@ npm-debug.log.*
 /coverage
 
 
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+.idea
+# testing
+/coverage
+
+
 ######################
 # SASS
 ######################

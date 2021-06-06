@@ -1,0 +1,23 @@
+
+.full-height {
+    position: fixed !important;
+    height: 100vh !important;
+}
+.error-modal .ui.modal>.header:not(.ui) {
+    padding: 0;
+    border-radius: 0;
+    background-color: #eb4444 ;
+}
+.error-modal .ui.modal>.content {
+    padding: 0;
+}
+
+.error-modal .ui.red.message {
+    color: white;
+    background-color: #eb4444 ;
+
+}
+
+.ui.attached.error.message, .ui.error.message {
+    border-bottom: 0!important;
+}

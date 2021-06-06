@@ -1,10 +1,10 @@
 import React from "react";
 import {connect} from 'react-redux';
 import _ from 'lodash';
-import {Dimmer, Loader} from "semantic-ui-react";
 
 import SupplierForm from './SupplierForm';
 import {getSupplier, updateSupplier} from "../../actions/supplier";
+import Loading from "../Loading";
 
 
 class SupplierUpdate extends React.Component {
@@ -21,7 +21,7 @@ class SupplierUpdate extends React.Component {
 
     render() {
         const supplier = this.props.supplier;
-        if(!supplier) return  <Dimmer><Loader /></Dimmer>;
+        if(!supplier) return  <Loading />;
         return  (
             <SupplierForm initialValues = {_.omit(supplier, 'id')} onSubmit = {this.onUpdate} type={'Update'} />
          );

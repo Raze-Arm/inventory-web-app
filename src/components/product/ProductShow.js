@@ -1,9 +1,10 @@
 import React from "react";
 import {connect} from "react-redux";
 import Moment from 'react-moment';
-import {Container, Dimmer, Header, Loader, Segment, List, Divider} from "semantic-ui-react";
+import {Container, Header, Segment, List, Divider} from "semantic-ui-react";
 
 import {getProduct} from '../../actions/product';
+import Loading from "../Loading";
 
 
 
@@ -18,7 +19,7 @@ class ProductShow extends React.Component {
 
     render() {
         const product = this.props.product;
-        if(!product) return <Dimmer><Loader/></Dimmer>
+        if(!product) return <Loading />
         return (
             <Container>
                 <Segment color={"grey"}>

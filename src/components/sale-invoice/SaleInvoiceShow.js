@@ -5,6 +5,7 @@ import Moment from 'react-moment';
 import {Container, Dimmer, Divider, Header, List, Loader, Segment, Table} from "semantic-ui-react";
 
 import {getSInvoice} from "../../actions/sale-invoice";
+import Loading from "../Loading";
 
 
 class SaleInvoiceShow extends React.Component {
@@ -72,7 +73,7 @@ class SaleInvoiceShow extends React.Component {
 
     render() {
         const invoice =this.props.invoice;
-        if(!invoice) return  <Dimmer><Loader /></Dimmer>;
+        if(!invoice) return  <Loading />;
 
         return  (
             <Container>

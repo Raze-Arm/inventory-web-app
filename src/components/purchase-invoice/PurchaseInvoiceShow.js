@@ -2,10 +2,11 @@ import React from "react";
 import _ from 'lodash';
 import {connect} from "react-redux";
 import Moment from 'react-moment';
-import {Container, Dimmer, Divider, Header, List, Loader, Segment, Table} from "semantic-ui-react";
+import {Container, Divider, Header, List, Segment, Table} from "semantic-ui-react";
 
 
 import {getPInvoice} from "../../actions/purchase-invoice";
+import Loading from "../Loading";
 
 
 class PurchaseInvoiceShow extends React.Component {
@@ -70,7 +71,7 @@ class PurchaseInvoiceShow extends React.Component {
 
     render() {
         const invoice =this.props.invoice;
-        if(!invoice) return  <Dimmer><Loader /></Dimmer>;
+        if(!invoice) return  <Loading />;
 
         return  (
             <Container>

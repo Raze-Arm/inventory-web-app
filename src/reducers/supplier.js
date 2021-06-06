@@ -10,6 +10,8 @@ import {
 
 const INITIAL_VALUES = {
     items: {},
+    totalPages: 0,
+    totalElements: 0,
 }
 
 
@@ -17,10 +19,7 @@ export const supplierReducer = (state = INITIAL_VALUES, action) => {
     switch (action.type) {
         case GET_SUPPLIER_PAGE.SUCCESS: {
             const data = action.payload;
-            if(_.size(state.items) > 50)
-                return {...state,items: {...state.items ,..._.mapKeys(data.content, 'id')}};
-            else
-                return {...state,items: {..._.mapKeys(data.content, 'id')}};
+                return {...state,items: {...state.items ,..._.mapKeys(data.content, 'id')},  totalPages: data.totalPages, totalElements: data.totalElements};
         }
         case GET_SUPPLIER_LIST.SUCCESS: {
             const data = action.payload;

@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 import {getProduct, updateProduct} from '../../actions/product';
 import ProductForm from './ProductForm'
-import {Dimmer, Loader} from "semantic-ui-react";
+import Loading from "../Loading";
 
 
 
@@ -22,7 +22,7 @@ class ProductUpdate extends React.Component {
 
     render() {
         const product = this.props.product;
-        if(!product) return <Dimmer><Loader/></Dimmer>;
+        if(!product) return <Loading />;
         return (
                 <ProductForm initialValues = {_.omit(product, 'id')} onSubmit = {this.onUpdate} type={'Update'} />
         );
