@@ -32,6 +32,17 @@ const UserActivity = ({username, activities, getActivityPageByUsername}) => {
 
     const renderPutMethod = (activity, time) => {
         const {id, parameter , entity, username} =activity;
+        if(entity === 'profile') return  (
+            <Feed.Event key={id}>
+                <Feed.Content  >
+                    <Feed.Summary style={{textAlign: 'left', direction: 'ltr'}}>
+                        {username !== username ?
+                            <Link to={`/user/show/${parameter}`}>{username}</Link> : 'you'} edited {entity} details
+                        <Feed.Date>{time}</Feed.Date>
+                    </Feed.Summary>
+                </Feed.Content>
+            </Feed.Event>
+        );
         return  (
             <Feed.Event key={id}>
                 <Feed.Content  >

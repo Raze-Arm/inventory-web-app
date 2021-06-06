@@ -43,9 +43,9 @@ function* getProfileFlow(action) {
 function* updateProfileFlow(action) {
     const profile = action.payload;
     try {
-        const updatedProfile = yield call(updateProfile, profile);
-        console.log('updated profile', updatedProfile);
-        yield put(updateProfileSuccess(updatedProfile));
+        yield call(updateProfile, profile);
+        console.log('updated profile', profile);
+        yield put(updateProfileSuccess(profile));
         yield put(showSuccessMessage({title: 'Updated Successfully',content: 'Profile updated successfully'}))
     }catch (e) {
         console.log('error', e);
