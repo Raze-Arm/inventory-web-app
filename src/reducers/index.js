@@ -10,6 +10,8 @@ import  {invoiceReducer} from "./invoice";
 import {transactionReducer} from "./transaction";
 import {authReducer} from "./auth";
 import {profileReducer} from "./profile";
+import {userReducer} from "./user";
+import {activityReducer} from "./activity";
 
 export default combineReducers({
     form: formReducer,
@@ -22,6 +24,8 @@ export default combineReducers({
     invoice: invoiceReducer,
     transaction: transactionReducer,
     profile: profileReducer,
+    user: userReducer,
+    activity: activityReducer,
     auth: authReducer,
 
 })

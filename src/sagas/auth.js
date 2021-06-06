@@ -5,7 +5,9 @@ import Api from '../apis/inventory-api';
 import {LOGIN, LOGOUT} from "../actions/types";
 import {login, logout} from "../services/auth";
 import {loginFailed, loginSuccess, logoutSuccess} from "../actions/auth";
-import {showErrorMessage, showLoadingScreen, stopLoadingScreen} from "../actions/app-message";
+import { showLoadingScreen, showModalErrorMessage, stopLoadingScreen} from "../actions/app-message";
+import {getProfilePhoto} from "../actions/profile";
+import jwtDecode from "../utility/jwt-decode";
 
 const getAuth = state => state.auth;
 
@@ -37,11 +39,12 @@ function* loginFlow(action) {
         yield put(loginSuccess(token));
         yield put(stopLoadingScreen());
         Api.defaults.headers.common['Authorization'] = token;
+        yield put(getProfilePhoto(username));
         localStorage.setItem('token', token);
         history.push('/');
     } catch (e) {
         yield put(loginFailed('e'));
-        yield put(showErrorMessage({title: 'Failed', content: 'Failed to login , Please try later'}));
+        yield put(showModalErrorMessage({title: 'Failed', content: 'Failed to login , Please try later', details: e}));
     }finally {
         if(yield  cancelled()) {
             history.push('/login');
@@ -52,13 +55,12 @@ function* loginFlow(action) {
 function*  logoutFlow() {
 
     try {
+        yield fork(logout);
         yield put(logoutSuccess());
-        Api.defaults.headers.common['Authorization'] = '';
         localStorage.removeItem('token');
-        yield call(logout);
+        Api.defaults.headers.common['Authorization'] = '';
     }catch (e) {
     }finally {
-        history.push('/login');
 
     }
 }
@@ -70,6 +72,8 @@ function* autoLoginFlow() {
         yield put(loginSuccess(token));
         yield put(stopLoadingScreen());
         Api.defaults.headers.common['Authorization'] = token;
+        const decoded = jwtDecode(token);
+        yield put(getProfilePhoto(decoded.sub));
         // history.push('/');
         yield take([LOGOUT.LOAD]);
         yield put(stopLoadingScreen());

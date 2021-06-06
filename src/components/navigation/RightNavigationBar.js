@@ -1,6 +1,6 @@
 import React from 'react';
 import {Icon, Menu, Popup} from "semantic-ui-react";
-
+import Permission from "../hoc/Permission";
 
 const TRANSACTION = 'transaction';
 const INVOICE = 'invoice';
@@ -9,6 +9,9 @@ const PURCHASE_INVOICE  = 'purchase-invoice';
 const PRODUCT  = 'product';
 const SUPPLIER  = 'supplier';
 const CUSTOMER  = 'customer';
+const USER  = 'user';
+const ACTIVITY = 'profile/activity';
+
 const RightNavigationBar = ({selectedItem, setSelectedItem}) => {
 
     const onClickHandler = (e, {name}) => {
@@ -18,7 +21,11 @@ const RightNavigationBar = ({selectedItem, setSelectedItem}) => {
     const color = '#576573';
     return (
         <Menu icon    vertical floated={'right'}  style={{height: '100vh', position: 'fixed'  , margin: '62px 0 0 0' ,right: '0' }}  size={"huge"} compact >
-            <Menu.Item name={'transaction'} active={selectedItem === TRANSACTION} onClick={onClickHandler}>
+            <Menu.Item name={ACTIVITY} active={selectedItem === ACTIVITY} onClick={onClickHandler}>
+                <Popup position={"left center"} content={'History'}
+                       trigger={<Icon style={{color: color}} name={"history"}/>}/>
+            </Menu.Item>
+            <Menu.Item name={TRANSACTION} active={selectedItem === TRANSACTION} onClick={onClickHandler}>
                 <Popup position={"left center"} content={'Transactions'}
                        trigger={<Icon style={{color: color}} name={"clipboard list"}/>}/>
             </Menu.Item>
@@ -41,8 +48,13 @@ const RightNavigationBar = ({selectedItem, setSelectedItem}) => {
                         <Icon name={'shopping cart'} corner={"bottom right"}/>
                     </Icon.Group>
                 }/>
-
             </Menu.Item>
+           <Permission authority={'ROLE_ADMIN'}>
+               <Menu.Item name={USER} active={selectedItem === USER}  onClick={onClickHandler}>
+                   <Popup position={"left center"} content={'User'}
+                          trigger={<Icon style={{color: color}} name={"users"}/>}/>
+               </Menu.Item>
+           </Permission>
         </Menu>
     );
 

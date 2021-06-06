@@ -2,6 +2,7 @@ import {takeEvery, call, put} from 'redux-saga/effects';
 import {GET_INVOICE_PAGE} from "../actions/types";
 import {fetchInvoicePage} from "../services/invoice";
 import {getInvoicePageSuccess} from "../actions/invoice";
+import {showModalErrorMessage} from "../actions/app-message";
 
 
 
@@ -17,7 +18,8 @@ function* getInvoicePageFlow(action) {
         console.log('invoice page', invoicePage);
         yield put(getInvoicePageSuccess(invoicePage));
     } catch (e) {
-
+        console.log(e);
+        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  invoice list', details: e}))
     }
 }
 

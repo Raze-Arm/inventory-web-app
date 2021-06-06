@@ -8,8 +8,14 @@ import {connect} from 'react-redux';
 
 
 
-export  default (ChildComponent) => {
+export  default (ChildComponent, authority = '') => {
     class  ComposedComponent extends React.Component {
+        state ={renderChild: false};
+
+
+
+
+
         componentDidMount() {
             this.shouldNavigateAway();
         }
@@ -28,12 +34,20 @@ export  default (ChildComponent) => {
                 console.log('navigated away ...');
                 this.props.history.push('/login');
                 return ;
+            } else
+            if(!this.props.authorities.includes(authority) && authority) {
+                this.props.history.push('/');
+                return ;
+            } else {
+                if(!this.state.renderChild)this.setState({renderChild: true});
             }
+
 
         }
 
         render() {
-            return <ChildComponent {...this.props} />;
+          if(this.state.renderChild)  return <ChildComponent {...this.props} />;
+          else return  <div/>;
         }
 
     }

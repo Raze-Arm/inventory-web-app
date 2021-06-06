@@ -1,9 +1,10 @@
 import React from "react";
 import {connect} from "react-redux";
 import Moment from 'react-moment';
-import {Container, Dimmer, Divider, Header, List, Loader, Segment} from "semantic-ui-react";
+import {Container, Divider, Header, List, Segment} from "semantic-ui-react";
 
 import {getSupplier} from "../../actions/supplier";
+import Loading from "../Loading";
 
 
 class SupplierShow extends React.Component {
@@ -16,7 +17,7 @@ class SupplierShow extends React.Component {
 
     render() {
         const supplier = this.props.supplier;
-        if(!supplier) return <Dimmer><Loader/></Dimmer>
+        if(!supplier) return <Loading />;
         return (
             <Container>
                 <Segment color={"grey"}>

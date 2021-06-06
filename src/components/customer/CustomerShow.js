@@ -1,9 +1,10 @@
 import React from "react";
 import {connect} from "react-redux";
 import Moment from 'react-moment';
-import {Container, Dimmer, Divider, Header, List, Loader, Segment} from "semantic-ui-react";
+import {Container, Divider, Header, List, Segment} from "semantic-ui-react";
 
 import {getCustomer} from "../../actions/customer";
+import Loading from "../Loading";
 
 
 class CustomerShow extends  React.Component {
@@ -16,7 +17,7 @@ class CustomerShow extends  React.Component {
 
     render() {
         const customer = this.props.customer;
-        if(!customer) return <Dimmer><Loader/></Dimmer>
+        if(!customer) return <Loading />
         return (
             <Container>
                 <Segment color={"grey"}>

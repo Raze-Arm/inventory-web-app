@@ -1,0 +1,39 @@
+.pagination {
+    margin: 15px auto;
+    display: flex;
+    list-style: none;
+    outline: none;
+}
+
+.pagination > .active > a{
+    background-color: #47ccde;
+    border-color: #47ccde;
+    color: #fff;
+}
+
+.pagination > li > a {
+    border: 1px solid #47ccde;
+    padding: 5px 10px;
+    outline: none;
+    cursor: pointer;
+}
+
+.ui.pagination.menu .item:focus {
+    border: 2px solid #cfd0d2;
+    outline-color: #cfd0d2;
+}
+.ui.pagination.menu .item {
+    border: 1px solid #cfd0d2;
+    border-radius: 0;
+}
+.ui.pagination.menu .active.item {
+    border: 2px solid #0d71bb !important ;
+    outline-color: #0d71bb;
+
+}
+.ui.pagination.menu .active.item:focus {
+    border: 2px solid #0d71bb !important ;
+    outline-color: #0d71bb;
+
+}
+

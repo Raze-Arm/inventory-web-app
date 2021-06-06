@@ -2,17 +2,19 @@ import React from 'react';
 import {connect} from "react-redux";
 import _ from 'lodash';
 import Moment from "react-moment";
-import {Container, Header, Menu, Segment, Table} from "semantic-ui-react";
+import {Container, Header, Input, Menu, Segment, Table} from "semantic-ui-react";
 
 import {getTransactionPage} from "../../actions/transaction";
+import AppPagination from "../AppPagination";
+import PurchaseTransactionPage from "./PurchaseTransactionPage";
+import SaleTransactionPage from "./SaleTransactionPage";
 
-
+const ALL = 'ALL';
+const PURCHASE = 'PURCHASE';
+const SALE = 'SALE';
 class Index extends React.Component {
-    state = {activeItem: 'All', type: ''};
+    state = {activeItem: ALL , search: ''};
 
-    componentDidMount() {
-        this.props.getTransactionPage({page: 0, size: 50});
-    }
 
     renderHeaders() {
         return (
@@ -30,14 +32,15 @@ class Index extends React.Component {
     }
 
 
-    renderRows() {
+    renderRows = (data) => {
         const {activeItem} = this.state;
-        const items = Object.values(this.props.transactions).filter((tr) => {
-            if(activeItem === 'Purchase') {
+        // const items = Object.values(this.props.transactions || {}).filter((tr) => {
+        const items = Object.values(data || {}).filter((tr) => {
+            if(activeItem === PURCHASE) {
                 if(tr.type === 'purchase') return true;
                 else return false;
             }
-            if(activeItem === 'Sale') {
+            if(activeItem === SALE) {
                 if(tr.type === 'sale') return true;
                 else return false;
             }
@@ -67,48 +70,72 @@ class Index extends React.Component {
     renderTransactionNavigation = () => {
         return (
             <Menu stackable  color={"yellow"} attached={"bottom"}>
-                <Menu.Item header name='All'
-                           active={this.state.activeItem === 'All'}
+                <Menu.Item header name={ALL}
+                           active={this.state.activeItem === ALL}
                            onClick={this.handleItemClick}   />
                 <Menu.Item
-                    name='Purchase'
-                    active={this.state.activeItem === 'Purchase'}
+                    name={PURCHASE}
+                    active={this.state.activeItem === PURCHASE}
                     onClick={this.handleItemClick}
                 />
                 <Menu.Item
-                    name='Sale'
-                    active={this.state.activeItem === 'Sale'}
+                    name={SALE}
+                    active={this.state.activeItem === SALE}
                     onClick={this.handleItemClick}
                 />
             </Menu>
         );
     }
 
-    renderAllTransactions = () => {
+    onSearch = (e ,{value}) => {
+        this.debouncedSearch((search) => this.setState({...this.state, search}), value );
+    }
+    debouncedSearch = _.throttle((onSearch, value) => onSearch(value), 1000,{ leading: false });
+    renderTransactions = () => {
         return (
-            <Table   celled stackable style={{width: '100%', margin: '0', padding: '0'}}>
-                <Table.Header>
-                    {this.renderHeaders()}
-                </Table.Header>
-                <Table.Body>
-                    {this.renderRows()}
-                </Table.Body>
-            </Table>
+            <React.Fragment>
+                <Input icon='search' placeholder='Search...' onChange={this.onSearch}  />
+                <AppPagination fetchPage={({page, size}) => this.props.getTransactionPage({page, size})}
+                               itemList={Object.values(this.props.transactions)} totalElements={this.props.totalElements}
+                               search={this.state.search}
+                               renderHeaders={this.renderHeaders()}
+                               renderRows={this.renderRows} pageCount={this.props.pageCount}/>
+            </React.Fragment>
         );
     }
+
+    renderAllTransactions = () => {
+        const {activeItem} = this.state;
+        switch (activeItem) {
+            case ALL: {
+                return this.renderTransactions();
+            }
+            case PURCHASE: {
+                return <PurchaseTransactionPage />
+            }
+            case  SALE: {
+                return <SaleTransactionPage />
+            }
+            default: {
+                return this.renderTransactions();
+            }
+        }
+    }
+
 
     render() {
 
         return (
             <Container style={{width: '80%', margin: 'auto', marginTop: '1rem'}}>
-                < Header >Tranasction</Header>
 
+                <Header>Transaction</Header>
                 {this.renderTransactionNavigation()}
                 <Segment  secondary  basic style={{ margin: '0', padding: '0'}} >
 
                     {this.renderAllTransactions()}
 
                 </Segment>
+
             </Container>
         );
     }
@@ -117,7 +144,8 @@ class Index extends React.Component {
 
 
 const mapStateToProps = (state) => {
-    return {transactions: state.transaction.items};
+    const {items, totalPages, totalElements} = state.transaction;
+    return {transactions: items, pageCount: totalPages, totalElements};
 }
 
 export default connect(mapStateToProps, {getTransactionPage})(Index);

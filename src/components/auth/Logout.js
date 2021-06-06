@@ -11,6 +11,7 @@ const Logout =  ({logout, username}) => {
 
     const onLogout = () => {
         logout();
+        history.push('/login');
     }
     const onCancel = () => {
         history.push('/');

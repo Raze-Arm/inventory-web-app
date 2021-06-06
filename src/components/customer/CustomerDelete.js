@@ -1,9 +1,10 @@
 import React from "react";
 import {connect} from 'react-redux';
-import {Button, Dimmer, Loader} from "semantic-ui-react";
+import {Button} from "semantic-ui-react";
 
 import Modal from "../Modal";
 import {getCustomer, deleteCustomer} from "../../actions/customer";
+import Loading from "../Loading";
 
 
 
@@ -33,7 +34,8 @@ class CustomerDelete extends React.Component {
 
     render() {
         const customer = this.props.customer;
-        if(!customer) return <Dimmer><Loader /></Dimmer>;
+        if(!customer)  return <Loading />;
+
 
         return  (
             <Modal

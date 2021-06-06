@@ -1,9 +1,10 @@
-import {LOADING, SHOW_ERROR_MESSAGE, SHOW_SUCCESS_MESSAGE} from "../actions/types";
+import {LOADING, SHOW_ERROR_MESSAGE, SHOW_MODAL_ERROR_MESSAGE, SHOW_SUCCESS_MESSAGE} from "../actions/types";
 
 
 const INITIAL_VALUES = {
     success : {},
     error: {},
+    modalError: {},
     isLoading: false,
 }
 
@@ -16,6 +17,9 @@ export const appMessageReducer = (state = INITIAL_VALUES , action) => {
         }
         case SHOW_ERROR_MESSAGE: {
             return  {...state, error: {...action.payload}};
+        }
+        case SHOW_MODAL_ERROR_MESSAGE: {
+            return  {...state ,  modalError: {...action.payload}};
         }
         case LOADING.START:
             return  {...state, isLoading: true};

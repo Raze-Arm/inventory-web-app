@@ -3,13 +3,14 @@ import {Router, Route, Switch} from 'react-router-dom';
 
 import history from "../history";
 
-import SuccessMessage from "./SuccessMessage";
-import ErrorMessage from "./ErrorMessage";
+import SuccessMessage from "./app-message/SuccessMessage";
+import ErrorMessage from "./app-message/ErrorMessage";
 import Login from "./auth/Login";
 import Logout from "./auth/Logout";
 
 import AppRoutes from "./AppRoutes";
 import Loading from "./Loading";
+import ModalErrorMessage from "./app-message/ModalErrorMessage";
 
 
 class App extends React.Component {
@@ -20,7 +21,8 @@ class App extends React.Component {
             <React.Fragment>
                 <SuccessMessage />
                 <ErrorMessage />
-                <Loading />
+                <ModalErrorMessage />
+
 
                     <Router history={history}>
                         <Switch>

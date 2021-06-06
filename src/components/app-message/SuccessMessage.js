@@ -1,7 +1,7 @@
 import React , {useState, useEffect} from 'react';
 import {connect} from "react-redux";
 import {Message, Transition} from "semantic-ui-react";
-import {showSuccessMessage} from "../actions/app-message";
+import {showSuccessMessage} from "../../actions/app-message";
 
 
 const SuccessMessage = ({title, content, showSuccessMessage}) => {

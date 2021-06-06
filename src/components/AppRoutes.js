@@ -30,6 +30,15 @@ import SupplierShow from "./supplier/SupplierShow";
 import NavigationBar from './navigation';
 import Home from "./Home";
 import ProfileUpdate from "./profile/ProfileUpdate";
+import AppBreadcrumb from "./AppBreadcrumb";
+
+import UserPage from './user';
+import UserSave from "./user/UserSave";
+import UserUpdate from "./user/UserUpdate";
+import UserDelete from "./user/UserDelete";
+import UserShow from "./user/UserShow";
+
+import UserActivityPage from "./activity";
 
 const AppRoutes = () => {
 
@@ -37,11 +46,20 @@ const AppRoutes = () => {
     return (
         <React.Fragment>
             <NavigationBar />
-            <div style={{margin: '75px 60px 0 0', }}>
+
+            <div style={{margin: '83px 60px 0 0', }}>
+                <AppBreadcrumb   />
                 <Switch>
                     <Route exact path={'/'} component={requireAuth(Home)} />
 
+                    <Route exact path={'/profile/activity'} component={requireAuth(UserActivityPage)} />
+
                     <Route exact path={'/profile'} component={requireAuth(ProfileUpdate)} />
+                    <Route exact path={'/user'} component={requireAuth(UserPage, 'ROLE_ADMIN')} />
+                    <Route exact path={'/user/save'} component={requireAuth(UserSave, 'ROLE_ADMIN')} />
+                    <Route exact path={'/user/update/:id'} component={requireAuth(UserUpdate, 'ROLE_ADMIN')} />
+                    <Route exact path={'/user/delete/:id'} component={requireAuth(UserDelete, 'ROLE_ADMIN')} />
+                    <Route exact path={'/user/show/:id'} component={requireAuth(UserShow, 'ROLE_ADMIN')} />
 
                     <Route exact path={'/invoice'} component={requireAuth(InvoicePage)} />
 

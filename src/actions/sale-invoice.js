@@ -1,4 +1,21 @@
-import {DELETE_SALE_INVOICE, GET_SALE_INVOICE, GET_SALE_INVOICE_LIST, SAVE_SALE_INVOICE} from "./types";
+import {
+    DELETE_SALE_INVOICE,
+    GET_SALE_INVOICE,
+    GET_SALE_INVOICE_LIST,
+    GET_SALE_INVOICE_PAGE,
+    SAVE_SALE_INVOICE
+} from "./types";
+
+export const getSInvoicePage = ({page, size,sort = 'id',search = ''}) => {
+    return {type: GET_SALE_INVOICE_PAGE.LOAD, payload:{page, size,sort ,search } };
+}
+export const getSInvoicePageSuccess = (invoicePage) => {
+    return {type: GET_SALE_INVOICE_PAGE.SUCCESS, payload: invoicePage};
+}
+export const getSInvoicePageFailed = (error) => {
+    return {type: GET_SALE_INVOICE_PAGE.FAILED, payload: error};
+}
+
 
 
 export const getSInvoiceList = () => {

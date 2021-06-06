@@ -1,22 +1,39 @@
-import React from 'react';
-import {connect} from "react-redux";
-import  { Loader} from "semantic-ui-react";
+import React , {useEffect} from "react";
+import {connect} from 'react-redux';
+import loading from '../images/loading.svg';
+import {Dimmer, Image} from "semantic-ui-react";
 
 
+import {showErrorMessage} from '../actions/app-message';
+import history from "../history";
 
-const Loading  = ({isLoading}) => {
+const Loading = ({showErrorMessage}) => {
+    // const [active, setActive] = useState(false);
+    const handleClose = () => {
+        // setActive(false);
+        // stopLoadingScreen();
+    };
+
+
+    useEffect(() => {
+       const ref=  setTimeout(() => {
+            showErrorMessage({title: 'Error', content: 'Please try again later'});
+            history.goBack();
+        }, 5000);
+        return () => clearTimeout(ref);
+    } , []);
+
+
 
     return (
-        <Loader style={{display: `${isLoading? 'block' : 'none'}` , position: 'fixed' , width: '100%', height: '100%'}}>Loading</Loader>
-        // <Dimmer style={{display: `${isLoading? 'block' : 'none'}`}}><Loading /></Dimmer>
+        <Dimmer style={{opacity: '0.7'}} active onClickOutside={handleClose} page>
+            <React.Fragment>
+                <Image src={loading}  width='50px' style={{marginBottom: '2px'}} />
+                <div>Loading</div>
+            </React.Fragment>
+        </Dimmer>
     );
 }
 
 
-
-const mapStateToProps = (state) => {
-    const isLoading = state.message.isLoading;
-    return {isLoading}
-}
-
-export default connect(mapStateToProps, {})(Loading);
+export default connect(null, {showErrorMessage})(Loading);

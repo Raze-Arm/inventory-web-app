@@ -2,19 +2,22 @@ import React from 'react';
 import {connect} from "react-redux";
 import _ from 'lodash';
 import Moment from "react-moment";
-import {Container, Segment, Table, Menu, Header, Button} from "semantic-ui-react";
+import {Container, Segment, Table, Menu, Header, Button, Input} from "semantic-ui-react";
 
 import {getInvoicePage} from "../../actions/invoice";
 import PurchaseInvoicePage from  '../purchase-invoice';
 import SaleInvoicePage from '../sale-invoice';
 import history from "../../history";
+import AppPagination from "../AppPagination";
 
+
+const ALL = 'ALL';
+const PURCHASE = 'PURCHASE';
+const SALE=  'SALE';
 class Index extends React.Component {
-    state = {activeItem: 'All'};
+    state = {activeItem: ALL, search: ''};
 
-    componentDidMount() {
-        this.props.getInvoicePage({page: 0,size: 50});
-    }
+
 
 
     renderHeaders() {
@@ -32,8 +35,7 @@ class Index extends React.Component {
     }
 
 
-    renderRows() {
-        const items = Object.values(this.props.invoices);
+    renderRows = (items) => {
         return (
             _.map(items , (i) => {
                 if(!i) return ;
@@ -45,8 +47,8 @@ class Index extends React.Component {
                         <Table.Cell>   <Moment
                             format={'YYYY/MM/DD hh:mm'}>{i.createdDate}</Moment></Table.Cell>
                         <Table.Cell>
-                            <Button color={"green"} onClick={() => history.push(`/${i.type}-invoice/show/${i.id}`)}  >Show</Button>
-                            <Button color={"red"} onClick={() => history.push(`/${i.type}-invoice/delete/${i.id}`)}>Delete</Button>
+                            <Button color={"green"} inverted onClick={() => history.push(`/${i.type}-invoice/show/${i.id}`)}  >Show</Button>
+                            <Button color={"red"} inverted onClick={() => history.push(`/${i.type}-invoice/delete/${i.id}`)}>Delete</Button>
                         </Table.Cell>
                     </Table.Row>
                 );
@@ -60,33 +62,37 @@ class Index extends React.Component {
     renderInvoiceNavigation = () => {
         return (
             <Menu stackable  color={"yellow"} attached={"bottom"}>
-                <Menu.Item header name='All'
-                           active={this.state.activeItem === 'All'}
+                <Menu.Item header name={ALL}
+                           active={this.state.activeItem === ALL}
                            onClick={this.handleItemClick}   />
                 <Menu.Item
-                    name='Purchase'
-                    active={this.state.activeItem === 'Purchase'}
+                    name={PURCHASE}
+                    active={this.state.activeItem === PURCHASE}
                     onClick={this.handleItemClick}
                 />
                 <Menu.Item
-                    name='Sale'
-                    active={this.state.activeItem === 'Sale'}
+                    name={SALE}
+                    active={this.state.activeItem === SALE}
                     onClick={this.handleItemClick}
                 />
             </Menu>
         );
     }
-
+    onSearch = (e ,{value}) => {
+        this.debouncedSearch((search) => this.setState({...this.state, search}), value );
+    }
+    debouncedSearch = _.throttle((onSearch, value) => onSearch(value), 1000,{ leading: false });
     renderAllInvoices = () => {
         return (
-            <Table   celled stackable style={{width: '100%', margin: '0', padding: '0'}}>
-                <Table.Header>
-                    {this.renderHeaders()}
-                </Table.Header>
-                <Table.Body>
-                    {this.renderRows()}
-                </Table.Body>
-            </Table>
+            <React.Fragment>
+                <Input icon='search' placeholder='Search...' onChange={this.onSearch}  />
+                <AppPagination fetchPage={({page, size}) => this.props.getInvoicePage({page, size})}
+                               itemList={Object.values(this.props.invoices)} totalElements={this.props.totalElements}
+                               search={this.state.search}
+                               renderHeaders={this.renderHeaders()}
+                               renderRows={this.renderRows} pageCount={this.props.pageCount}/>
+            </React.Fragment>
+
         );
     }
 
@@ -99,9 +105,9 @@ class Index extends React.Component {
                 <Segment  secondary  basic style={{ margin: '0', padding: '0'}} >
 
 
-                    {activeItem === 'All' && this.renderAllInvoices()}
-                    {activeItem === 'Purchase' && <PurchaseInvoicePage />}
-                    {activeItem === 'Sale' && <SaleInvoicePage />}
+                    {activeItem === ALL && this.renderAllInvoices()}
+                    {activeItem === PURCHASE && <PurchaseInvoicePage />}
+                    {activeItem === SALE && <SaleInvoicePage />}
                 </Segment>
             </Container>
         );
@@ -113,7 +119,8 @@ class Index extends React.Component {
 
 
 const mapStateToProps = (state) => {
-    return {invoices: state.invoice.items};
+    const {items, totalPages, totalElements} =  state.invoice;
+    return {invoices: items, pageCount: totalPages, totalElements};
 }
 
 

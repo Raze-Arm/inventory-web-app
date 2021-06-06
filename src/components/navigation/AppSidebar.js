@@ -7,6 +7,7 @@ import {
     Sidebar,
 } from 'semantic-ui-react'
 import history from "../../history";
+import Permission from "../hoc/Permission";
 
 const TRANSACTION = 'transaction';
 const INVOICE = 'invoice';
@@ -15,6 +16,10 @@ const PURCHASE_INVOICE  = 'purchase-invoice';
 const PRODUCT  = 'product';
 const SUPPLIER  = 'supplier';
 const CUSTOMER  = 'customer';
+const USER  = 'user';
+const ACTIVITY = 'profile/activity';
+
+
 const AppSidebar = ({visible, setVisible, selectedItem, setSelectedItem}) => {
 
     const onClickHandler = (e, {name}) => {
@@ -39,6 +44,11 @@ const AppSidebar = ({visible, setVisible, selectedItem, setSelectedItem}) => {
                         style={{ minWidth: '6em', maxWidth: '13%', zIndex: '1001'}}
 
                     >
+
+                        <Menu.Item name={ACTIVITY} active={selectedItem === ACTIVITY} as='a' onClick={onClickHandler} >
+                            <Icon size={"small"} name='history' />
+                            history
+                        </Menu.Item>
                         <Menu.Item name={TRANSACTION} active={selectedItem === TRANSACTION} as='a' onClick={onClickHandler} >
                             <Icon size={"small"} name='clipboard list' />
                             Transaction
@@ -64,7 +74,12 @@ const AppSidebar = ({visible, setVisible, selectedItem, setSelectedItem}) => {
                           </Icon>
                             Supplier
                         </Menu.Item>
-
+                        <Permission authority={'ROLE_ADMIN'}>
+                            <Menu.Item name={USER} active={selectedItem === USER} as='a' onClick={onClickHandler}>
+                                <Icon size={"small"}  name='users' />
+                                User
+                            </Menu.Item>
+                        </Permission>
                         <Menu.Item name={'logout'} style={{borderTop: '1px solid grey'}} as='a' onClick={() => history.push('/logout')}>
                             <Icon size={"small"}  name='log out' />
                             Logout

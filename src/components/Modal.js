@@ -2,10 +2,10 @@ import React from "react";
 import ReactDOM from 'react-dom';
 import './modal.css';
 
-const Modal = ({title, content,actions, onDismiss}) => {
+const Modal = ({title, content,actions, onDismiss , visible = true, ...props}) => {
     return ReactDOM.createPortal(
-        <div onClick={onDismiss} className='ui dimmer modals visible active full-height'>
-            <div onClick={(e) => e.stopPropagation()} className='ui standard modal visible active'>
+        <div onClick={onDismiss} {...props} className={`ui dimmer modals ${visible ? 'active visible' : ''}  full-height`}>
+            <div onClick={(e) => e.stopPropagation()} className={`ui standard modal ${visible ? 'active visible' : ''}`}>
                 <div className='header'>{title}</div>
                 <div className='content'>{content}</div>
                 <div className='actions'>{actions}</div>

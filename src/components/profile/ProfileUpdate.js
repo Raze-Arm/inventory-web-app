@@ -1,33 +1,49 @@
 import React from "react";
+import _ from 'lodash';
 import {connect} from "react-redux";
 import {Dimmer, Loader} from "semantic-ui-react";
 
 
 import ProfileUpdateForm from './ProfileUpdateForm';
 
-import {getUserProfile, updateUserProfile} from "../../actions/profile";
-import _ from "lodash";
+import {getProfile, updateProfile, getProfilePhoto} from "../../actions/profile";
 
+import {SubmissionError} from "redux-form";
 
 
 class ProfileUpdate extends React.Component {
     componentDidMount() {
         const username = this.props.username;
-        if(username)
-            this.props.getUserProfile(username);
+        if(username) {
+            this.props.getProfile(username);
+            this.props.getProfilePhoto(username);
+        }
     }
 
     onUpdate = formValues => {
+        if (formValues.password && !formValues?.confirmPassword) {
+            throw new SubmissionError({confirmPassword: 'Please enter the password again'});
+        }
+        if(formValues.confirmPassword && !formValues.password)
+            throw new SubmissionError({password: 'Please enter the password'})
+        if(formValues?.password && formValues?.confirmPassword &&  formValues?.password !== formValues?.confirmPassword ) {
+            throw  new SubmissionError({ confirmPassword: 'Password Doesnt Match'});
+        }
         const id = this.props.profile.id;
-        console.log('form values', {id, ...formValues});
-        this.props.updateUserProfile({id, ...formValues});
+        const updatedProfile = {id, ..._.omit(formValues, 'confirmPassword') };
+        console.log('form values', updatedProfile);
+        this.props.updateProfile(updatedProfile);
     }
+
 
     render() {
         const profile = this.props.profile;
         if(!profile) return <Dimmer><Loader/></Dimmer>;
         return (
-            <ProfileUpdateForm  initialValues = {_.omit(profile, 'id')}  onSubmit = {this.onUpdate}  />
+            <React.Fragment>
+
+                <ProfileUpdateForm  initialValues = {_.omit(profile, 'id')}  onSubmit = {this.onUpdate}  />
+            </React.Fragment>
         );
     }
 }
@@ -36,9 +52,9 @@ class ProfileUpdate extends React.Component {
 
 const mapStateToProps =(state, props) => {
     const username = state.auth.username;
-    const profile = state.profile.items[username];
+    const profile = state.profile.info;
     return {username , profile};
 }
 
 
-export default connect(mapStateToProps, {getUserProfile, updateUserProfile})(ProfileUpdate);
+export default connect(mapStateToProps, {getProfile, updateProfile, getProfilePhoto})(ProfileUpdate);

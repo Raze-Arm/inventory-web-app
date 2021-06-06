@@ -1,9 +1,10 @@
 import React from "react";
 import {connect} from 'react-redux';
-import {Button, Dimmer, Loader} from "semantic-ui-react";
+import {Button} from "semantic-ui-react";
 
 import Modal from "../Modal";
 import {getSupplier, deleteSupplier} from "../../actions/supplier";
+import Loading from "../Loading";
 
 
 class SupplierDelete extends React.Component {
@@ -31,7 +32,7 @@ class SupplierDelete extends React.Component {
 
     render() {
         const supplier = this.props.supplier;
-        if(!supplier) return <Dimmer><Loader /></Dimmer>;
+        if(!supplier) return <Loading />;
 
         return  (
             <Modal

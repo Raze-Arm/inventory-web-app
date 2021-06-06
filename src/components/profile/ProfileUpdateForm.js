@@ -3,9 +3,19 @@ import _ from "lodash";
 import {Field, Form, reduxForm} from "redux-form";
 
 import * as validator from '../../utility/formValidators';
-import {Button, Container, FormField, Grid, Header, Input, Segment} from "semantic-ui-react";
+import {Button, Container, FormField,  Input} from "semantic-ui-react";
+import ImageInput from "../inputs/ImageInput";
+import PasswordStrengthBar from "react-password-strength-bar";
 
 const FIELDS = {
+    photo: {
+        name: 'photo',
+        render({input, meta}) {
+            return (
+                <ImageInput input={input} />
+            );
+        }
+    },
     firstName: {
         name: 'firstName',
         render({input, meta}) {
@@ -39,24 +49,38 @@ const FIELDS = {
         render({input , meta}) {
             const hasError = !!(meta.error && meta.touched);
             return (
-                <FormField control={Input }   {...input} fluid icon={'lock'} iconPosition={'left'} placeholder={'password'} label={'Password'} type={'password'} error={hasError ? meta.error : null} />
+                <React.Fragment>
+                    <FormField control={Input}   {...input} fluid icon={'lock'} iconPosition={'left'} placeholder={'Password'} label={'Password'} type={'password'} error={hasError ? meta.error : null} />
+                    <PasswordStrengthBar password={input.value} style={{width: '300px'}} />
+                </React.Fragment>
+
             );
         },
         validate: [
             validator.minLength(4),
             validator.maxLength(25)
         ]
-    }
+    },
+    confirmPassword: {
+        name: 'confirmPassword',
+        render({input , meta}) {
+            const hasError = !!(meta.error && meta.touched);
+            return (
+                <React.Fragment>
+                    <FormField control={Input}   {...input} fluid  iconPosition={'left'} placeholder={'Confirm Password'} label={'Confirm Password'} type={'password'} error={hasError ? meta.error : null} />
+                </React.Fragment>
+
+            );
+        },
+    },
 }
+
+
 
 
 const ProfileUpdateForm  = (props) => {
 
 
-    // const onSubmit = event => {
-    //     event.preventDefault();
-    //     console.log(props);
-    // }
 
 
     return (
@@ -73,8 +97,24 @@ const ProfileUpdateForm  = (props) => {
     );
 }
 
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+const asyncValidate = (values/*, dispatch */) => {
+    return  sleep(0).then(async ()  => {
+
+        if(values?.password && values?.confirmPassword &&  values?.password !== values?.confirmPassword ) {
+            await sleep(2000)
+            throw {password: 'Password Doesnt Match', confirmPassword: true};
+        }
+
+        if(values?.password && values.password.length > 0 &&  values?.confirmPassword?.length === 0) throw { confirmPassword: 'Please enter the password again'};
+    })
+
+}
+
 const form = reduxForm({
     form: 'profileForm',
+    asyncValidate,
     enableReinitialize: true,
     destroyOnUnmount: true,
 })(ProfileUpdateForm);

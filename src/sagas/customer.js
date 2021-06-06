@@ -22,8 +22,9 @@ import {
     saveCustomerSuccess,
     updateCustomerSuccess
 } from "../actions/customer";
-import {showErrorMessage, showSuccessMessage} from "../actions/app-message";
+import {showErrorMessage, showModalErrorMessage, showSuccessMessage} from "../actions/app-message";
 
+import history from "../history";
 
 
 function* customerWatcher() {
@@ -42,7 +43,9 @@ function* getCustomerPageFlow(action) {
         console.log('customer page', customerPage);
         yield put(getCustomerPageSuccess(customerPage));
     }catch (e) {
-
+        console.log('error', e);
+        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  customer list', details: e}));
+        history.push('/');
     }
 }
 
@@ -52,7 +55,9 @@ function* getCustomerListFlow(action) {
         console.log('customer list', customerList);
         yield put(getCustomerListSuccess(customerList));
     }catch (e) {
-
+        console.log('error', e);
+        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  customer list', details: e}));
+        history.push('/');
     }
 }
 function* getCustomerFlow(action) {
@@ -63,7 +68,8 @@ function* getCustomerFlow(action) {
         yield put(getCustomerSuccess(customer));
     }catch (e) {
         console.log('error', e);
-        yield put(showErrorMessage({title: 'Error' , content: 'Failed to show customer'}));
+        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to show customer', details: e}));
+        history.push('/customer');
     }
 }
 
@@ -74,10 +80,12 @@ function* saveCustomerFlow(action) {
         customer.id = id ;
         console.log('saved customer', customer);
         yield put(saveCustomerSuccess(customer));
+        history.push(`/customer/show/${id}`);
         yield put(showSuccessMessage({title: 'Saved Successfully',content: 'Customer created successfully'}));
     }catch (e) {
         console.log('error', e);
         yield put(showErrorMessage({title: 'Error' , content: 'Failed to save customer'}));
+        history.push('/customer');
     }
 }
 
@@ -92,6 +100,7 @@ function* updateCustomerFlow(action) {
     } catch (e) {
         console.log('error', e);
         yield put(showErrorMessage({title: 'Error' , content: 'Failed to update customer'}));
+        history.push('/customer');
     }
 }
 
@@ -101,10 +110,12 @@ function* deleteCustomerFlow(action) {
         yield call(deleteCustomer, id);
         console.log('deleted customer', id);
         yield put(deleteCustomerSuccess(id));
+        history.push('/customer');
         yield put(showSuccessMessage({title: 'Customer Deleted ',content: 'Customer deleted successfully'}));
     }catch (e) {
         console.log('error', e);
-        yield put(showErrorMessage({title: 'Error' , content: 'Failed to delete customer'}));
+        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to delete customer', details: e}));
+        history.push('/customer');
     }
 }
 
