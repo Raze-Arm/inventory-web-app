@@ -3,7 +3,7 @@ WORKDIR '/app'
 COPY ./package.json ./
 RUN npm install
 ARG BACKEND_API
-ENV BACKEND_API  ${BACKEND_API}
+ENV REACT_APP_BACKEND_API  ${BACKEND_API}
 
 COPY . .
 RUN npm run build

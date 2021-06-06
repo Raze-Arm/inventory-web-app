@@ -1,9 +1,9 @@
 import axios from "axios";
 import store from "../store";
 import {logout} from "../actions/auth";
-console.log(process.env.BACKEND_API);
+console.log(process.env.REACT_APP_BACKEND_API);
 const api = axios.create({
-    baseURL: process.env.BACKEND_API,
+    baseURL: process.env.REACT_APP_BACKEND_API,
 });
 
 api.interceptors.response.use(function (response) {
