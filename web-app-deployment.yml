@@ -4,7 +4,6 @@ spec:
   image:  razear/mega-electric-web-app:${SHA}
   env:
     - name: REACT_APP_HOST
-      #      value: ${SPRING_PROFILES_ACTIVE}
       secret: backend-api
 
   port_mapping:
