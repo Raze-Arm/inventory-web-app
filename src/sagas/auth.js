@@ -29,8 +29,8 @@ function* authWatcher() {
                 if(isLoggedIn)yield  call(logoutFlow);
             }
         }catch (e) {
+            console.log('error', e);
             yield put(stopLoadingScreen());
-
         }
     }
 
