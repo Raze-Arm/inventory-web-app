@@ -2,8 +2,8 @@ FROM node:alpine as builder
 WORKDIR '/app'
 COPY ./package.json ./
 RUN npm install
-ARG REACT_APP_BACKEND_API
-ENV REACT_APP_BACKEND_API  ${REACT_APP_BACKEND_API}
+ARG BACKEND_API
+ENV REACT_APP_BACKEND_API  ${BACKEND_API}
 
 COPY . .
 RUN npm run build
