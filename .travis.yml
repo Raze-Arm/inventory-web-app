@@ -21,7 +21,7 @@ after_success:
   - fandogh login --username $FANDOGH_USERNAME --password $FANDOGH_PASSWORD
   - fandogh namespace active --name $FANDOGH_NAMESPACE
 before_deploy:
-  - docker build  --build-arg BACKEND_API=$BACKEND_API -t razear/mega-electric-web-app:latest -t razear/mega-electric-web-app:$SHA -f Dockerfile .
+  - docker build  --build-arg REACT_APP_BACKEND_API=REACT_APP_BACKEND_API -t razear/mega-electric-web-app:latest -t razear/mega-electric-web-app:$SHA -f Dockerfile .
 deploy:
   provider: script
   script: bash ./deploy.sh
