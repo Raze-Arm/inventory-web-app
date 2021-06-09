@@ -4,8 +4,8 @@ spec:
   image:  razear/mega-electric-web-app:${SHA}
   port: 3000
   env:
-    - name: BACKEND_API
-      value: ${BACKEND_API}
+    - name: REACT_APP_BACKEND_API
+      value: ${REACT_APP_BACKEND_API}
 #  port_mapping:
 #    - port: 3000
 #      target_port: 3000
