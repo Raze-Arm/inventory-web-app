@@ -28,8 +28,8 @@ const SearchCustomer = ({customers,customer,getCustomerPage,getCustomer,input,ha
                 {/*</div>*/}
 
                 <SearchInput key={"customers"} hasError={hasError} input={input}
-                             placeholder={"Customer Name"}
-                             label={"Customer"} options={_.map(customers, (value,key) => ({id: value.id , name: `${value.firstName}  ${value.lastName}`}))}
+                             placeholder={"نام مشتری"}
+                             label={"مشتری"} options={_.map(customers, (value,key) => ({id: value.id , name: `${value.firstName}  ${value.lastName}`}))}
                              onSearchChange={(search) => getCustomerPage({page: 0,size: 5,search})}
                              defaultSearchQuery={defaultValue|| ''}
                 />

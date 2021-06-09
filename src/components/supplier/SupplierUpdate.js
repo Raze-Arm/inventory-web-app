@@ -23,7 +23,7 @@ class SupplierUpdate extends React.Component {
         const supplier = this.props.supplier;
         if(!supplier) return  <Loading />;
         return  (
-            <SupplierForm initialValues = {_.omit(supplier, 'id')} onSubmit = {this.onUpdate} type={'Update'} />
+            <SupplierForm initialValues = {_.omit(supplier, 'id')} onSubmit = {this.onUpdate} type={'ویرایش'} />
          );
     }
 }

@@ -15,7 +15,7 @@ const FIELDS  = {
         render({input , meta}) {
             const hasError = !!(meta.error && meta.touched);
             return (
-                <Form.Input required {...input} fluid icon={'user'} iconPosition={'left'} placeholder={'username'} error={hasError ? meta.error : null} />
+                <Form.Input required {...input} fluid icon={'user'} iconPosition={'left'} placeholder={'نام کاربری'} error={hasError ? meta.error : null} />
             );
         },
         validate: [
@@ -29,7 +29,7 @@ const FIELDS  = {
         render({input , meta}) {
             const hasError = !!(meta.error && meta.touched);
             return (
-                <Form.Input required {...input} fluid icon={'lock'} iconPosition={'left'} placeholder={'password'} type={'password'} error={hasError ? meta.error : null} />
+                <Form.Input required {...input} fluid icon={'lock'} iconPosition={'left'} placeholder={'رمز عبور'} type={'password'} error={hasError ? meta.error : null} />
             );
         },
         validate: [
@@ -54,13 +54,13 @@ const Login = ({ handleSubmit, login, isLoading}) => {
         <Container>
             <Grid textAlign={'center'} style={{height: '100vh'}}  verticalAlign={"middle"}>
                 <Grid.Column style={{maxWidth: '450'}}>
-                    <Header>Log in to your account</Header>
+                    <Header>وارد حساب کاربری خود شوید</Header>
                     <Form onSubmit={handleSubmit(onSubmit)} size={'large'}>
                         <Segment stacked>
                             {_.map(FIELDS, ({name,render,validate,normalize},index) => {
                                 return <Field key={index} name={name} component={render} validate={validate} normalize={normalize} />;
                             })}
-                            <Button type={'submit'} color={'facebook'} fluid size={'large'} >Login</Button>
+                            <Button type={'submit'} color={'facebook'} fluid size={'large'} >ورود</Button>
                         </Segment>
 
                     </Form>

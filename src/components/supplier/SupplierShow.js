@@ -5,7 +5,8 @@ import {Container, Divider, Header, List, Segment} from "semantic-ui-react";
 
 import {getSupplier} from "../../actions/supplier";
 import Loading from "../Loading";
-
+import moment from "jalali-moment";
+import {convertToPersianNumber} from "../../utility/numberConverter";
 
 class SupplierShow extends React.Component {
 
@@ -21,7 +22,7 @@ class SupplierShow extends React.Component {
         return (
             <Container>
                 <Segment color={"grey"}>
-                    <Header>Supplier</Header>
+                    <Header>فروشنده</Header>
                     <Divider />
                     <List divided relaxed>
                         <List.Item>
@@ -38,7 +39,9 @@ class SupplierShow extends React.Component {
                         </List.Item>
                         <List.Item>
                             <List.Header>Created Date</List.Header>
-                            {supplier.createdDate ? <Moment format={'YYYY/MM/DD hh:mm'}>{supplier.createdDate}</Moment> : <br />}
+                            {supplier.createdDate ?
+                                convertToPersianNumber(moment(supplier.createdDate, 'YYYY/MM/DD hh:mm').locale('fa').format('hh:mm , YYYY/MM/DD'))
+                                : <br />}
                         </List.Item>
                     </List>
                 </Segment>

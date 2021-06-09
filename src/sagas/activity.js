@@ -24,7 +24,7 @@ function* getUserActivityPageFlow(action) {
         yield put(getUserActivityPageSuccess(activityPage));
     }catch (e) {
         console.log('error', e);
-        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  activity list', details: e}));
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متاسفانه لیست فعالیت ها دریافت نشد', details: e}));
     }
 }
 
@@ -36,7 +36,7 @@ function* getActivityPageFlow(action) {
         yield put(getActivityPageSuccess(activityPage));
     }catch (e) {
         console.log('error', e);
-        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  activity list', details: e}));
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متاسفانه لیست فعالیت ها دریافت نشد', details: e}));
     }
 }
 
@@ -48,7 +48,7 @@ function* getActivityByUsernameFlow(action) {
         yield put(getActivityPageByUsernameSuccess(activityPage));
     }catch (e) {
         console.log('error', e);
-        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  activity list', details: e}));
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متاسفانه لیست فعالیت ها دریافت نشد', details: e}));
     }
 }
 

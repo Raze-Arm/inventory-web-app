@@ -17,7 +17,7 @@ const PRODUCT  = 'product';
 const SUPPLIER  = 'supplier';
 const CUSTOMER  = 'customer';
 const USER  = 'user';
-const ACTIVITY = 'profile/activity';
+const ACTIVITY = 'profile/history';
 const NavigationBar = ({username, profile, history}) => {
     const [activeItem, setActiveItem] = useState('');
     const [showSidebar, setShowSidebar] = useState(false);
@@ -37,6 +37,7 @@ const NavigationBar = ({username, profile, history}) => {
         if(pathname.includes(`/${SUPPLIER}`)) setActiveItem(SUPPLIER);
         if(pathname.includes(`/${CUSTOMER}`)) setActiveItem(CUSTOMER);
         if(pathname.includes(`/${ACTIVITY}`)) setActiveItem(ACTIVITY);
+        if(pathname.includes(`/${USER}`)) setActiveItem(USER);
     }, [pathname]);
 
 
@@ -73,20 +74,19 @@ const NavigationBar = ({username, profile, history}) => {
     return (
       <React.Fragment>
           <Menu  inverted  style={{backgroundColor: '#2496ed' ,paddingTop: '7px',direction: 'rtl', position: 'fixed', zIndex: '1000', margin: '0', width: '100%', height: '63px'}}  >
-              <Menu.Item name={BARS}  active={showSidebar } onClick={() => setShowSidebar(!showSidebar)}  >
+              <Menu.Item name={BARS} style={{width: '80.7px'}}  active={showSidebar } onClick={() => setShowSidebar(!showSidebar)}  >
                   <Icon name={'bars'} size={"large"}/>
               </Menu.Item>
               <Menu.Item name={HOME} active={activeItem === HOME} onClick={onClickHandler} >
-                  Home
+                  خانه
               </Menu.Item>
 
               <Menu.Item  position={'left'}>
                   <Dropdown trigger={renderProfileImage()} inline>
                       <Dropdown.Menu>
-                          <Dropdown.Item onClick={onProfileClick} text='Profile' as={'a'}/>
+                          <Dropdown.Item onClick={onProfileClick} text='مشخصات' as={'a'}/>
                           <Dropdown.Divider/>
-                          <Dropdown.Item as={'a'} onClick={onLogout}><Icon name={'log out'} color={'red'}/><b>Log
-                              out</b><span
+                          <Dropdown.Item as={'a'} onClick={onLogout}><Icon name={'log out'} color={'red'}/><b>خروج</b><span
                               className={'description'}>ctrl + o</span> </Dropdown.Item>
                       </Dropdown.Menu>
                   </Dropdown>

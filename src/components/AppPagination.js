@@ -1,9 +1,8 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, createRef} from "react";
 import _ from 'lodash';
 import { Pagination, Table} from "semantic-ui-react";
 import './AppPagination.css';
-
-
+import {convertToPersianNumber} from "../utility/numberConverter";
 
 
 const SamplePagination = ({itemList, fetchPage, renderHeaders, renderRows, pageCount, totalElements, search = ''}) => {
@@ -13,14 +12,15 @@ const SamplePagination = ({itemList, fetchPage, renderHeaders, renderRows, pageC
     const [currentPage, setCurrentPage] = useState(0);
     const [paginateTotalPages, setPaginateTotalPages] = useState(0);
     const [fetchSize, setFetchSize] = useState(100);
-    const [perPage, setPerPage] = useState(4);
-
+    const [perPage, setPerPage] = useState(10);
+    const [counter, setCounter] =useState(0);
     const [loading, setLoading] = useState(false);
+    const paginationRef  = createRef();
+
 
     useEffect(() => {
          fetchPage({page: 0 , size: fetchSize});
     },[]);
-
 
 
 
@@ -68,10 +68,19 @@ const SamplePagination = ({itemList, fetchPage, renderHeaders, renderRows, pageC
 
     }
 
+    useEffect(() => {
+        if(paginationRef.current) {
+            const elements = document.querySelectorAll('.ui.pagination.menu .item');
+            _.forEach(elements, (e, i) => e.innerHTML = convertToPersianNumber(e.innerHTML))
+        }
+    }, [paginationRef]);
+
+
     if(loading) return 'loading';
+
     return (
-        <React.Fragment >
-            <Table celled textAlign={"left"}  structured   >
+        <React.Fragment  >
+            <Table celled textAlign={"left"}   structured   id={'pagination'}  compact   style={{margin: 'auto', marginTop: '10px', }}  >
                 <thead>
 
                 {renderHeaders}
@@ -82,11 +91,15 @@ const SamplePagination = ({itemList, fetchPage, renderHeaders, renderRows, pageC
                 </tbody>
                 <tfoot >
                 <Table.Row textAlign={"center"} >
-                    <th    colSpan={'100%'}>
+                    <th    colSpan={'100%'} >
                         <Pagination    totalPages={paginateTotalPages}
                                       onPageChange={handlePageClick}
                                       activePage={currentPage + 1}
+                                       ref={paginationRef}
                         />
+                    </th>
+                    <th style={{border: '1px solid grey', fontSize: 'x-small'}}>
+                        <span style={{color: '#778899',  }}>{(currentPage * perPage + pageItems.length).toLocaleString('fa')} از {totalElements.toLocaleString('fa')}</span>
                     </th>
                 </Table.Row>
 

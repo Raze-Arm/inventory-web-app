@@ -61,16 +61,16 @@ const TransactionForm = (props) => {
                     setProduct(pr);
                 }} />
 
-                <FormField key={product.quantity} control={Input}   label={'Quantity'} defaultValue={product.quantity || 0} className={'form-input__rtl'} onChange={(event, {value}) => {
+                <FormField key={product.quantity} control={Input}   label={'تعداد'} defaultValue={product.quantity || 0} className={'form-input__rtl'} onChange={(event, {value}) => {
                         setTransaction({...transaction, quantity: value});
                 }} />
 
-                <FormField  key={product.price} control={Input} label={'Price'} defaultValue={product.price || 0}  className={'form-input__rtl'} onChange={(event, {value}) => {
+                <FormField  key={product.price} control={Input} label={'قیمت'} defaultValue={product.price || 0}  className={'form-input__rtl'} onChange={(event, {value}) => {
                     setTransaction({...transaction, price: value});
 
                 }} />
 
-                <FormField key={product.description} control={Input}  label={'Description'} defaultValue={product.description || ''}  className={'form-input__rtl'} onChange={(event, {value}) => {
+                <FormField key={product.description} control={Input}  label={'توضیحات'} defaultValue={product.description || ''}  className={'form-input__rtl'} onChange={(event, {value}) => {
                     setTransaction({...transaction, description: value});
 
                 }} />
@@ -102,10 +102,10 @@ const TransactionForm = (props) => {
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell>#</Table.HeaderCell>
-                            <Table.HeaderCell>Product</Table.HeaderCell>
-                            <Table.HeaderCell>QTY</Table.HeaderCell>
-                            <Table.HeaderCell>Price</Table.HeaderCell>
-                            <Table.HeaderCell>Desc</Table.HeaderCell>
+                            <Table.HeaderCell>محصول</Table.HeaderCell>
+                            <Table.HeaderCell>تعداد</Table.HeaderCell>
+                            <Table.HeaderCell>قیمت</Table.HeaderCell>
+                            <Table.HeaderCell>توضیح</Table.HeaderCell>
                             <Table.HeaderCell></Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>

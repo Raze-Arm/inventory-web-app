@@ -1,14 +1,13 @@
 import React from 'react';
 import {connect} from "react-redux";
 import _ from 'lodash';
-import Moment from "react-moment";
-import {Button, Input, Table} from "semantic-ui-react";
-
+import {Button, Container, Header, Input, Segment, Table} from "semantic-ui-react";
 
 import {getPInvoicePage} from '../../actions/purchase-invoice';
 import history from "../../history";
 import AppPagination from "../AppPagination";
-
+import moment from "jalali-moment";
+import {convertToPersianNumber} from "../../utility/numberConverter";
 
 class Index extends React.Component {
     state = {search: ''}
@@ -17,10 +16,10 @@ class Index extends React.Component {
         return (
             <React.Fragment>
                 <Table.Row>
-                    <Table.HeaderCell>Id</Table.HeaderCell>
-                    <Table.HeaderCell>Supplier</Table.HeaderCell>
-                    <Table.HeaderCell>Total Price</Table.HeaderCell>
-                    <Table.HeaderCell>Created</Table.HeaderCell>
+                    <Table.HeaderCell>شناسه</Table.HeaderCell>
+                    <Table.HeaderCell>تامین کننده</Table.HeaderCell>
+                    <Table.HeaderCell>قیمت کل</Table.HeaderCell>
+                    <Table.HeaderCell>تاریخ</Table.HeaderCell>
                     <Table.HeaderCell></Table.HeaderCell>
                 </Table.Row>
             </React.Fragment>
@@ -37,11 +36,12 @@ class Index extends React.Component {
                         <Table.Cell>{i.id}</Table.Cell>
                         <Table.Cell>{i?.supplier?.firstName} {i?.supplier?.lastName}</Table.Cell>
                         <Table.Cell>{totalPrice || 0}</Table.Cell>
-                        <Table.Cell>   <Moment
-                            format={'YYYY/MM/DD hh:mm'}>{i.createdDate}</Moment></Table.Cell>
                         <Table.Cell>
-                                <Button color={"green"} inverted onClick={() => history.push(`/purchase-invoice/show/${i.id}`)}  >Show</Button>
-                                <Button color={"red"} inverted onClick={() => history.push(`/purchase-invoice/delete/${i.id}`)}>Delete</Button>
+                            {convertToPersianNumber(moment(i.createdDate, 'YYYY/MM/DD hh:mm').locale('fa').format('hh:mm , YYYY/MM/DD'))}
+                        </Table.Cell>
+                        <Table.Cell>
+                                <Button color={"green"} inverted onClick={() => history.push(`/purchase-invoice/show/${i.id}`)}  >نمایش</Button>
+                                <Button color={"red"} inverted onClick={() => history.push(`/purchase-invoice/delete/${i.id}`)}>حذف</Button>
                         </Table.Cell>
                     </Table.Row>
                 );
@@ -55,19 +55,39 @@ class Index extends React.Component {
         this.debouncedSearch((search) => this.setState({...this.state, search}), value );
     }
     debouncedSearch = _.throttle((onSearch, value) => onSearch(value), 1000,{ leading: false });
-    render() {
+
+    renderWithoutStyle() {
         return (
             <React.Fragment >
+                <Input icon='search' placeholder='جستجو...' onChange={this.onSearch}  />
+                <AppPagination fetchPage={({page, size}) => this.props.getPInvoicePage({page, size})}
+                               itemList={Object.values(this.props.invoices)} totalElements={this.props.totalElements}
+                               search={this.state.search}
+                               renderHeaders={this.renderHeaders()}
+                               renderRows={this.renderRows} pageCount={this.props.pageCount}/>
 
-                        <Input icon='search' placeholder='Search...' onChange={this.onSearch}  />
-                        <AppPagination fetchPage={({page, size}) => this.props.getPInvoicePage({page, size})}
-                                       itemList={Object.values(this.props.invoices)} totalElements={this.props.totalElements}
-                                       search={this.state.search}
-                                       renderHeaders={this.renderHeaders()}
-                                       renderRows={this.renderRows} pageCount={this.props.pageCount}/>
-
-                <Button style={{marginTop: '1rem'}} color={'facebook'} floated={'right'} onClick={this.onCreate}>Create</Button>
+                <Button style={{marginTop: '1rem'}} color={'facebook'} floated={'right'} onClick={this.onCreate}>افزودن</Button>
             </React.Fragment>
+        );
+    }
+
+    render() {
+        const  path = history.location.pathname;
+        if(path === '/invoice') return  this.renderWithoutStyle();
+        return (
+            <Container >
+                < Header >صورتحساب</Header>
+                <Segment  secondary  basic style={{ margin: '0', padding: '0'}} >
+                    <Input icon='search' placeholder='جستجو...' onChange={this.onSearch}  />
+                    <AppPagination fetchPage={({page, size}) => this.props.getPInvoicePage({page, size})}
+                                   itemList={Object.values(this.props.invoices)} totalElements={this.props.totalElements}
+                                   search={this.state.search}
+                                   renderHeaders={this.renderHeaders()}
+                                   renderRows={this.renderRows} pageCount={this.props.pageCount}/>
+
+                    <Button style={{marginTop: '1rem'}} color={'facebook'} floated={'right'} onClick={this.onCreate}>افزودن</Button>
+                </Segment>
+            </Container>
         );
     }
 

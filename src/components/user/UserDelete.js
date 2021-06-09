@@ -24,8 +24,8 @@ class UserDelete extends React.Component {
     renderActions = () => {
         return (
             <React.Fragment >
-                <Button color={"red"} onClick={() => this.onCancel()} >Cancel</Button>
-                <Button color={"green"} onClick={() => this.onDelete()} >Delete</Button>
+                <Button color={"red"} onClick={() => this.onCancel()} >لغو</Button>
+                <Button color={"green"} onClick={() => this.onDelete()} >حذف</Button>
             </React.Fragment>
         );
     }
@@ -37,8 +37,8 @@ class UserDelete extends React.Component {
 
         return  (
             <Modal
-                title={"Delete User"}
-                content={`Are You Sure , You Want To Delete User : ${user.firstName} ${user.lastName || ''}`}
+                title={"حذف کاربر"}
+                content={`آیا مطمئن هستید ، می خواهید کاربر را حذف کنید:${user.firstName} ${user.lastName || ''}`}
                 actions={this.renderActions()}
                 onDismiss={() => this.onCancel()}
             > </Modal>

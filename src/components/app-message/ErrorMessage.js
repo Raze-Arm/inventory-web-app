@@ -19,7 +19,7 @@ const ErrorMessage = ({title, content, showErrorMessage}) => {
     return (
         <Transition visible={visible} animation={"fade down"} duration={1000} onHide={() => showErrorMessage({})} >
             <Message  style={{position: 'fixed', zIndex: '1005', width: '100%', top: '0' , margin: '0', }} color={"red"} negative>
-                <Message.Header style={{textAlign: 'center'}}>{title || 'Failed'}</Message.Header>
+                <Message.Header style={{textAlign: 'center'}}>{title || 'ناموفق'}</Message.Header>
                 <p style={{textAlign: 'center'}} >
                     {content || ''}
                 </p>

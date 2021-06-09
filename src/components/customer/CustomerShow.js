@@ -1,11 +1,11 @@
 import React from "react";
 import {connect} from "react-redux";
-import Moment from 'react-moment';
 import {Container, Divider, Header, List, Segment} from "semantic-ui-react";
 
 import {getCustomer} from "../../actions/customer";
 import Loading from "../Loading";
-
+import moment from "jalali-moment";
+import {convertToPersianNumber} from "../../utility/numberConverter";
 
 class CustomerShow extends  React.Component {
 
@@ -21,24 +21,27 @@ class CustomerShow extends  React.Component {
         return (
             <Container>
                 <Segment color={"grey"}>
-                    <Header>Customer</Header>
+                    <Header>مشتری</Header>
                     <Divider />
                     <List divided relaxed>
                         <List.Item>
-                            <List.Header>First Name</List.Header>
+                            <List.Header>نام</List.Header>
                             {customer.firstName}
                         </List.Item>
                         <List.Item>
-                            <List.Header>Last Name</List.Header>
+                            <List.Header>نام خانوادگی</List.Header>
                             {customer.lastName || <br />}
                         </List.Item>
                         <List.Item>
-                            <List.Header>Address</List.Header>
+                            <List.Header>آدرس</List.Header>
                             {customer.address || <br />}
                         </List.Item>
                         <List.Item>
-                            <List.Header>Created Date</List.Header>
-                            {customer.createdDate ? <Moment format={'YYYY/MM/DD hh:mm'}>{customer.createdDate}</Moment> : <br />}
+                            <List.Header>تاریخ</List.Header>
+                            {customer.createdDate ?
+                                // <Moment format={'YYYY/MM/DD hh:mm'}>{customer.createdDate}</Moment>
+                                convertToPersianNumber(moment(customer.createdDate, 'YYYY/MM/DD hh:mm').locale('fa').format('hh:mm , YYYY/MM/DD'))
+                                : <br />}
                         </List.Item>
                     </List>
                 </Segment>

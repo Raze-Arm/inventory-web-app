@@ -24,8 +24,8 @@ class SupplierDelete extends React.Component {
     renderActions = () => {
         return (
             <React.Fragment >
-                <Button color={"red"} onClick={() => this.onCancel()} >Cancel</Button>
-                <Button color={"green"} onClick={() => this.onDelete()} >Delete</Button>
+                <Button color={"red"} onClick={() => this.onCancel()} >لغو</Button>
+                <Button color={"green"} onClick={() => this.onDelete()} >حذف</Button>
             </React.Fragment>
         );
     }
@@ -36,8 +36,8 @@ class SupplierDelete extends React.Component {
 
         return  (
             <Modal
-                title={"Delete Supplier"}
-                content={`Are You Sure , You Want To Delete Supplier : ${supplier.firstName} ${supplier.lastName || ''}`}
+                title={"حذف فروشنده"}
+                content={`آیا مطمئن هستید ، می خواهید فروشنده را حذف کنید:${supplier.firstName} ${supplier.lastName || ''}`}
                 actions={this.renderActions()}
                 onDismiss={() => this.onCancel()}
             > </Modal>

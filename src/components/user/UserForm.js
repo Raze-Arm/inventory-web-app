@@ -21,13 +21,13 @@ const FIELDS = {
         render({input, meta}) {
             const hasError = !!(meta.error && meta.touched);
             return (
-                <FormField control={Input } required {...input} fluid icon={'user'} iconPosition={'left'} placeholder={'first name'} label={'First Name'} error={hasError ? meta.error : null}  />
+                <FormField control={Input } required {...input} fluid icon={'user'} iconPosition={'left'} placeholder={'نام'} label={'نام'} error={hasError ? meta.error : null}  />
             );
         },
         validate: [
             validator.required,
             validator.minLength(3),
-            validator.maxLength(15),
+            validator.maxLength(30),
         ]
     },
     lastName: {
@@ -35,13 +35,13 @@ const FIELDS = {
         render({input, meta}) {
             const hasError = !!(meta.error && meta.touched);
             return (
-                <FormField control={Input }  required {...input} fluid  iconPosition={'left'} placeholder={'last name'}  label={'Last Name'} error={hasError ? meta.error : null} />
+                <FormField control={Input }  required {...input} fluid  iconPosition={'left'} placeholder={'نام خانوادگی'}  label={'نام خانوادگی'} error={hasError ? meta.error : null} />
             );
         },
         validate: [
             validator.required,
             validator.minLength(3),
-            validator.maxLength(15),
+            validator.maxLength(30),
         ],
 
     },
@@ -50,13 +50,13 @@ const FIELDS = {
         render({input, meta}) {
             const hasError = !!(meta.error && meta.touched);
             return (
-                <FormField control={Input } required {...input} fluid icon={'user circle'} iconPosition={'left'} placeholder={'username'} label={'Username'} error={hasError ? meta.error : null}  />
+                <FormField control={Input } required {...input} fluid icon={'user circle'} iconPosition={'left'} placeholder={'نام کاربری'} label={'نام کاربری'} error={hasError ? meta.error : null}  />
             );
         },
         validate: [
             validator.required,
             validator.minLength(3),
-            validator.maxLength(15),
+            validator.maxLength(30),
         ]
     },
     password: {
@@ -65,15 +65,15 @@ const FIELDS = {
             const hasError = !!(meta.error && meta.touched);
             return (
                 <React.Fragment>
-                    <FormField control={Input}   {...input} fluid icon={'lock'} iconPosition={'left'} placeholder={'Password'} label={'Password'} type={'password'} error={hasError ? meta.error : null} />
+                    <FormField control={Input}   {...input} fluid icon={'lock'} iconPosition={'left'} placeholder={'رمز عبور'} label={'رمز عبور'} type={'password'} error={hasError ? meta.error : null} />
                     <PasswordStrengthBar password={input.value} style={{width: '300px'}} />
                 </React.Fragment>
 
              );
         },
         validate: [
-            validator.minLength(4),
-            validator.maxLength(25)
+            validator.minLength(8),
+            validator.maxLength(35)
         ]
     },
     confirmPassword: {
@@ -82,7 +82,7 @@ const FIELDS = {
             const hasError = !!(meta.error && meta.touched);
             return (
                 <React.Fragment>
-                    <FormField control={Input}   {...input} fluid  iconPosition={'left'} placeholder={'Confirm Password'} label={'Confirm Password'} type={'password'} error={hasError ? meta.error : null} />
+                    <FormField control={Input}   {...input} fluid  iconPosition={'left'} placeholder={'تکرار رمز عبور'} label={'تکرار رمز عبور'} type={'password'} error={hasError ? meta.error : null} />
                 </React.Fragment>
 
             );
@@ -97,9 +97,9 @@ const FIELDS = {
             return (
                 <React.Fragment>
                     <select  className={`ui field selection  dropdown item ${hasError}`} {...input}>
-                        <option value={'BASIC'}>BASIC</option>
-                        <option value={'USER'}>USER</option>
-                        <option value={'ADMIN'}>ADMIN</option>
+                        <option value={'BASIC'}>ساده</option>
+                        <option value={'USER'}>کاربر</option>
+                        <option value={'ADMIN'}>ادمین</option>
                     </select>
                     {hasError ? <div className="ui pointing red basic label">{meta.error}</div> : null}
                 </React.Fragment>
@@ -140,7 +140,7 @@ const asyncValidate = (values/*, dispatch */) => {
                 //     await sleep(2000);
                 //     throw {password: 'Password Doesnt Match', confirmPassword: true};
                 // }
-                if(values?.password &&  values?.confirmPassword?.length === 0) throw { confirmPassword: 'Please enter the password again'};
+                if(values?.password &&  values?.confirmPassword?.length === 0) throw { confirmPassword: 'لطفاً دوباره رمز ورود را وارد کنید'};
     })
 
 }

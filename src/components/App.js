@@ -11,6 +11,7 @@ import Logout from "./auth/Logout";
 import AppRoutes from "./AppRoutes";
 import Loading from "./Loading";
 import ModalErrorMessage from "./app-message/ModalErrorMessage";
+import {Image} from "semantic-ui-react";
 
 
 class App extends React.Component {

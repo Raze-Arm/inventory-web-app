@@ -12,13 +12,13 @@ const FIELDS = {
         render({input, meta, ...props}) {
             const hasError = !!(meta.error && meta.touched);
             return (
-                <FormField control={Input} {...input} error={hasError ? meta.error : null} label={'Name'} />
+                <FormField control={Input} {...input} error={hasError ? meta.error : null} label={'نام'} />
             );
         },
         validate: [
             validator.required,
             validator.minLength(3),
-            validator.maxLength(15),
+            validator.maxLength(30),
         ]
     },
     price: {
@@ -26,14 +26,14 @@ const FIELDS = {
         render({input, meta, ...props}) {
             const hasError = !!(meta.error && meta.touched);
             return (
-                <FormField control={Input} {...input} error={hasError ? meta.error : null} label={'Price'} />
+                <FormField control={Input} {...input} error={hasError ? meta.error : null} label={'قیمت'} />
             );
         },
         validate: [
             validator.required,
             validator.number,
             validator.minValue(0),
-            validator.maxLength(20),
+            validator.maxLength(30),
         ]
     },
     salePrice: {
@@ -41,14 +41,14 @@ const FIELDS = {
         render({input, meta, ...props}) {
             const hasError = !!(meta.error && meta.touched);
             return (
-                <FormField control={Input} {...input} error={hasError ? meta.error : null} label={'Sale Price'} />
+                <FormField control={Input} {...input} error={hasError ? meta.error : null} label={'قیمت فروش'} />
             );
         },
         validate: [
             validator.required,
             validator.number,
             validator.minValue(0),
-            validator.maxLength(20),
+            validator.maxLength(30),
         ]
     },
     description: {
@@ -56,13 +56,9 @@ const FIELDS = {
         render({input, meta, ...props}) {
             const hasError = !!(meta.error && meta.touched);
             return (
-                <FormField control={TextArea} {...input} error={hasError ? meta.error : null} label={'Description'} />
+                <FormField control={TextArea} {...input} error={hasError ? meta.error : null} label={'توضیحات'} />
             );
         },
-        validate: [
-            validator.minLength(3),
-            validator.maxLength(15),
-        ]
     }
 }
 
@@ -76,7 +72,7 @@ const ProductForm = (props) => {
                         <Field key={name} name={name} component={render} validate={validate}/>
                     );
                 })}
-                <Button primary  type={'submit'} style={{marginTop: '1rem'}}>{props.type || 'Save'}</Button>
+                <Button primary  type={'submit'} style={{marginTop: '1rem'}}>{props.type || 'ذخیره'}</Button>
             </Form>
         </Container>
     );

@@ -17,8 +17,8 @@ const SearchProduct = ({products,product,getProductPage,getProduct,input,hasErro
     }, [product]);
     return (
         <SearchInput key={"products"} hasError={hasError} input={input}
-                     placeholder={"Product Name"}
-                     label={"Product"} options={_.map(products, (value,key) => (value))}
+                     placeholder={"نام محصول"}
+                     label={"محصول"} options={_.map(products, (value,key) => (value))}
                      onSelect={onSelect}
                      onSearchChange={(search) => getProductPage({page: 0,size: 5,search})}
                      defaultSearchQuery={defaultValue|| ''}

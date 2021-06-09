@@ -39,7 +39,7 @@ function* getInvoicePageFlow(action) {
         yield put(getSInvoicePageSuccess(invoicePage));
     }catch (e) {
         console.log('error', e);
-        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  invoice list', details: e}));
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: e}));
         history.push('/');
     }
 }
@@ -51,7 +51,7 @@ function* getInvoiceListFlow(action) {
         yield put(getSInvoiceListSuccess(invoiceList));
     }catch (e) {
         console.log('error', e);
-        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  invoice', details: e}));
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: e}));
         history.push('/');
     }
 }
@@ -63,7 +63,7 @@ function* getInvoiceFlow(action) {
         yield put(getSInvoiceSuccess(invoice));
     }catch (e) {
         console.log('error', e);
-        yield put(showErrorMessage({title: 'Error' , content: 'Failed to show invoice'}));
+        yield put(showErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید'}));
         history.push('/sale-invoice');
     }
 }
@@ -75,10 +75,10 @@ function* saveInvoiceFlow(action) {
         console.log('saved sale invoice', invoice);
         yield put(saveSInvoiceSuccess(invoice));
         history.push(`/sale-invoice/show/${id}`);
-        yield put(showSuccessMessage({title: 'Saved Successfully',content: 'Invoice created successfully'}));
+        yield put(showSuccessMessage({title: 'عملیات موفق',content: 'صورتحساب با موفقیت ایجاد شد'}));
     }catch (e) {
         console.log('error', e);
-        yield put(showErrorMessage({title: 'Error' , content: 'Failed to save product'}));
+        yield put(showErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید'}));
         history.push('/sale-invoice');
     }
 }
@@ -90,10 +90,10 @@ function* deleteInvoiceFlow(action) {
         console.log('deleted sale invoice', id);
         yield put(deleteSInvoiceSuccess(id));
         history.push('/sale-invoice');
-        yield put(showSuccessMessage({title: 'Saved Successfully',content: 'Invoice created successfully'}));
+        yield put(showSuccessMessage({title: 'عملیات موفق',content: 'صورتحساب با موفقیت حذف شد'}));
     }catch (e) {
         console.log('error', e);
-        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to save invoice', details: e}))
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: e}))
         history.push('/sale-invoice');
     }
 }

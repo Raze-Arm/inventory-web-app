@@ -1,4 +1,12 @@
-import {DELETE_USER, GET_USER, GET_USER_PAGE, GET_USER_PHOTO, SAVE_USER, UPDATE_USER} from "./types";
+import {
+    DELETE_USER, GET_PHOTO_BY_USERNAME,
+    GET_USER,
+    GET_USER_BY_USERNAME,
+    GET_USER_PAGE,
+    GET_USER_PHOTO,
+    SAVE_USER,
+    UPDATE_USER
+} from "./types";
 
 
 export const getUserPage = ({page, size,sort = 'id',search = ''}) => {
@@ -20,6 +28,17 @@ export const getUserSuccess = (user) => {
 }
 export const getUserFailed = (error) => {
     return {type: GET_USER.FAILED, payload: error};
+}
+
+
+export const getUserByUsername = (username) => {
+    return {type: GET_USER_BY_USERNAME.LOAD, payload: username};
+}
+export const getUserByUsernameSuccess = (user) => {
+    return {type: GET_USER_BY_USERNAME.SUCCESS, payload: user};
+}
+export const getUserByUsernameFailed = (error) => {
+    return {type: GET_USER_BY_USERNAME.FAILED, payload: error};
 }
 
 export const saveUser = (user) => {
@@ -53,6 +72,15 @@ export const getUserPhotoFailed = (error) => {
     return {type: GET_USER_PHOTO.FAILED, payload: error};
 }
 
+export const getPhotoByUsername = (username) => {
+    return {type: GET_PHOTO_BY_USERNAME.LOAD, payload: username};
+}
+export const getPhotoByUsernameSuccess = ({username, photo}) => {
+    return {type: GET_PHOTO_BY_USERNAME.SUCCESS, payload: {username , photo}};
+}
+export const getPhotoByUsernameFailed = (error) => {
+    return {type: GET_PHOTO_BY_USERNAME.FAILED, payload: error};
+}
 
 export const deleteUser = (id) => {
     return {type: DELETE_USER.LOAD, payload: id};

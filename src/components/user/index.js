@@ -2,12 +2,12 @@ import React from 'react';
 import {connect} from "react-redux";
 import _ from 'lodash';
 import {Button, Container, Header, Input, Segment, Table} from "semantic-ui-react";
-import Moment from "react-moment";
 
 import {getUserPage} from "../../actions/user";
 import history from "../../history";
 import AppPagination from '../AppPagination';
-
+import moment from "jalali-moment";
+import {convertToPersianNumber} from "../../utility/numberConverter";
 
 
 class Index extends React.Component {
@@ -17,12 +17,12 @@ class Index extends React.Component {
         return (
             <React.Fragment>
                 <Table.Row textAlign={"center"}>
-                    <Table.HeaderCell>Id</Table.HeaderCell>
-                    <Table.HeaderCell>First Name</Table.HeaderCell>
-                    <Table.HeaderCell>Last Name</Table.HeaderCell>
-                    <Table.HeaderCell>Username</Table.HeaderCell>
-                    <Table.HeaderCell>ROLE</Table.HeaderCell>
-                    <Table.HeaderCell>Created</Table.HeaderCell>
+                    <Table.HeaderCell>شناسه</Table.HeaderCell>
+                    <Table.HeaderCell>نام</Table.HeaderCell>
+                    <Table.HeaderCell>نام خانوادگی</Table.HeaderCell>
+                    <Table.HeaderCell>نام کاربری</Table.HeaderCell>
+                    <Table.HeaderCell>نقش</Table.HeaderCell>
+                    <Table.HeaderCell>تاریخ</Table.HeaderCell>
                     <Table.HeaderCell></Table.HeaderCell>
                 </Table.Row>
             </React.Fragment>
@@ -41,12 +41,13 @@ class Index extends React.Component {
                         <Table.Cell>{p.lastName}</Table.Cell>
                         <Table.Cell>{p.username}</Table.Cell>
                         <Table.Cell>{p.role}</Table.Cell>
-                        <Table.Cell> {p.createdDate ?  <Moment
-                            format={'YYYY/MM/DD hh:mm'}>{p.createdDate}</Moment> : ''}</Table.Cell>
+                        <Table.Cell> {p.createdDate ?
+                            convertToPersianNumber(moment(p.createdDate, 'YYYY/MM/DD hh:mm').locale('fa').format('hh:mm , YYYY/MM/DD'))
+                            : ''}</Table.Cell>
                         <Table.Cell collapsing   >
-                            <Button color={"green"} inverted onClick={() => history.push(`/user/show/${p.id}`)}  >Show</Button>
-                            <Button color={"blue"} inverted onClick={() => history.push(`/user/update/${p.id}`)}  >Update</Button>
-                            <Button color={"red"}  inverted onClick={() => history.push(`/user/delete/${p.id}`)}>Delete</Button>
+                            <Button color={"green"} inverted onClick={() => history.push(`/user/show/${p.id}`)}  >نمایش</Button>
+                            <Button color={"blue"} inverted onClick={() => history.push(`/user/update/${p.id}`)}  >ویرایش</Button>
+                            <Button color={"red"}  inverted onClick={() => history.push(`/user/delete/${p.id}`)}>حذف</Button>
                         </Table.Cell>
                     </Table.Row>
                 );
@@ -64,10 +65,10 @@ class Index extends React.Component {
     render() {
         return (
             <Container style={{width: '80%', margin: 'auto', marginTop: '1rem'}} >
-                <Segment  secondary  basic style={{ margin: '0', padding: '0'}} >
-                    <Header>Product</Header>
+                <Segment  secondary   basic style={{ marginRight: '20px', padding: '0'}} >
+                    <Header>کاربر</Header>
                     <React.Fragment>
-                        <Input icon='search' placeholder='Search...' onChange={this.onSearch}  />
+                        <Input icon='search' style={{marginBottom: '10px'}}  placeholder='جستجو...' onChange={this.onSearch}  />
                         <AppPagination fetchPage={({page, size}) => this.props.getUserPage({page, size})}
                                        itemList={Object.values(this.props.users)} totalElements={this.props.totalElements}
                                        search={this.state.search}
@@ -75,7 +76,7 @@ class Index extends React.Component {
                                        renderRows={this.renderRows} pageCount={this.props.pageCount}/>
                     </React.Fragment>
                 </Segment>
-                <Button style={{marginTop: '1rem'}} color={'facebook'} floated={"right"} onClick={this.onCreate}>Create</Button>
+                <Button style={{marginTop: '1rem'}} color={'facebook'} floated={"right"} onClick={this.onCreate}>افزودن</Button>
             </Container>
         );
     }

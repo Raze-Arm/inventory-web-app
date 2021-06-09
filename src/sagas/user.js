@@ -1,10 +1,26 @@
 import {takeEvery, call, put} from 'redux-saga/effects';
-import {DELETE_USER, GET_USER, GET_USER_PAGE, GET_USER_PHOTO, SAVE_USER, UPDATE_USER} from "../actions/types";
+import {
+    DELETE_USER, GET_PHOTO_BY_USERNAME,
+    GET_USER,
+    GET_USER_BY_USERNAME,
+    GET_USER_PAGE,
+    GET_USER_PHOTO,
+    SAVE_USER,
+    UPDATE_USER
+} from "../actions/types";
 import {showErrorMessage, showModalErrorMessage, showSuccessMessage} from "../actions/app-message";
 
-import  {fetchUser, fetchUserPage, postUser, updateUser, downloadUserPhoto, deleteUser} from '../services/user';
 import {
-    deleteUserSuccess,
+    fetchUser,
+    fetchUserPage,
+    postUser,
+    updateUser,
+    downloadUserPhoto,
+    deleteUser,
+    fetchUserByUsername, downloadPhotoByUsername
+} from '../services/user';
+import {
+    deleteUserSuccess, getPhotoByUsernameSuccess, getUserByUsernameSuccess,
     getUserPageSuccess, getUserPhotoSuccess,
     getUserSuccess,
     saveUserSuccess,
@@ -16,10 +32,12 @@ import history from "../history";
 function* userWatcher() {
     yield takeEvery(GET_USER_PAGE.LOAD, getUserPageFlow);
     yield takeEvery(GET_USER.LOAD, getUserFlow);
+    yield takeEvery(GET_USER_BY_USERNAME.LOAD, getUserByUsernameFlow);
     yield takeEvery(SAVE_USER.LOAD, saveUserFlow);
     yield takeEvery(UPDATE_USER.LOAD, updateUserFlow);
     yield takeEvery(DELETE_USER.LOAD, deleteUserFlow);
     yield takeEvery(GET_USER_PHOTO.LOAD , getUserPhotoFlow);
+    yield takeEvery(GET_PHOTO_BY_USERNAME.LOAD, getPhotoByUsernameFlow);
 }
 
 function* getUserPageFlow(action) {
@@ -31,7 +49,7 @@ function* getUserPageFlow(action) {
         yield put(getUserPageSuccess(userPage));
     } catch (e) {
         console.log('error', e);
-        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  user list', details: e}))
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: e}))
     }
 }
 
@@ -44,10 +62,21 @@ function* getUserFlow(action) {
         yield put(getUserSuccess(user));
     } catch (e) {
         console.log('error', e);
-        yield put(showErrorMessage({title: 'Error' , content: 'Failed to get user'}));
+        yield put(showErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید'}));
     }
 }
+function* getUserByUsernameFlow(action) {
+    const username =action.payload;
 
+    try{
+        const user = yield call(fetchUserByUsername, username);
+        console.log('user', user);
+        yield put(getUserByUsernameSuccess(user));
+    }catch (e) {
+        console.log('error', e);
+        yield put(showErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید'}))
+    }
+}
 
 function* saveUserFlow(action) {
     const user = action.payload;
@@ -56,11 +85,11 @@ function* saveUserFlow(action) {
         user.id = id;
         yield put(saveUserSuccess(user));
         history.push(`/user/show/${id}`);
-        yield put(showSuccessMessage({title: 'Saved Successfully',content: 'User created successfully'}));
+        yield put(showSuccessMessage({title: 'عملیات موفق',content: 'کاربر با موفقیت ایجاد شد'}));
 
     }catch (e) {
         console.log('error', e);
-        yield put(showErrorMessage({title: 'Error' , content: 'Failed to save user '}));
+        yield put(showErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید'}));
     }
 }
 
@@ -70,10 +99,10 @@ function* updateUserFlow(action) {
         const updatedUser = yield call(updateUser, user);
         console.log('updated user', updatedUser);
         yield put(updateUserSuccess(updatedUser));
-        yield put(showSuccessMessage({title: 'Updated Successfully',content: 'User updated successfully'}))
+        yield put(showSuccessMessage({title: 'عملیات موفق',content: 'کاربر با موفقیت ویرایش شد'}))
     }catch (e) {
         console.log('error', e);
-        yield put(showErrorMessage({title: 'Error' , content: 'Failed to update user'}));
+        yield put(showErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید'}));
     }
 }
 
@@ -83,11 +112,11 @@ function* deleteUserFlow(action) {
         yield call(deleteUser, id);
         console.log('deleted user', id);
         yield put(deleteUserSuccess(id));
-        yield put(showSuccessMessage({title: 'User Deleted ',content: 'User deleted successfully'}));
+        yield put(showSuccessMessage({title: 'عملیات موفق',content: 'کاربر با موفقیت حذف شد'}));
         history.push('/user');
     }catch (e) {
         console.log('error', e);
-        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to delete User', details: e}));
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: e}));
     }
 }
 
@@ -99,7 +128,20 @@ function* getUserPhotoFlow(action) {
         yield put(getUserPhotoSuccess({id, photo}));
     }catch (e) {
         console.log('error', e);
-        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  user', details: e}));
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: e}));
+    }
+}
+
+function* getPhotoByUsernameFlow(action) {
+    const username = action.payload;
+
+    try {
+        const photo = yield call(downloadPhotoByUsername, username);
+        console.log('user photo', photo);
+        yield put(getPhotoByUsernameSuccess({username, photo}));
+    }catch (e) {
+        console.log('error', e);
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: e}));
     }
 }
 

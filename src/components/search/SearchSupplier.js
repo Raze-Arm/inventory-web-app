@@ -31,8 +31,8 @@ const SearchSupplier = ({suppliers,supplier,getSupplierPage,getSupplier,input,ha
                 {/*</div>*/}
 
                 <SearchInput key={"suppliers"} hasError={hasError} input={input}
-                             placeholder={"Supplier Name"}
-                             label={"Supplier"} options={_.map(suppliers, (value,key) => ({id: value.id , name: `${value.firstName}  ${value.lastName}`}))}
+                             placeholder={"نام فروشنده"}
+                             label={"فروشنده"} options={_.map(suppliers, (value,key) => ({id: value.id , name: `${value.firstName}  ${value.lastName}`}))}
                              onSearchChange={(search) => getSupplierPage({page: 0,size: 5,search})}
                              defaultSearchQuery={defaultValue|| ''}
                 />

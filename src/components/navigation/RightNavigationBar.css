@@ -1,0 +1,8 @@
+
+
+
+@media (max-width: 550px) {
+    #right-nav {
+        display: none;
+    }
+}

@@ -1,12 +1,12 @@
 import React from 'react';
 import {connect} from "react-redux";
 import _ from 'lodash';
-import Moment from "react-moment";
 import {Input, Table} from "semantic-ui-react";
 
 import {getSaleTrPage} from "../../actions/transaction";
 import AppPagination from "../AppPagination";
-
+import moment from "jalali-moment";
+import {convertToPersianNumber} from "../../utility/numberConverter";
 
 class  SaleTransactionPage extends  React.Component {
     state = {search: ''}
@@ -14,11 +14,11 @@ class  SaleTransactionPage extends  React.Component {
         return (
             <React.Fragment>
                 <Table.Row>
-                    <Table.HeaderCell>Id</Table.HeaderCell>
-                    <Table.HeaderCell>Product</Table.HeaderCell>
-                    <Table.HeaderCell>Price</Table.HeaderCell>
-                    <Table.HeaderCell>Quantity</Table.HeaderCell>
-                    <Table.HeaderCell>createdDate</Table.HeaderCell>
+                    <Table.HeaderCell>شناسه</Table.HeaderCell>
+                    <Table.HeaderCell>محصول</Table.HeaderCell>
+                    <Table.HeaderCell>قیمت</Table.HeaderCell>
+                    <Table.HeaderCell>تعداد</Table.HeaderCell>
+                    <Table.HeaderCell>تاریخ</Table.HeaderCell>
                 </Table.Row>
             </React.Fragment>
         );
@@ -34,8 +34,9 @@ class  SaleTransactionPage extends  React.Component {
                         <Table.Cell>{tr.productName}</Table.Cell>
                         <Table.Cell>{tr.price}</Table.Cell>
                         <Table.Cell>{tr.quantity}</Table.Cell>
-                        <Table.Cell>   <Moment
-                            format={'YYYY/MM/DD hh:mm'}>{tr.createdDate}</Moment></Table.Cell>
+                        <Table.Cell>
+                            {convertToPersianNumber(moment(tr.createdDate, 'YYYY/MM/DD hh:mm').locale('fa').format('hh:mm , YYYY/MM/DD'))}
+                        </Table.Cell>
 
                     </Table.Row>
                 );
@@ -49,7 +50,7 @@ class  SaleTransactionPage extends  React.Component {
     render() {
         return (
             <React.Fragment>
-                <Input icon='search' placeholder='Search...' onChange={this.onSearch}  />
+                <Input icon='search' placeholder='جستجو...' onChange={this.onSearch}  />
                 <AppPagination fetchPage={({page, size}) => this.props.getSaleTrPage({page, size})}
                                itemList={Object.values(this.props.transactions)} totalElements={this.props.totalElements}
                                search={this.state.search}

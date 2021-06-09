@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
     "glob": "^7.1.7",
+    "jalali-moment": "^3.3.10",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "react": "^16.4.2",

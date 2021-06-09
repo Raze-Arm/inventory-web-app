@@ -8,6 +8,8 @@ import {getProductPage} from '../../actions/product';
 import history from "../../history";
 import AppPagination from "../AppPagination";
 
+import moment from "jalali-moment";
+import {convertToPersianNumber} from "../../utility/numberConverter";
 class Index extends React.Component {
     state = {search: ''}
 
@@ -16,12 +18,12 @@ class Index extends React.Component {
         return (
             <React.Fragment>
                 <Table.Row textAlign={"center"}>
-                    <Table.HeaderCell>Id</Table.HeaderCell>
-                    <Table.HeaderCell>Name</Table.HeaderCell>
-                    <Table.HeaderCell>Quantity</Table.HeaderCell>
-                    <Table.HeaderCell>Price</Table.HeaderCell>
-                    <Table.HeaderCell>Sale Price</Table.HeaderCell>
-                    <Table.HeaderCell>Created</Table.HeaderCell>
+                    <Table.HeaderCell>شناسه</Table.HeaderCell>
+                    <Table.HeaderCell>نام</Table.HeaderCell>
+                    <Table.HeaderCell>تعداد</Table.HeaderCell>
+                    <Table.HeaderCell>قیمت</Table.HeaderCell>
+                    <Table.HeaderCell>قیمت فروش</Table.HeaderCell>
+                    <Table.HeaderCell>تارخ</Table.HeaderCell>
                     <Table.HeaderCell></Table.HeaderCell>
                 </Table.Row>
             </React.Fragment>
@@ -38,12 +40,14 @@ class Index extends React.Component {
                         <Table.Cell>{p.quantity || 0}</Table.Cell>
                         <Table.Cell>{p.price || ''}</Table.Cell>
                         <Table.Cell>{p.salePrice || ''}</Table.Cell>
-                        <Table.Cell> {p.createdDate ?  <Moment
-                            format={'YYYY/MM/DD hh:mm'}>{p.createdDate}</Moment> : ''}</Table.Cell>
+                        <Table.Cell> {p.createdDate ?
+                            convertToPersianNumber(moment(p.createdDate, 'YYYY/MM/DD hh:mm').locale('fa').format('hh:mm , YYYY/MM/DD'))
+                            : ''}
+                        </Table.Cell>
                         <Table.Cell collapsing   >
-                                <Button color={"green"} inverted onClick={() => history.push(`/product/show/${p.id}`)}  >Show</Button>
-                                <Button color={"blue"} inverted onClick={() => history.push(`/product/update/${p.id}`)}  >Update</Button>
-                                <Button color={"red"}  inverted onClick={() => history.push(`/product/delete/${p.id}`)}>Delete</Button>
+                                <Button color={"green"} inverted onClick={() => history.push(`/product/show/${p.id}`)}  >نمایش</Button>
+                                <Button color={"blue"} inverted onClick={() => history.push(`/product/update/${p.id}`)}  >ویرایش</Button>
+                                <Button color={"red"}  inverted onClick={() => history.push(`/product/delete/${p.id}`)}>حذف</Button>
                         </Table.Cell>
                     </Table.Row>
                 );
@@ -61,9 +65,9 @@ class Index extends React.Component {
         return (
             <Container style={{width: '80%', margin: 'auto', marginTop: '1rem'}} >
                 <Segment  secondary  basic style={{ margin: '0', padding: '0'}} >
-                    <Header>Product</Header>
+                    <Header>محصول</Header>
                     <React.Fragment>
-                        <Input icon='search' placeholder='Search...' onChange={this.onSearch}  />
+                        <Input icon='search' placeholder='جستجو...' onChange={this.onSearch}  />
                         <AppPagination fetchPage={({page, size}) => this.props.getProductPage({page, size})}
                                        itemList={Object.values(this.props.products)} totalElements={this.props.totalElements}
                                        search={this.state.search}

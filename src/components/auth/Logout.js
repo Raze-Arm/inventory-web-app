@@ -20,8 +20,8 @@ const Logout =  ({logout, username}) => {
     const renderActions = () => {
         return (
             <React.Fragment >
-                <Button color={"red"} onClick={() => onCancel()} >Cancel</Button>
-                <Button color={"green"} onClick={() => onLogout()} >Logout</Button>
+                <Button color={"red"} onClick={() => onCancel()} >لغو</Button>
+                <Button color={"green"} onClick={() => onLogout()} >خروج</Button>
             </React.Fragment>
         );
     }
@@ -30,8 +30,8 @@ const Logout =  ({logout, username}) => {
     return (
 
         <Modal
-            title={"Logout "}
-            content={`Are You Sure , You Want To Logout From This Site : ${username} `}
+            title={"خروج "}
+            content={ `آیا مطمئن هستید ، می خواهید از این سایت خارج شوید:` + username}
             actions={renderActions()}
             onDismiss={() => onCancel()}
         > </Modal>

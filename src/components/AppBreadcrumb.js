@@ -4,6 +4,45 @@ import { Breadcrumb} from "semantic-ui-react";
 import history from "../history";
 
 
+const convertToFarsi = (str) => {
+    let farsiStr = str;
+    switch (str) {
+        case 'customer': farsiStr = 'مشتری';
+            break;
+        case  'supplier': farsiStr = 'فروشنده';
+            break;
+        case  'product': farsiStr = 'محصول';
+            break;
+        case  'user': farsiStr = 'کاربر';
+            break;
+        case  'sale-invoice': farsiStr = 'صورتحساب فروش';
+            break;
+        case  'sale-transaction': farsiStr = 'تراکنش فروش';
+            break;
+        case  'purchase-invoice': farsiStr = 'صورتحساب خرید';
+            break;
+        case  'purchase-transaction': farsiStr = 'تراکنش خرید';
+            break;
+        case  'invoice': farsiStr = 'صورتحساب';
+            break;
+        case  'transaction': farsiStr = 'تراکنش';
+            break;
+        case  'show': farsiStr = 'نمایش';
+            break;
+        case  'delete': farsiStr = 'حذف';
+            break;
+        case  'update': farsiStr = 'ویرایش';
+            break;
+        case  'profile': farsiStr = 'مشخصات';
+            break;
+        case  'activity': farsiStr = 'فعالیت';
+            break;
+        case  'history': farsiStr = 'تاریخچه';
+            break;
+    }
+    return farsiStr;
+}
+
 
 const AppBreadcrumb  = () => {
     const {pathname} = history.location;
@@ -12,7 +51,7 @@ const AppBreadcrumb  = () => {
     return (
         <React.Fragment  >
             <Breadcrumb style={{direction: 'rtl', marginRight: '50px', marginBottom: '20px', display: 'block'}}>
-                {pathname !== '/' ? <Breadcrumb.Section  onClick={() => history.push('/')} link>Home</Breadcrumb.Section> : null}
+                {pathname !== '/' ? <Breadcrumb.Section  onClick={() => history.push('/')} link>خانه</Breadcrumb.Section> : null}
                 {_.map(paths, (p,i) => {
                     if(!p) return ;
                     const active =  !notRoutablePaths.includes(p) && !_.isNumber(p);
@@ -22,8 +61,8 @@ const AppBreadcrumb  = () => {
                             <Breadcrumb.Divider />
                             {/*{!isLast ? <Breadcrumb.Divider /> : null}*/}
                             {active && !isLast ? <Breadcrumb.Section onClick={() => history.push(`/${p}`)} link
-                                                                     active={isLast}>{p}</Breadcrumb.Section> :
-                                <Breadcrumb.Section active={isLast}>{p}</Breadcrumb.Section>}
+                                                                     active={isLast}>{convertToFarsi(p)}</Breadcrumb.Section> :
+                                <Breadcrumb.Section active={isLast}>{convertToFarsi(p)}</Breadcrumb.Section>}
 
                         </React.Fragment>
                     );

@@ -22,12 +22,12 @@ class ProfileUpdate extends React.Component {
 
     onUpdate = formValues => {
         if (formValues.password && !formValues?.confirmPassword) {
-            throw new SubmissionError({confirmPassword: 'Please enter the password again'});
+            throw new SubmissionError({confirmPassword: 'لطفاً دوباره رمز ورود را وارد کنید'});
         }
         if(formValues.confirmPassword && !formValues.password)
-            throw new SubmissionError({password: 'Please enter the password'})
+            throw new SubmissionError({password: 'لطفا رمز عبور را وارد کنید'})
         if(formValues?.password && formValues?.confirmPassword &&  formValues?.password !== formValues?.confirmPassword ) {
-            throw  new SubmissionError({ confirmPassword: 'Password Doesnt Match'});
+            throw  new SubmissionError({ confirmPassword: 'رمز عبور مطابقت ندارد'});
         }
         const id = this.props.profile.id;
         const updatedProfile = {id, ..._.omit(formValues, 'confirmPassword') };

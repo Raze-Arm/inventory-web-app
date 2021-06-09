@@ -44,7 +44,7 @@ function* getSupplierPageFlow(action) {
         yield put(getSupplierPageSuccess(supplierPage));
     }catch (e) {
         console.log('error', e);
-        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  supplier list', details: e}));
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: e}));
         history.push('/');
     }
 }
@@ -56,7 +56,7 @@ function* getSupplierListFlow(action) {
         yield put(getSupplierListSuccess(supplierList));
     }catch (e) {
         console.log('error', e);
-        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  supplier', details: e}));
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: e}));
         history.push('/');
     }
 }
@@ -69,7 +69,7 @@ function* getSupplierFlow(action) {
         yield put(getSupplierSuccess(supplier));
     }catch (e) {
         console.log('error', e);
-        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to show supplier', details: e}));
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: e}));
         history.push('/supplier');
     }
 }
@@ -82,10 +82,10 @@ function* saveSupplierFlow(action) {
         console.log('saved supplier', supplier);
         yield put(saveSupplierSuccess(supplier));
         history.push(`/supplier/show/${id}`);
-        yield put(showSuccessMessage({title: 'Saved Successfully',content: 'Supplier created successfully'}));
+        yield put(showSuccessMessage({title: 'عملیات موفق',content: 'فروشنده با موفقیت ایجاد شد'}));
     }catch (e) {
         console.log('error', e);
-        yield put(showErrorMessage({title: 'Error' , content: 'Failed to save supplier'}));
+        yield put(showErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید'}));
         history.push('/supplier');
     }
 }
@@ -96,10 +96,10 @@ function* updateSupplierFlow(action) {
         const updatedSupplier = yield call(updateSupplier, supplier);
         console.log('updated supplier', updatedSupplier);
         yield put(updateSupplierSuccess(supplier));
-        yield put(showSuccessMessage({title: 'Updated Successfully',content: 'Supplier updated successfully'}));
+        yield put(showSuccessMessage({title: 'عملیات موفق',content: 'فروشنده با موفقیت ویرایش شد'}));
     }catch (e) {
         console.log('error', e);
-        yield put(showErrorMessage({title: 'Error' , content: 'Failed to update supplier'}));
+        yield put(showErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید'}));
         history.push('/supplier');
     }
 }
@@ -111,10 +111,10 @@ function* deleteSupplierFlow(action) {
         console.log('deleted supplier', id);
         yield put(deleteSupplierSuccess(id));
         history.push('/supplier');
-        yield put(showSuccessMessage({title: 'Supplier Deleted ',content: 'Supplier deleted successfully'}));
+        yield put(showSuccessMessage({title: 'عملیات موفق',content: 'فروشنده با موفقیت حذف شد'}));
     }catch (e) {
         console.log('error', e);
-        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to delete supplier', details: e}));
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: e}));
         history.push('/supplier');
     }
 }

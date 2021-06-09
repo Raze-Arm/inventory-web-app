@@ -47,23 +47,23 @@ const AppSidebar = ({visible, setVisible, selectedItem, setSelectedItem}) => {
 
                         <Menu.Item name={ACTIVITY} active={selectedItem === ACTIVITY} as='a' onClick={onClickHandler} >
                             <Icon size={"small"} name='history' />
-                            history
+                            تاریخچه
                         </Menu.Item>
                         <Menu.Item name={TRANSACTION} active={selectedItem === TRANSACTION} as='a' onClick={onClickHandler} >
                             <Icon size={"small"} name='clipboard list' />
-                            Transaction
+                            تراکنش
                         </Menu.Item>
                         <Menu.Item name={INVOICE} active={selectedItem === INVOICE} as='a' onClick={onClickHandler} >
                             <Icon size={"tiny"} name='warehouse' />
-                            Invoice
+                            صورتحساب
                         </Menu.Item>
                         <Menu.Item name={PRODUCT} active={selectedItem === PRODUCT} as='a' onClick={onClickHandler}>
                             <Icon  size={"small"} name='box' />
-                            Product
+                            محصول
                         </Menu.Item>
                         <Menu.Item name={CUSTOMER} active={selectedItem === CUSTOMER} as='a' onClick={onClickHandler}>
                             <Icon size={"small"}  name='user' />
-                            Customer
+                            مشتری
                         </Menu.Item>
                         <Menu.Item name={SUPPLIER} active={selectedItem === SUPPLIER} as='a' onClick={onClickHandler}>
                           <Icon>
@@ -72,17 +72,17 @@ const AppSidebar = ({visible, setVisible, selectedItem, setSelectedItem}) => {
                                   <Icon  name={'shopping cart'} corner={"bottom right"}/>
                               </Icon.Group>
                           </Icon>
-                            Supplier
+                            تامین کننده
                         </Menu.Item>
                         <Permission authority={'ROLE_ADMIN'}>
                             <Menu.Item name={USER} active={selectedItem === USER} as='a' onClick={onClickHandler}>
                                 <Icon size={"small"}  name='users' />
-                                User
+                                کاربر
                             </Menu.Item>
                         </Permission>
                         <Menu.Item name={'logout'} style={{borderTop: '1px solid grey'}} as='a' onClick={() => history.push('/logout')}>
                             <Icon size={"small"}  name='log out' />
-                            Logout
+                            خروج
                         </Menu.Item>
                     </Sidebar>
 

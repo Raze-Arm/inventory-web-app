@@ -24,9 +24,9 @@ const ImageInput = ({input, photoUrl}) => {
 
 
     return (
-        <Image   style={{marginLeft: '50vh', margin: 'auto', width: '250px'}} fluid
+        <Image   style={{marginLeft: '50vh', margin: 'auto', width: '250px', height: '200px'}} fluid
                 label={{ as: 'a', color: 'red', corner: 'right', icon: 'edit' , onClick:  event => onProfileEditClick(event) }}
-                src={photo ? window.URL.createObjectURL( photo) : placeholder}  />
+                src={photo !== null && photo?.size > 100 ? window.URL.createObjectURL( photo) : placeholder}  />
     );
 }
 

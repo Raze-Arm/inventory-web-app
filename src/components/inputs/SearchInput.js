@@ -59,7 +59,7 @@ const SearchInput = ({hasError, ...props}) => {
                 <label>{props.label}</label>
                 <input  key={props.label}  {...inputProps} onBlur={() => props.input?.onBlur()}   />
                 {hasError? <div className="ui pointing red basic label">
-                    Please enter a value
+                    لطفاً مقداری وارد کنید
                 </div> : ''}
             </div>
         );
