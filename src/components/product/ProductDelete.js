@@ -27,8 +27,8 @@ class ProductDelete extends React.Component {
     renderActions = () => {
         return (
             <React.Fragment >
-                <Button color={"red"} onClick={() => this.onCancel()} >Cancel</Button>
-                <Button color={"green"} onClick={() => this.onDelete()} >Delete</Button>
+                <Button color={"red"} onClick={() => this.onCancel()} >لغو</Button>
+                <Button color={"green"} onClick={() => this.onDelete()} >حذف</Button>
             </React.Fragment>
         );
     }
@@ -39,8 +39,8 @@ class ProductDelete extends React.Component {
 
         return  (
             <Modal
-                title={"Delete Product"}
-                content={`Are You Sure , You Want To Delete Product : ${product.name}`}
+                title={"حذف محصول"}
+                content={`آیا مطمئن هستید ، می خواهید محصول را حذف کنید: ${product.name}`}
                 actions={this.renderActions()}
                 onDismiss={() => this.onCancel()}
             > </Modal>

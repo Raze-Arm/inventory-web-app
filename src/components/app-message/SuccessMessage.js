@@ -18,7 +18,7 @@ const SuccessMessage = ({title, content, showSuccessMessage}) => {
     return (
         <Transition visible={visible} animation={"fade down"} duration={1000} onHide={() => showSuccessMessage({})} >
             <Message style={{position: 'fixed', zIndex: '1005', width: '100%', top: '0' , margin: '0'  }} color={"green"} positive>
-                <Message.Header style={{textAlign: 'center'}} >{title || 'Successful'}</Message.Header>
+                <Message.Header style={{textAlign: 'center'}} >{title || 'موفق'}</Message.Header>
                 <p style={{textAlign: 'center'}}>
                     {content || ''}
                 </p>

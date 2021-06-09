@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
 import _ from 'lodash';
-import Moment from "react-moment";
 import {Container, Segment, Table, Menu, Header, Button, Input} from "semantic-ui-react";
 
 import {getInvoicePage} from "../../actions/invoice";
@@ -9,11 +8,12 @@ import PurchaseInvoicePage from  '../purchase-invoice';
 import SaleInvoicePage from '../sale-invoice';
 import history from "../../history";
 import AppPagination from "../AppPagination";
+import moment from "jalali-moment";
+import {convertToPersianNumber} from "../../utility/numberConverter";
 
-
-const ALL = 'ALL';
-const PURCHASE = 'PURCHASE';
-const SALE=  'SALE';
+const ALL = 'همه';
+const PURCHASE = 'خرید';
+const SALE=  'فروش';
 class Index extends React.Component {
     state = {activeItem: ALL, search: ''};
 
@@ -24,10 +24,10 @@ class Index extends React.Component {
         return (
             <React.Fragment>
                 <Table.Row>
-                    <Table.HeaderCell>Id</Table.HeaderCell>
-                    <Table.HeaderCell>Name</Table.HeaderCell>
-                    <Table.HeaderCell>type</Table.HeaderCell>
-                    <Table.HeaderCell>Created</Table.HeaderCell>
+                    <Table.HeaderCell>شناسه</Table.HeaderCell>
+                    <Table.HeaderCell>نام</Table.HeaderCell>
+                    <Table.HeaderCell>نوع</Table.HeaderCell>
+                    <Table.HeaderCell>تاریخ</Table.HeaderCell>
                     <Table.HeaderCell></Table.HeaderCell>
                 </Table.Row>
             </React.Fragment>
@@ -44,11 +44,12 @@ class Index extends React.Component {
                         <Table.Cell>{i.id}</Table.Cell>
                         <Table.Cell>{i.name}</Table.Cell>
                         <Table.Cell>{i.type}</Table.Cell>
-                        <Table.Cell>   <Moment
-                            format={'YYYY/MM/DD hh:mm'}>{i.createdDate}</Moment></Table.Cell>
                         <Table.Cell>
-                            <Button color={"green"} inverted onClick={() => history.push(`/${i.type}-invoice/show/${i.id}`)}  >Show</Button>
-                            <Button color={"red"} inverted onClick={() => history.push(`/${i.type}-invoice/delete/${i.id}`)}>Delete</Button>
+                            {convertToPersianNumber(moment(i.createdDate, 'YYYY/MM/DD hh:mm').locale('fa').format('hh:mm - YYYY/MM/DD'))}
+                        </Table.Cell>
+                        <Table.Cell>
+                            <Button color={"green"} inverted onClick={() => history.push(`/${i.type}-invoice/show/${i.id}`)}  >نمایش</Button>
+                            <Button color={"red"} inverted onClick={() => history.push(`/${i.type}-invoice/delete/${i.id}`)}>حذف</Button>
                         </Table.Cell>
                     </Table.Row>
                 );
@@ -85,7 +86,7 @@ class Index extends React.Component {
     renderAllInvoices = () => {
         return (
             <React.Fragment>
-                <Input icon='search' placeholder='Search...' onChange={this.onSearch}  />
+                <Input icon='search' placeholder='جستجو...' onChange={this.onSearch}  />
                 <AppPagination fetchPage={({page, size}) => this.props.getInvoicePage({page, size})}
                                itemList={Object.values(this.props.invoices)} totalElements={this.props.totalElements}
                                search={this.state.search}
@@ -100,7 +101,7 @@ class Index extends React.Component {
         const {activeItem} = this.state;
         return (
             <Container style={{width: '80%', margin: 'auto', marginTop: '1rem'}}>
-                < Header >Invoice</Header>
+                < Header >صورتحساب</Header>
                 {this.renderInvoiceNavigation()}
                 <Segment  secondary  basic style={{ margin: '0', padding: '0'}} >
 

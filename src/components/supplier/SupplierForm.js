@@ -11,13 +11,13 @@ const FIELDS = {
         render({input, meta, ...props}) {
             const hasError = !!(meta.error && meta.touched);
             return (
-                <FormField control={Input} {...input} error={hasError ? meta.error : null} label={'First Name'} />
+                <FormField control={Input} {...input} error={hasError ? meta.error : null} label={'نام'} />
             );
         },
         validate: [
             validator.required,
             validator.minLength(3),
-            validator.maxLength(15),
+            validator.maxLength(30),
         ]
     },
     lastName: {
@@ -25,13 +25,13 @@ const FIELDS = {
         render({input, meta, ...props}) {
             const hasError = !!(meta.error && meta.touched);
             return (
-                <FormField control={Input} {...input} error={hasError ? meta.error : null} label={'Last Name'} />
+                <FormField control={Input} {...input} error={hasError ? meta.error : null} label={'نام خانوادگی'} />
             );
         },
         validate: [
             validator.required,
             validator.minLength(3),
-            validator.maxLength(15),
+            validator.maxLength(30),
         ]
     },
     address: {
@@ -39,12 +39,12 @@ const FIELDS = {
         render({input, meta, ...props}) {
             const hasError = !!(meta.error && meta.touched);
             return (
-                <FormField control={TextArea} {...input} error={hasError ? meta.error : null} label={'Address'} />
+                <FormField control={TextArea} {...input} error={hasError ? meta.error : null} label={'آدرس'} />
             );
         },
         validate: [
             validator.minLength(3),
-            validator.maxLength(15),
+            validator.maxLength(30),
         ]
     },
 }
@@ -58,7 +58,7 @@ const SupplierForm  = (props) => {
                         <Field key={name} name={name} component={render} validate={validate}/>
                     );
                 })}
-                <Button primary  type={'submit'} style={{marginTop: '1rem'}}>{props.type || 'Save'}</Button>
+                <Button primary  type={'submit'} style={{marginTop: '1rem'}}>{props.type || 'ذخیره'}</Button>
             </Form>
         </Container>
     );

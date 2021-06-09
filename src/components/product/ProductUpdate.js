@@ -24,7 +24,7 @@ class ProductUpdate extends React.Component {
         const product = this.props.product;
         if(!product) return <Loading />;
         return (
-                <ProductForm initialValues = {_.omit(product, 'id')} onSubmit = {this.onUpdate} type={'Update'} />
+                <ProductForm initialValues = {_.omit(product, 'id')} onSubmit = {this.onUpdate} type={'ویرایش'} />
         );
     }
 }

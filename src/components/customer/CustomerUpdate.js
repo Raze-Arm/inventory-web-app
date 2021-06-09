@@ -25,7 +25,7 @@ class CustomerUpdate extends React.Component {
         const customer = this.props.customer;
         if(!customer) return <Loading />;
         return (
-            <CustomerForm initialValues = {_.omit(customer, 'id')} onSubmit = {this.onUpdate} type={'Update'} />
+            <CustomerForm initialValues = {_.omit(customer, 'id')} onSubmit = {this.onUpdate} type={'ویرایش'} />
         );
     }
 }

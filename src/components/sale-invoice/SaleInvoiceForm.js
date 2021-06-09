@@ -34,7 +34,7 @@ const SaleInvoiceForm = (props) => {
                 })}
                 <Divider section />
                 <TransactionForm />
-                <Button primary  type={'submit'} style={{marginTop: '1rem'}}>Save</Button>
+                <Button primary  type={'submit'} style={{marginTop: '1rem'}}>ذخیره</Button>
             </Form>
         </Container>
     );

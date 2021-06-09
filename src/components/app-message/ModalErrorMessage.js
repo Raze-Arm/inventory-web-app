@@ -38,7 +38,7 @@ const ModalErrorMessage = ({title, content, details}) => {
                         onClick={() => setActive(!active)}
                         style={{border: '0 solid white'}}
                     >
-                        <b style={{color: 'red'}}>Details</b>
+                        <b style={{color: 'red'}}>جزئیات</b>
                         <Icon color={"red"} name={`triangle ${active ? 'down' : 'left'}`}  />
                     </Accordion.Title>
                     <Accordion.Content  style={{border: '0 solid white'}}  active={active}>

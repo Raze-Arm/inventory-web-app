@@ -19,7 +19,7 @@ function* getInvoicePageFlow(action) {
         yield put(getInvoicePageSuccess(invoicePage));
     } catch (e) {
         console.log(e);
-        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  invoice list', details: e}))
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: e}))
     }
 }
 

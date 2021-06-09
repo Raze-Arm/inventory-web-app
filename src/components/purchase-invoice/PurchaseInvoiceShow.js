@@ -7,7 +7,8 @@ import {Container, Divider, Header, List, Segment, Table} from "semantic-ui-reac
 
 import {getPInvoice} from "../../actions/purchase-invoice";
 import Loading from "../Loading";
-
+import moment from "jalali-moment";
+import {convertToPersianNumber} from "../../utility/numberConverter";
 
 class PurchaseInvoiceShow extends React.Component {
 
@@ -21,20 +22,22 @@ class PurchaseInvoiceShow extends React.Component {
         return (
             <List divided relaxed>
                 <List.Item>
-                    <List.Header>First Name</List.Header>
+                    <List.Header>نام</List.Header>
                     {supplier.firstName}
                 </List.Item>
                 <List.Item>
-                    <List.Header>Last Name</List.Header>
+                    <List.Header>نام خانوادگی</List.Header>
                     {supplier.lastName || <br />}
                 </List.Item>
                 <List.Item>
-                    <List.Header>Address</List.Header>
+                    <List.Header>آدرس</List.Header>
                     {supplier.address || <br />}
                 </List.Item>
                 <List.Item>
-                    <List.Header>Created Date</List.Header>
-                    {supplier.createdDate ? <Moment format={'YYYY/MM/DD hh:mm'}>{supplier.createdDate}</Moment> : <br />}
+                    <List.Header>تاریخ</List.Header>
+                    {supplier.createdDate ?
+                        convertToPersianNumber(moment(supplier.createdDate, 'YYYY/MM/DD hh:mm').locale('fa').format('hh:mm , YYYY/MM/DD'))
+                        : <br />}
                 </List.Item>
             </List>
         );

@@ -16,6 +16,13 @@ export const fetchUser = async (id) => {
     return response.data;
 }
 
+export const fetchUserByUsername = async (username) => {
+    const response = await Api.get(`/user` , {params: {
+            username
+        }});
+    return response.data;
+}
+
 export const postUser = async (user) => {
     const data = new FormData();
     const userPhoto = user?.photo;
@@ -51,6 +58,11 @@ export const updateUser = async (user) => {
 export const downloadUserPhoto = async  (id) => {
     const response = await Api.get(`/download/user/${id}` , {responseType: "blob" , });
     let blob = new Blob([response.data] ,);
+    return blob;
+}
+export const downloadPhotoByUsername = async (username) => {
+    const response = await Api.get(`/download/user`, {params: {username}, responseType: 'blob'});
+    let blob = new Blob([response.data]);
     return blob;
 }
 

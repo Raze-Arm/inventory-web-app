@@ -44,7 +44,7 @@ function* getCustomerPageFlow(action) {
         yield put(getCustomerPageSuccess(customerPage));
     }catch (e) {
         console.log('error', e);
-        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  customer list', details: e}));
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: e}));
         history.push('/');
     }
 }
@@ -56,7 +56,7 @@ function* getCustomerListFlow(action) {
         yield put(getCustomerListSuccess(customerList));
     }catch (e) {
         console.log('error', e);
-        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  customer list', details: e}));
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: e}));
         history.push('/');
     }
 }
@@ -68,7 +68,7 @@ function* getCustomerFlow(action) {
         yield put(getCustomerSuccess(customer));
     }catch (e) {
         console.log('error', e);
-        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to show customer', details: e}));
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: e}));
         history.push('/customer');
     }
 }
@@ -81,10 +81,10 @@ function* saveCustomerFlow(action) {
         console.log('saved customer', customer);
         yield put(saveCustomerSuccess(customer));
         history.push(`/customer/show/${id}`);
-        yield put(showSuccessMessage({title: 'Saved Successfully',content: 'Customer created successfully'}));
+        yield put(showSuccessMessage({title: 'عملیات موفق',content: 'مشتری با موفقیت ایجاد شد'}));
     }catch (e) {
         console.log('error', e);
-        yield put(showErrorMessage({title: 'Error' , content: 'Failed to save customer'}));
+        yield put(showErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید'}));
         history.push('/customer');
     }
 }
@@ -96,10 +96,10 @@ function* updateCustomerFlow(action) {
         const updatedCustomer = yield call(updateCustomer, customer);
         console.log('updated customer', updatedCustomer);
         yield put(updateCustomerSuccess(updatedCustomer));
-        yield put(showSuccessMessage({title: 'Updated Successfully',content: 'Customer updated successfully'}));
+        yield put(showSuccessMessage({title: 'عملیات موفق',content: 'مشتری با موفقیت ویرایش شد'}));
     } catch (e) {
         console.log('error', e);
-        yield put(showErrorMessage({title: 'Error' , content: 'Failed to update customer'}));
+        yield put(showErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید'}));
         history.push('/customer');
     }
 }
@@ -111,10 +111,10 @@ function* deleteCustomerFlow(action) {
         console.log('deleted customer', id);
         yield put(deleteCustomerSuccess(id));
         history.push('/customer');
-        yield put(showSuccessMessage({title: 'Customer Deleted ',content: 'Customer deleted successfully'}));
+        yield put(showSuccessMessage({title: 'عملیات موفق',content: 'مشتری با موفقیت حذف شد'}));
     }catch (e) {
         console.log('error', e);
-        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to delete customer', details: e}));
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: e}));
         history.push('/customer');
     }
 }

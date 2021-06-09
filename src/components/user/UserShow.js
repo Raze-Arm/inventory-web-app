@@ -1,70 +1,81 @@
-import React from "react";
+import React ,{useState,useEffect} from "react";
 import {connect} from "react-redux";
-import Moment from 'react-moment';
+import _ from 'lodash';
 import {
     Container,
     Divider,
     Header,
     List,
     Segment,
-    Placeholder,
     Image,
     Grid,
-    Form,
-    Button,
     Menu
 } from "semantic-ui-react";
-
-import {getUser, getUserPhoto} from '../../actions/user';
+import moment from "jalali-moment";
+import {convertToPersianNumber} from "../../utility/numberConverter";
+import {getUser, getUserByUsername, getUserPhoto, getPhotoByUsername} from '../../actions/user';
 import Loading from "../Loading";
 import  './UserShow.css';
 import UserActivity from "./UserActivity";
-const PROFILE = 'PROFILE';
-const HISTORY = 'HISTORY';
-class UserShow extends React.Component {
-    state = {activeItem: PROFILE}
-    componentDidMount() {
-        const id = this.props.match.params.id;
-        this.props.getUser(id);
-        this.props.getUserPhoto(id);
-    }
-
-    handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+const PROFILE = 'مشخصات';
+const HISTORY = 'تاریخچه';
 
 
 
-    renderProfile() {
-        const {user} = this.props;
+const UserShow = (props) => {
+    const [activeItem ,setActiveItem] = useState(PROFILE);
+
+
+    useEffect(() => {
+        const id = props.match.params.id;
+        if(id) {
+            props.getUser(id);
+            props.getUserPhoto(id);
+        }else {
+            const {search} = props.location;
+            const match = search.match(/username=(.*)/);
+            const username = match?.[1];
+            props.getUserByUsername(username);
+            props.getPhotoByUsername(username);
+        }
+    }, []);
+
+    const handleItemClick = (e, { name }) => setActiveItem(name);
+
+
+
+    const renderProfile = () =>  {
+        const {user} = props;
         if(!user) return <Loading />;
         return (
             <Segment className={'custom-segment'} color={"grey"} textAlign={"center"}>
-                <Header>User</Header>
+                <Header>کاربر</Header>
                 {user.photo ? <Image rounded centered src={window.URL.createObjectURL(user.photo) } /> : null}
                 <Divider />
                 <List divided   relaxed>
 
                     <List.Item >
-                        <List.Header>First Name</List.Header>
+                        <List.Header>نام</List.Header>
                         {user.firstName}
                     </List.Item>
                     <List.Item>
-                        <List.Header>Last Name</List.Header>
+                        <List.Header>نام خانوادگی</List.Header>
                         {user.lastName || <br />}
                     </List.Item>
                     <List.Item>
-                        <List.Header>Address</List.Header>
+                        <List.Header>آدرس</List.Header>
                         {user.username || <br />}
                     </List.Item>
                     <List.Item>
-                        <List.Header>Created Date</List.Header>
-                        {user.createdDate ? <Moment format={'YYYY/MM/DD hh:mm'}>{user.createdDate}</Moment> : <br />}
+                        <List.Header>تاریخ</List.Header>
+                        {user.createdDate ?
+                            convertToPersianNumber(moment(user.createdDate, 'YYYY/MM/DD hh:mm').locale('fa').format('hh:mm , YYYY/MM/DD'))
+                            : <br />}
                     </List.Item>
                 </List>
             </Segment>
         );
     }
-
-    render() {const {activeItem} = this.state;
        return (
 
             <Container >
@@ -75,29 +86,34 @@ class UserShow extends React.Component {
                             <Menu.Item
                                 name={PROFILE}
                                 active={activeItem === PROFILE}
-                                onClick={this.handleItemClick}
+                                onClick={handleItemClick}
                             />
                             <Menu.Item
                                 name={HISTORY}
                                 active={activeItem === HISTORY}
-                                onClick={this.handleItemClick}
+                                onClick={handleItemClick}
                             />
                         </Menu>
-                        {activeItem === PROFILE ? this.renderProfile() : <UserActivity username={this.props.user.username} />}
+                        {activeItem === PROFILE ? renderProfile() : <UserActivity username={props.user.username} />}
                     </Grid.Column>
 
                 </Grid>
 
             </Container>
        );
-    }
 
 
 }
 
 const mapStateToProps = (state, props) => {
     const  id = props.match.params.id;
-    return {user: state.user.items[id]};
+    const {search} = props.location;
+    const {items} = state.user;
+    const match = search.match(/username=(.*)/);
+    const username = match?.[1];
+    const user = id ? state.user.items[id] : _.find(items, (i) => i.username = username );
+    console.log('user##', user)
+    return {user: user};
 }
 
-export default connect(mapStateToProps, {getUser, getUserPhoto})(UserShow);
+export default connect(mapStateToProps, {getUser, getUserByUsername, getUserPhoto, getPhotoByUsername})(UserShow);

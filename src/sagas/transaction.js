@@ -20,7 +20,7 @@ function* getTransactionPageFlow(action) {
         yield put(getTransactionPageSuccess(transactionPage));
     }catch (e) {
         console.log(e);
-        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  transaction list', details: e}));
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: e}));
 
     }
 }
@@ -33,7 +33,7 @@ function* getSaleTrFlow(action) {
         yield put(getSaleTrPageSuccess(transactionPage));
     }catch (e) {
         console.log('error', e);
-        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  transaction list', details: e}));
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: e}));
     }
 }
 
@@ -45,7 +45,7 @@ function* getPurchaseTrFlow(action) {
         yield put(getPurchaseTrPageSuccess(transactionPage));
     }catch (e) {
         console.log('error', e);
-        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  transaction list', details: e}));
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: e}));
     }
 }
 

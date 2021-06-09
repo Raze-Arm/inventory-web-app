@@ -1,6 +1,7 @@
 import axios from "axios";
 import store from "../store";
 import {logout} from "../actions/auth";
+import {showModalErrorMessage} from "../actions/app-message";
 console.log(process.env.REACT_APP_BACKEND_API);
 const api = axios.create({
     baseURL: process.env.REACT_APP_BACKEND_API,
@@ -14,7 +15,11 @@ api.interceptors.response.use(function (response) {
         store.dispatch(logout());
         console.log('unauthenticated user');
     }
-    return Promise.reject(error)
+    if(error.response.status === 403) {
+        store.dispatch(showModalErrorMessage({title: 'غیر مجاز' , content: 'متأسفانه ، درخواست شما قابل انجام نیست' , details: error}))
+    }
+    return error;
+    // return Promise.reject(error)
 });
 
 export default api;

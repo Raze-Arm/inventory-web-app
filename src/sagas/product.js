@@ -42,7 +42,7 @@ function* getProductPageFlow(action) {
         yield put(getProductPageSuccess(productPage));
     }catch (e) {
         console.log('error', e);
-        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  product list', details: e}));
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: e}));
         history.push('/');
     }
 }
@@ -54,7 +54,7 @@ function* getProductListFlow(action) {
         yield put(getProductListSuccess(productList));
     }catch (e) {
         console.log('error', e);
-        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  product list', details: e}));
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: e}));
         history.push('/');
     }
 }
@@ -66,7 +66,7 @@ function* getProductFlow(action) {
         yield put(getProductSuccess(product));
     }catch (e) {
         console.log('error', e);
-        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to show product', details: e}));
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: e}));
         history.push('/product');
     }
 }
@@ -79,10 +79,10 @@ function* saveProductFlow(action) {
         console.log('saved product', product);
         yield put(saveProductSuccess(product));
         history.push(`/product/show/${id}`);
-        yield put(showSuccessMessage({title: 'Saved Successfully',content: 'Product created successfully'}));
+        yield put(showSuccessMessage({title: 'عملیات موفق',content: 'محصول با موفقیت ایجاد شد'}));
     }catch (e) {
         console.log('error', e);
-        yield put(showErrorMessage({title: 'Error' , content: 'Failed to save product'}));
+        yield put(showErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید'}));
         history.push('/product');
     }
 }
@@ -94,10 +94,10 @@ function* updateProductFlow(action) {
         const updatedProduct = yield call(updateProduct, product);
         console.log('updated product', updatedProduct);
         yield put(updateProductSuccess(updatedProduct));
-        yield put(showSuccessMessage({title: 'Updated Successfully',content: 'Product updated successfully'}));
+        yield put(showSuccessMessage({title: 'عملیات موفق',content: 'با موفقیت ویرایش شد'}));
     } catch (e) {
         console.log('error', e);
-        yield put(showErrorMessage({title: 'Error' , content: 'Failed to update product'}));
+        yield put(showErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید'}));
         history.push('/product');
     }
 }
@@ -109,10 +109,10 @@ function* deleteProductFlow(action) {
         console.log('deleted product', id);
         yield put(deleteProductSuccess(id));
         history.push('/product');
-        yield put(showSuccessMessage({title: 'Product Deleted ',content: 'Product deleted successfully'}));
+        yield put(showSuccessMessage({title: 'عملیات موفق',content: 'محصول با موفقیت حذف شد'}));
     }catch (e) {
         console.log('error', e);
-        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to delete product', details: e}));
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: e}));
         history.push('/product');
     }
 }

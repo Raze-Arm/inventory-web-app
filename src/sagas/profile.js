@@ -35,7 +35,7 @@ function* getProfileFlow(action) {
         yield put(getProfileSuccess(profile));
     } catch (e) {
         console.log('error', e);
-        yield put(showErrorMessage({title: 'Error' , content: 'Failed to get profile'}));
+        yield put(showErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید'}));
     }
 }
 
@@ -46,10 +46,10 @@ function* updateProfileFlow(action) {
         yield call(updateProfile, profile);
         console.log('updated profile', profile);
         yield put(updateProfileSuccess(profile));
-        yield put(showSuccessMessage({title: 'Updated Successfully',content: 'Profile updated successfully'}))
+        yield put(showSuccessMessage({title: 'عملیات موفق',content: 'مشخصات با موفقیت ویرایش شد'}))
     }catch (e) {
         console.log('error', e);
-        yield put(showErrorMessage({title: 'Error' , content: 'Failed to update profile'}));
+        yield put(showErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید'}));
     }
 }
 
@@ -61,7 +61,7 @@ function* getProfilePhotoFlow(action) {
         yield put(getProfilePhotoSuccess(photo));
     }catch (e) {
         console.log('error', e);
-        yield put(showModalErrorMessage({title: 'Error' , content: 'Failed to get  profile', details: e}));
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: e}));
     }
 }
 

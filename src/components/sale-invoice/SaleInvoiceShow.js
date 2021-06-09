@@ -6,7 +6,8 @@ import {Container, Dimmer, Divider, Header, List, Loader, Segment, Table} from "
 
 import {getSInvoice} from "../../actions/sale-invoice";
 import Loading from "../Loading";
-
+import moment from "jalali-moment";
+import {convertToPersianNumber} from "../../utility/numberConverter";
 
 class SaleInvoiceShow extends React.Component {
     
@@ -21,20 +22,22 @@ class SaleInvoiceShow extends React.Component {
         return (
             <List divided relaxed>
                 <List.Item>
-                    <List.Header>First Name</List.Header>
+                    <List.Header>نام</List.Header>
                     {customer.firstName}
                 </List.Item>
                 <List.Item>
-                    <List.Header>Last Name</List.Header>
+                    <List.Header>نام خانوادگی</List.Header>
                     {customer.lastName || <br />}
                 </List.Item>
                 <List.Item>
-                    <List.Header>Address</List.Header>
+                    <List.Header>آدرس</List.Header>
                     {customer.address || <br />}
                 </List.Item>
                 <List.Item>
-                    <List.Header>Created Date</List.Header>
-                    {customer.createdDate ? <Moment format={'YYYY/MM/DD hh:mm'}>{customer.createdDate}</Moment> : <br />}
+                    <List.Header>تاریخ</List.Header>
+                    {customer.createdDate ?
+                        convertToPersianNumber(moment(customer.createdDate, 'YYYY/MM/DD hh:mm').locale('fa').format('hh:mm , YYYY/MM/DD'))
+                        : <br />}
                 </List.Item>
             </List>
         );
@@ -49,10 +52,10 @@ class SaleInvoiceShow extends React.Component {
                 <Table>
                     <Table.Header>
                         <Table.Row>
-                            <Table.HeaderCell>Id</Table.HeaderCell>
-                            <Table.HeaderCell>Product Name</Table.HeaderCell>
-                            <Table.HeaderCell>Quantity</Table.HeaderCell>
-                            <Table.HeaderCell>Price</Table.HeaderCell>
+                            <Table.HeaderCell>شناسه</Table.HeaderCell>
+                            <Table.HeaderCell>نام محصول</Table.HeaderCell>
+                            <Table.HeaderCell>تعداد</Table.HeaderCell>
+                            <Table.HeaderCell>قیمت</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
@@ -78,7 +81,7 @@ class SaleInvoiceShow extends React.Component {
         return  (
             <Container>
                 <Segment color={"grey"}>
-                    <Header>Sale Invoice</Header>
+                    <Header>صورتحساب فروش</Header>
                     <Divider />
                     {this.renderCustomer(invoice.customer )}
                     {this.renderTransactions(invoice?.transactions)}

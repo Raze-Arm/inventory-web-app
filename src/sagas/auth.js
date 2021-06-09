@@ -31,6 +31,7 @@ function* authWatcher() {
         }catch (e) {
             console.log('error', e);
             yield put(stopLoadingScreen());
+            yield put(showModalErrorMessage({title: 'ورود ناموفق' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید' , details: e}))
         }
     }
 
@@ -49,7 +50,7 @@ function* loginFlow(action) {
         history.push('/');
     } catch (e) {
         yield put(loginFailed('e'));
-        yield put(showModalErrorMessage({title: 'Failed', content: 'Failed to login , Please try later', details: e}));
+        yield put(showModalErrorMessage({title: 'ورود ناموفق', content: 'ورود به سیستم انجام نشد ، لطفاً بعداً امتحان کنید', details: e}));
     }finally {
         if(yield  cancelled()) {
             history.push('/login');

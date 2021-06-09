@@ -26,8 +26,8 @@ class CustomerDelete extends React.Component {
     renderActions = () => {
         return (
             <React.Fragment >
-                <Button color={"red"} onClick={() => this.onCancel()} >Cancel</Button>
-                <Button color={"green"} onClick={() => this.onDelete()} >Delete</Button>
+                <Button color={"red"} onClick={() => this.onCancel()} >لغو</Button>
+                <Button color={"green"} onClick={() => this.onDelete()} >حذف</Button>
             </React.Fragment>
         );
     }
@@ -36,11 +36,11 @@ class CustomerDelete extends React.Component {
         const customer = this.props.customer;
         if(!customer)  return <Loading />;
 
-
+        const name = `${customer.firstName} ${customer.lastName || ''}`;
         return  (
             <Modal
-                title={"Delete Customer"}
-                content={`Are You Sure , You Want To Delete Customer : ${customer.firstName} ${customer.lastName || ''}`}
+                title={"حذف مشتری"}
+                content={'آیا مطمئن هستید ، می خواهید مشتری'+ name + 'را حذف کنید:'}
                 actions={this.renderActions()}
                 onDismiss={() => this.onCancel()}
             > </Modal>
