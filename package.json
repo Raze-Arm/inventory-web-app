@@ -15,7 +15,9 @@
     "react-autosuggest": "^10.1.0",
     "react-dom": "^16.4.2",
     "react-moment": "^1.1.1",
+
     "react-password-strength-bar": "^0.3.3",
+
     "react-redux": "^7.0.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
@@ -29,10 +31,12 @@
   },
   "scripts": {
     "start": "HTTPS=true SSL_CRT_FILE=./.cert/cert.pem SSL_KEY_FILE=./.cert/key.pem node node_modules/react-scripts/scripts/start.js",
+
     "build": "npm run build:react && npm run build:bundle",
     "build:react": " GENERATE_SOURCEMAP=false react-scripts build",
     "build:bundle": "webpack --config webpack.config.js",
     "test": "react-scripts test",
+
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
