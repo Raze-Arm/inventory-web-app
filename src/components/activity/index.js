@@ -56,8 +56,6 @@ class Index extends React.Component {
                 <Feed.Content  >
                     <Feed.Summary style={{textAlign: 'right' ,direction: 'rtl'}}>
                         {profile} {by} {usr} {edited}
-                        {/*{this.props.username !== username ?*/}
-                        {/*    <Link to={`/user/show/${parameter}`}>{username}</Link> : 'you'} edited {entity} details*/}
                         <Feed.Date>{time}</Feed.Date>
                     </Feed.Summary>
                 </Feed.Content>
@@ -69,8 +67,6 @@ class Index extends React.Component {
                     <Feed.Summary style={{textAlign: 'right' ,direction: 'rtl'}}>
                         <Link to={`/${entity}/show/${parameter}`}>{entityStr}</Link> {by} {usr} {edited}
 
-                        {/*{this.props.username !== username ? <Link to={`/user/show/${parameter}`}>{username}</Link> : 'you'} edited <Link*/}
-                        {/*to={`/${entity}/show/${parameter}`}>{entity}</Link>*/}
                         <Feed.Date>{time}</Feed.Date>
                     </Feed.Summary>
                 </Feed.Content>
@@ -90,7 +86,6 @@ class Index extends React.Component {
                 <Feed.Content  >
                     <Feed.Summary style={{textAlign: 'right' ,direction: 'rtl'}} >
                         {entityStr} {by} {usr} {deleted}
-                        {/*{this.props.username !== username ? <Link to={`/user/show/${parameter}`}>{username}</Link> : 'you' } deleted {entity}*/}
                     <Feed.Date>{time}</Feed.Date>
                     </Feed.Summary>
                 </Feed.Content>

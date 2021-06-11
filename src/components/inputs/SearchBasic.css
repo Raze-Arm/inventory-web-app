@@ -1,0 +1,37 @@
+.ui.search>.results .result .content {
+    text-align: left !important;
+}
+
+
+.ui.fluid.search .results {
+    top: 33px;
+}
+.ui.search>.results .result  {
+    /*padding-left: 8px;*/
+    /*padding-right: 6px;*/
+    /*padding: 0.85714286em 1.14285714em;*/
+    padding: 0.85714286em 1.14285714em;
+    padding-left: 10px;
+    padding-right: 0;
+    color: rgba(0, 0, 0, 0.87);
+    display: block;
+    border-bottom: 1px solid rgba(34, 36, 38, 0.15) !important;
+    line-height: 1.33;
+}
+.ui.search>.results .result .price {
+    float: left;
+    direction: ltr;
+    font-size: x-small;
+    padding-left: 1px;
+}
+.ui.search>.results .result .title {
+    direction: ltr;
+    text-align: left;
+    float: left;
+}
+.ui.search>.results .result .description {
+    float: left;
+}
+/*.ui.search>.results>.message {*/
+/*    padding: 10px;*/
+/*}*/

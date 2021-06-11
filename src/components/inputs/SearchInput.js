@@ -67,6 +67,7 @@ const SearchInput = ({hasError, ...props}) => {
 
 
         return (<Autosuggest
+
                     suggestions={suggestions}
                     onSuggestionSelected={onSuggestionSelected}
                     onSuggestionsFetchRequested={onSuggestionsFetchRequested}

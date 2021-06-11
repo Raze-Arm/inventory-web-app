@@ -21,12 +21,33 @@ export const fetchProduct = async (id) => {
     return response.data;
 }
 
+export const downloadProductImage = async (id) => {
+    const response = await Api.get(`/download/product/${id}`, {responseType: 'blob'});
+    let blob = new Blob([response.data]);
+    return blob;
+}
+
 export const postProduct = async (product)  => {
-    const response = await Api.post(`/product`, product);
+    const data = new FormData();
+    const image = product?.image;
+    if(image) data.append('image', image);
+    data.append('name', product.name);
+    data.append('price', product.price);
+    data.append('salePrice', product.salePrice);
+    data.append('description', product.description);
+    const response = await Api.post(`/product`, data);
     return response.data;
 }
 export const updateProduct = async (product) => {
-    const response = await Api.put(`product` , product);
+    const data = new FormData();
+    const image = product?.image;
+    if(image) data.append('image', image);
+    data.append('id', product.id);
+    data.append('name', product.name);
+    data.append('price', product.price);
+    data.append('salePrice', product.salePrice);
+    data.append('description', product.description);
+    const response = await Api.put(`product` , data);
     return response.data;
 }
 

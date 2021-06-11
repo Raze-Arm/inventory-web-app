@@ -1,14 +1,14 @@
 import React from "react";
 import {connect} from "react-redux";
-import Moment from 'react-moment';
-import {Container, Header, Segment, List, Divider} from "semantic-ui-react";
+import {Container, Header, Segment, List, Divider, Image} from "semantic-ui-react";
 
 import {getProduct} from '../../actions/product';
 import Loading from "../Loading";
 
 import moment from "jalali-moment";
 import {convertToPersianNumber} from "../../utility/numberConverter";
-
+import './ProductShow.css'
+import {BACKEND_API} from "../../apis/address";
 
 class ProductShow extends React.Component {
     componentDidMount() {
@@ -24,31 +24,32 @@ class ProductShow extends React.Component {
         return (
             <Container>
                 <Segment color={"grey"}>
-                    <Header>Product</Header>
+                    {product.imageAvailable ? <Image size={"medium"} rounded centered  src={BACKEND_API + `/download/product/${product.id}`} /> : ''}
+                    <Header textAlign={"center"}>محصول</Header>
                     <Divider />
-                    <List divided relaxed>
-                        <List.Item>
-                            <List.Header>Name</List.Header>
+                    <List id={'product-list'} divided relaxed  >
+                        <List.Item >
+                            <List.Header>نام</List.Header>
                             {product.name}
                         </List.Item>
                         <List.Item>
-                            <List.Header>Price</List.Header>
+                            <List.Header>قیمت</List.Header>
                             {product.price || <br />}
                         </List.Item>
                         <List.Item>
-                            <List.Header>Sale Price</List.Header>
+                            <List.Header>قیمت فروش</List.Header>
                             {product.salePrice || <br />}
                         </List.Item>
                         <List.Item>
-                            <List.Header>Quantity</List.Header>
+                            <List.Header>تعداد</List.Header>
                             {product.quantity || 0}
                         </List.Item>
                         <List.Item>
-                            <List.Header>Description</List.Header>
-                            {product.description || <br />}
+                            <List.Header>توضیحات</List.Header>
+                            {product.description !== 'null' && 'undefined' ? product.description :  <br />}
                         </List.Item>
                         <List.Item>
-                            <List.Header>Created Date</List.Header>
+                            <List.Header>تاریخ</List.Header>
                             {product.createdDate ? convertToPersianNumber(moment(product.createdDate, 'YYYY/MM/DD hh:mm').locale('fa').format('hh:mm , YYYY/MM/DD')) : <br />}
                         </List.Item>
                     </List>

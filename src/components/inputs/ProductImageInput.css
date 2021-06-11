@@ -1,0 +1,21 @@
+#product-image > img{
+    border-radius: 12px !important;
+}
+
+#product-image > .ui.corner.label:after {
+    border-radius: 0 12px 0 0  !important;
+    border-right-color : transparent;
+
+}
+#product-image > .ui.corner.label .icon  {
+    color: blueviolet;
+}
+#product-image > .ui.corner.label .icon:hover  {
+    cursor: pointer;
+    color: aliceblue;
+}
+
+#product-image > .ui.red.corner.label, .ui.red.corner.label:hover {
+     cursor: pointer;
+
+}

@@ -1,3 +1,4 @@
+import {convertToEnglishNumber} from "./numberConverter";
 
 
 export const required = value => (value || typeof value === 'number' ? undefined : 'این قسمت لازم است')
@@ -10,7 +11,7 @@ export const minLength = min => value =>
     value && value.length < min ? `باید حداقل ${min} کاراکتر یا بیشتر باشد` : undefined
 export const minLength2 = minLength(2)
 export const number = value =>
-    value && isNaN(Number(value)) ? 'باید یک عدد باشد' : undefined
+    value && isNaN(Number(value)) && isNaN(Number(convertToEnglishNumber(value))) ? 'باید یک عدد باشد' : undefined
 export const minValue = min => value =>
     value && value < min ? `باید حداقل ${min} باشد` : undefined
 export const maxValue = max => value =>

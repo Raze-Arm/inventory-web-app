@@ -1,9 +1,11 @@
 import React from "react";
 import _ from "lodash";
+import {useParams} from 'react-router-dom';
 import {Field, Form, reduxForm} from "redux-form";
-import {Button, Container, FormField, Input, TextArea} from "semantic-ui-react";
+import {Button, Container, FormField, Grid, Input, TextArea} from "semantic-ui-react";
 
 import * as validator from '../../utility/formValidators';
+import ProductImageInput from "../inputs/ProductImageInput";
 
 
 const FIELDS = {
@@ -56,22 +58,41 @@ const FIELDS = {
         render({input, meta, ...props}) {
             const hasError = !!(meta.error && meta.touched);
             return (
-                <FormField control={TextArea} {...input} error={hasError ? meta.error : null} label={'توضیحات'} />
+                <FormField control={TextArea}  {...input} error={hasError ? meta.error : null} label={'توضیحات'} />
             );
         },
+    },
+    image: {
+        name: 'image',
+        render({input, meta, imageAvailable, ...props}) {
+            return (
+                <ProductImageInput input={input} imageAvailable={imageAvailable} {...props}/>
+            );
+        }
     }
 }
 
 
 const ProductForm = (props) => {
+    const {name, price, salePrice, description, image} = FIELDS;
+    const {id} = useParams();
     return (
         <Container>
             <Form className={'ui form error'} onSubmit={props.handleSubmit}>
-                {_.map(FIELDS, ({name ,render ,validate}) => {
-                    return (
-                        <Field key={name} name={name} component={render} validate={validate}/>
-                    );
-                })}
+
+                <Grid stackable style={{marginBottom: '40px'}}>
+                    <Grid.Column width={"6"}>
+                        <Field key={name.name} name={name.name} component={name.render} validate={name.validate} />
+                        <Field key={price.name} name={price.name} component={price.render} validate={price.validate} />
+                        <Field key={salePrice.name} name={salePrice.name} component={salePrice.render} validate={salePrice.validate} />
+                    </Grid.Column>
+                    <Grid.Column width={"10"} >
+                        <Field key={image.name} name={image.name} component={image.render} validate={image.validate}  imageAvailable={props.initialValues?.imageAvailable} id={id}/>
+
+                    </Grid.Column>
+                </Grid>
+
+                <Field  key={description.name} name={description.name} component={description.render} validate={description.validate} />
                 <Button primary  type={'submit'} style={{marginTop: '1rem'}}>{props.type || 'ذخیره'}</Button>
             </Form>
         </Container>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import _ from 'lodash';
-import {Button, Container, Header, Input, Segment, Table} from "semantic-ui-react";
+import {Button, Container, Header, Image, Input, Segment, Table} from "semantic-ui-react";
 import Moment from "react-moment";
 
 import {getProductPage} from '../../actions/product';
@@ -10,6 +10,7 @@ import AppPagination from "../AppPagination";
 
 import moment from "jalali-moment";
 import {convertToPersianNumber} from "../../utility/numberConverter";
+import {BACKEND_API} from "../../apis/address";
 class Index extends React.Component {
     state = {search: ''}
 
@@ -18,7 +19,7 @@ class Index extends React.Component {
         return (
             <React.Fragment>
                 <Table.Row textAlign={"center"}>
-                    <Table.HeaderCell>شناسه</Table.HeaderCell>
+                    {/*<Table.HeaderCell>شناسه</Table.HeaderCell>*/}
                     <Table.HeaderCell>نام</Table.HeaderCell>
                     <Table.HeaderCell>تعداد</Table.HeaderCell>
                     <Table.HeaderCell>قیمت</Table.HeaderCell>
@@ -31,12 +32,19 @@ class Index extends React.Component {
     }
     renderRows = (items) => {
         return (
-            _.map(items , (p) => {
+            _.map(items , (p, i) => {
                 if(!p) return ;
+
+                const nameWithImg = p.imageAvailable ? <Header as={'h4'} image>
+                    <Image src={BACKEND_API + `/download/product/${p.id}`}  rounded size='mini' />
+                    <Header.Content>{p.name}</Header.Content>
+                </Header> : p.name;
                 return (
                     <Table.Row key={p.id} textAlign={"center"}>
-                        <Table.Cell>{p.id}</Table.Cell>
-                        <Table.Cell>{p.name}</Table.Cell>
+                        {/*<Table.Cell>{p.id}</Table.Cell>*/}
+                        <Table.Cell>
+                            {nameWithImg}
+                        </Table.Cell>
                         <Table.Cell>{p.quantity || 0}</Table.Cell>
                         <Table.Cell>{p.price || ''}</Table.Cell>
                         <Table.Cell>{p.salePrice || ''}</Table.Cell>
@@ -75,7 +83,7 @@ class Index extends React.Component {
                                        renderRows={this.renderRows} pageCount={this.props.pageCount}/>
                     </React.Fragment>
                 </Segment>
-                <Button style={{marginTop: '1rem'}} color={'facebook'} floated={"right"} onClick={this.onCreate}>Create</Button>
+                <Button style={{marginTop: '1rem'}} color={'facebook'} floated={"right"} onClick={this.onCreate}>افزودن</Button>
             </Container>
         );
     }

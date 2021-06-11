@@ -2,12 +2,12 @@ import React , {useState, useEffect} from "react";
 import {connect} from 'react-redux';
 import {Button, Message, Accordion, Icon, Header} from "semantic-ui-react";
 
-import {showModalErrorMessage} from '../../actions/app-message';
+import { closeModalErrorMessage} from '../../actions/app-message';
 import ErrorModal from "./ErrorModal";
 
 
 
-const ModalErrorMessage = ({title, content, details}) => {
+const ModalErrorMessage = ({title, content, details, closeModalErrorMessage}) => {
     const [visible, setVisible] = useState(false);
     const [active, setActive] = useState(false);
     useEffect(() => {
@@ -16,7 +16,7 @@ const ModalErrorMessage = ({title, content, details}) => {
 
     const onCancel = () => {
         setVisible(false);
-        showModalErrorMessage({title: null, content: null , details: null});
+        closeModalErrorMessage();
         // this.props.history.push('/customer');
     }
     const renderActions = () => {
@@ -78,4 +78,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, {})(ModalErrorMessage);
+export default connect(mapStateToProps, {closeModalErrorMessage})(ModalErrorMessage);
