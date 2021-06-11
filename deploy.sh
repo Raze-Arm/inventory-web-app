@@ -6,5 +6,5 @@ docker push razear/mega-electric-web-app:latest
 fandogh service apply -f web-app-deployment.yml  \
                  -p SHA=$SHA
 
-fandogh service reset --service mege-electric-nginx <<< y
+echo "y" | fandogh service reset --service mege-electric-nginx
 
