@@ -86,8 +86,7 @@ const NavigationBar = ({username, profile, history}) => {
                       <Dropdown.Menu>
                           <Dropdown.Item onClick={onProfileClick} text='مشخصات' as={'a'}/>
                           <Dropdown.Divider/>
-                          <Dropdown.Item as={'a'} onClick={onLogout}><Icon name={'log out'} color={'red'}/><b>خروج</b><span
-                              className={'description'}>ctrl + o</span> </Dropdown.Item>
+                          <Dropdown.Item as={'a'} onClick={onLogout}><Icon name={'log out'} color={'red'}/><b>خروج</b> </Dropdown.Item>
                       </Dropdown.Menu>
                   </Dropdown>
 
