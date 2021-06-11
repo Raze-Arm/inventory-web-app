@@ -12,7 +12,7 @@ api.interceptors.response.use(function (response) {
         return response;
     }
 , function (error) {
-    if(error.response.status === 401) {
+    if(error.response.status === 401 && error.response.config.url !== '/login') {
         store.dispatch(logout());
         console.log('unauthenticated user');
     }
