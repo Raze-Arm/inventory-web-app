@@ -1,4 +1,11 @@
-import {DELETE_PRODUCT, GET_PRODUCT, GET_PRODUCT_LIST, GET_PRODUCT_PAGE, SAVE_PRODUCT, UPDATE_PRODUCT} from "./types";
+import {
+    DELETE_PRODUCT,
+    GET_PRODUCT,
+    GET_PRODUCT_LIST,
+    GET_PRODUCT_PAGE,
+    SAVE_PRODUCT,
+    UPDATE_PRODUCT
+} from "./types";
 
 export const getProductPage = ({page, size,sort = 'id',search = ''}) => {
     return {type: GET_PRODUCT_PAGE.LOAD, payload: {page, size,sort ,search }};
@@ -31,6 +38,7 @@ export const getProductSuccess = (product) => {
 export const getProductFailed = (error) => {
     return {type: GET_PRODUCT.FAILED, payload: error};
 }
+
 
 
 export const saveProduct = (product) => {

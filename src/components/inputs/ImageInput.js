@@ -18,9 +18,9 @@ const ImageInput = ({input, photoUrl}) => {
             return false;
         });
     }
-    useEffect(() => {
-        if(input.value) setPhoto(input.value);
-    } ,[input.value]);
+     useEffect(() => {
+        if(input?.value) setPhoto(input.value);
+    } ,[input]);
 
 
     return (

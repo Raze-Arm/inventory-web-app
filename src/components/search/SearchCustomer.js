@@ -4,6 +4,8 @@ import _ from 'lodash';
 
 import {getCustomerPage, getCustomer} from "../../actions/customer";
 import SearchInput from "../inputs/SearchInput";
+import {Grid} from "semantic-ui-react";
+import SearchBasic from "../inputs/SearchBasic";
 
 const SearchCustomer = ({customers,customer,getCustomerPage,getCustomer,input,hasError,defaultSearchQuery,onSelect}) => {
     const [defaultValue,setDefaultValue] = useState(defaultSearchQuery);
@@ -23,17 +25,20 @@ const SearchCustomer = ({customers,customer,getCustomerPage,getCustomer,input,ha
     return (
         <React.Fragment>
             <div className={"inline field"}>
-                {/*<div className="ui left pointing red basic label">*/}
-                {/*    That name is taken!*/}
-                {/*</div>*/}
-
-                <SearchInput key={"customers"} hasError={hasError} input={input}
-                             placeholder={"نام مشتری"}
-                             label={"مشتری"} options={_.map(customers, (value,key) => ({id: value.id , name: `${value.firstName}  ${value.lastName}`}))}
-                             onSearchChange={(search) => getCustomerPage({page: 0,size: 5,search})}
-                             defaultSearchQuery={defaultValue|| ''}
-                />
-
+                {/*<SearchInput key={"customers"} hasError={hasError} input={input}*/}
+                {/*             placeholder={"نام مشتری"}*/}
+                {/*             label={"مشتری"} options={_.map(customers, (value,key) => ({id: value.id , name: `${value.firstName}  ${value.lastName}`}))}*/}
+                {/*             onSearchChange={(search) => getCustomerPage({page: 0,size: 5,search})}*/}
+                {/*             defaultSearchQuery={defaultValue|| ''}*/}
+                {/*/>*/}
+                <Grid>
+                    <Grid.Column width={"4"}>
+                        <SearchBasic key={customers} input={input} onSelect={onSelect} label={'خریدار'} hasError={hasError} options={_.map(customers, (value, key) => ({
+                            title: value.firstName + " " + value.lastName,
+                            ...value
+                        }))} getSearchedSources={(search) => getCustomerPage({page: 0, size: 5, search})}/>
+                    </Grid.Column>
+                </Grid>
             </div>
         </React.Fragment>
     );

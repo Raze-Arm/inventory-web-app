@@ -78,8 +78,8 @@ function* saveInvoiceFlow(action) {
         yield put(showSuccessMessage({title: 'عملیات موفق',content: 'صورتحساب با موفقیت ایجاد شد'}));
     }catch (e) {
         console.log('error', e);
-        yield put(showErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید'}));
-        history.push('/sale-invoice');
+        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: JSON.stringify(e.response.data)}));
+        // history.push('/sale-invoice');
     }
 }
 function* deleteInvoiceFlow(action) {

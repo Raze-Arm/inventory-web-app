@@ -1,0 +1,7 @@
+
+#product-list > .item {
+    text-align: center !important;
+}
+#product-list > .item > .header {
+    text-align: center !important;
+}

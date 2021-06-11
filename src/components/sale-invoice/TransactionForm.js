@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import _ from 'lodash';
 import {Field, FieldArray} from "redux-form";
-import Header, {Button, Divider, FormButton, FormField, FormGroup, Input, Table} from "semantic-ui-react";
+import  {Button, Divider, FormButton, FormField, FormGroup, Input, Table} from "semantic-ui-react";
 
 import SearchProduct from "../search/SearchProduct";
 
@@ -65,7 +65,7 @@ const TransactionForm = (props) => {
                 <FormField key={product.quantity} control={Input} error={!!fieldsError.quantity ? fieldsError.quantity : false}  label={'تعداد'} defaultValue={product.quantity || 0} className={'form-input__rtl'} onChange={(event, {value}) => {
                     if(value > product.quantity) {
 
-                        setFieldsError({quantity: 'تمام شده'});
+                        setFieldsError({quantity: 'ناموجود'});
                         setTransaction({...transaction, quantity: 0});
                     }
                     else {
@@ -94,7 +94,7 @@ const TransactionForm = (props) => {
                             fieldList.push({productId: id, productName: product.name, quantity, price, description});
                         }
                     }
-                }}>Add</FormButton>
+                }}>افزودن</FormButton>
             </FormGroup>
         );
     }
@@ -103,13 +103,6 @@ const TransactionForm = (props) => {
         fieldList = fields;
         return (
             <div style={{marginTop: '1rem'}}>
-                {/*<Button style={{marginBottom: '0.6rem'}} floated={'left'} color={'green'} type={'button'} onClick={() => {*/}
-                {/*    if(!_.find(fields.getAll(), {'id': product.id}))*/}
-                {/*        fields.push(product);*/}
-                {/*}} >*/}
-                {/*    Add*/}
-                {/*</Button>*/}
-
                 <Table color={"grey"} celled  size={"large"} compact>
                     <Table.Header>
                         <Table.Row>

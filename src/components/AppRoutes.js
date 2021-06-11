@@ -49,7 +49,7 @@ const AppRoutes = () => {
         <React.Fragment>
             <NavigationBar />
 
-            <div id={'app'} style={{margin: '83px 60px 0 0', }}>
+            <div id={'app'} style={{margin: '83px 60px 0 0', paddingRight: '25px'}}>
                 <AppBreadcrumb   />
                 <Switch>
                     <Route exact path={'/'} component={requireAuth(Home)} />

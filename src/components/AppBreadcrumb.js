@@ -33,6 +33,8 @@ const convertToFarsi = (str) => {
             break;
         case  'update': farsiStr = 'ویرایش';
             break;
+        case  'save': farsiStr = 'ذخیره';
+            break;
         case  'profile': farsiStr = 'مشخصات';
             break;
         case  'activity': farsiStr = 'فعالیت';

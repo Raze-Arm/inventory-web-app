@@ -50,7 +50,7 @@ const UserShow = (props) => {
         return (
             <Segment className={'custom-segment'} color={"grey"} textAlign={"center"}>
                 <Header>کاربر</Header>
-                {user.photo ? <Image rounded centered src={window.URL.createObjectURL(user.photo) } /> : null}
+                {user.photo ? <Image rounded centered src={window.URL.createObjectURL(user.photo) } /> : ''}
                 <Divider />
                 <List divided   relaxed>
 

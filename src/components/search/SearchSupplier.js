@@ -4,6 +4,8 @@ import _ from 'lodash';
 
 import {getSupplierPage, getSupplier} from '../../actions/supplier';
 import SearchInput from "../inputs/SearchInput";
+import SearchBasic from "../inputs/SearchBasic";
+import {Grid} from "semantic-ui-react";
 
 
 
@@ -26,16 +28,22 @@ const SearchSupplier = ({suppliers,supplier,getSupplierPage,getSupplier,input,ha
     return (
         <React.Fragment>
             <div className={"inline field"}>
-                {/*<div className="ui left pointing red basic label">*/}
-                {/*    That name is taken!*/}
-                {/*</div>*/}
 
-                <SearchInput key={"suppliers"} hasError={hasError} input={input}
-                             placeholder={"نام فروشنده"}
-                             label={"فروشنده"} options={_.map(suppliers, (value,key) => ({id: value.id , name: `${value.firstName}  ${value.lastName}`}))}
-                             onSearchChange={(search) => getSupplierPage({page: 0,size: 5,search})}
-                             defaultSearchQuery={defaultValue|| ''}
-                />
+                {/*<SearchInput key={"suppliers"} hasError={hasError} input={input}*/}
+                {/*             placeholder={"نام فروشنده"}*/}
+                {/*             label={"فروشنده"} options={_.map(suppliers, (value,key) => ({id: value.id , name: `${value.firstName}  ${value.lastName}`}))}*/}
+                {/*             onSearchChange={(search) => getSupplierPage({page: 0,size: 5,search})}*/}
+                {/*             defaultSearchQuery={defaultValue|| ''}*/}
+                {/*/>*/}
+
+                <Grid>
+                    <Grid.Column width={"4"}>
+                        <SearchBasic key={suppliers} input={input} onSelect={onSelect} label={'فروشنده'} hasError={hasError} options={_.map(suppliers, (value, key) => ({
+                            title: value.firstName + " " + value.lastName,
+                            ...value
+                        }))} getSearchedSources={(search) => getSupplierPage({page: 0, size: 5, search})}/>
+                    </Grid.Column>
+                </Grid>
 
             </div>
         </React.Fragment>

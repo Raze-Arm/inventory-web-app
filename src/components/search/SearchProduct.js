@@ -4,6 +4,8 @@ import _ from 'lodash';
 
 import {getProductPage, getProduct} from '../../actions/product';
 import SearchInput from "../inputs/SearchInput";
+import SearchBasic from "../inputs/SearchBasic";
+import {BACKEND_API} from "../../apis/address";
 
 
 const SearchProduct = ({products,product,getProductPage,getProduct,input,hasError,defaultSearchQuery,onSelect}) => {
@@ -16,13 +18,20 @@ const SearchProduct = ({products,product,getProductPage,getProduct,input,hasErro
         }
     }, [product]);
     return (
-        <SearchInput key={"products"} hasError={hasError} input={input}
-                     placeholder={"نام محصول"}
-                     label={"محصول"} options={_.map(products, (value,key) => (value))}
-                     onSelect={onSelect}
-                     onSearchChange={(search) => getProductPage({page: 0,size: 5,search})}
-                     defaultSearchQuery={defaultValue|| ''}
-        />
+        // <SearchInput key={"products"} hasError={hasError} input={input}
+        //              placeholder={"نام محصول"}
+        //              label={"محصول"} options={_.map(products, (value,key) => (value))}
+        //              onSelect={onSelect}
+        //              onSearchChange={(search) => getProductPage({page: 0,size: 5,search})}
+        //              defaultSearchQuery={defaultValue|| ''}
+        // />
+
+        <SearchBasic key={products} input={input} onSelect={onSelect} label={'محصول'}  hasError={hasError} options={_.map(products, (value, key) => ({
+            ...value,
+            title: value.name,
+            image: value.imageAvailable ? BACKEND_API + `/download/product/${value.id}` : null,
+            description: value.description !== 'null' && 'undefined' ? value.description : ''
+        }))} getSearchedSources={(search) => getProductPage({page: 0, size: 5, search})}/>
     );
 }
 
