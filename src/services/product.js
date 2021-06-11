@@ -1,8 +1,9 @@
 import Api from '../apis/inventory-api';
 
+const VER ='/v1'
 
 export const fetchProductPage = async ({page, size,sort, search}) => {
-    const response = await Api.get(`/product` , { params: {
+    const response = await Api.get(VER + `/product` , { params: {
             page,
             size,
             sort,
@@ -13,16 +14,16 @@ export const fetchProductPage = async ({page, size,sort, search}) => {
 
 
 export const fetchProductList = async () => {
-    const response = await Api.get('/product', {params: {'search-type': 'list'}});
+    const response = await Api.get(VER + '/product', {params: {'search-type': 'list'}});
     return response.data;
 }
 export const fetchProduct = async (id) => {
-    const response = await Api.get(`/product/${id}`);
+    const response = await Api.get(VER + `/product/${id}`);
     return response.data;
 }
 
 export const downloadProductImage = async (id) => {
-    const response = await Api.get(`/download/product/${id}`, {responseType: 'blob'});
+    const response = await Api.get(VER + `/download/product/${id}`, {responseType: 'blob'});
     let blob = new Blob([response.data]);
     return blob;
 }
@@ -35,7 +36,7 @@ export const postProduct = async (product)  => {
     data.append('price', product.price);
     data.append('salePrice', product.salePrice);
     data.append('description', product.description);
-    const response = await Api.post(`/product`, data);
+    const response = await Api.post(VER + `/product`, data);
     return response.data;
 }
 export const updateProduct = async (product) => {
@@ -47,11 +48,11 @@ export const updateProduct = async (product) => {
     data.append('price', product.price);
     data.append('salePrice', product.salePrice);
     data.append('description', product.description);
-    const response = await Api.put(`product` , data);
+    const response = await Api.put(VER + `product` , data);
     return response.data;
 }
 
 export const deleteProduct = async (id) => {
-    const response = await Api.delete(`/product/${id}`);
+    const response = await Api.delete(VER + `/product/${id}`);
     return response.data;
 }
