@@ -19,7 +19,7 @@ class Index extends React.Component {
         return (
             <React.Fragment>
                 <Table.Row>
-                    <Table.HeaderCell>شناسه</Table.HeaderCell>
+                    {/*<Table.HeaderCell>شناسه</Table.HeaderCell>*/}
                     <Table.HeaderCell>نام</Table.HeaderCell>
                     <Table.HeaderCell>نام خانوادگی</Table.HeaderCell>
                     <Table.HeaderCell>آدرس</Table.HeaderCell>
@@ -36,7 +36,7 @@ class Index extends React.Component {
                 if(!s) return ;
                 return (
                     <Table.Row key={s.id}>
-                        <Table.Cell>{s.id}</Table.Cell>
+                        {/*<Table.Cell>{s.id}</Table.Cell>*/}
                         <Table.Cell>{s.firstName}</Table.Cell>
                         <Table.Cell>{s.lastName}</Table.Cell>
                         <Table.Cell>{s.address}</Table.Cell>

@@ -23,7 +23,7 @@ class Index extends React.Component {
         return (
             <React.Fragment>
                 <Table.Row>
-                    <Table.HeaderCell>شناسه</Table.HeaderCell>
+                    {/*<Table.HeaderCell>شناسه</Table.HeaderCell>*/}
                     <Table.HeaderCell>محصول</Table.HeaderCell>
                     <Table.HeaderCell>قیمت</Table.HeaderCell>
                     <Table.HeaderCell>تعداد</Table.HeaderCell>
@@ -55,7 +55,7 @@ class Index extends React.Component {
                 if(!tr) return ;
                 return (
                     <Table.Row key={tr.id}>
-                        <Table.Cell>{tr.id}</Table.Cell>
+                        {/*<Table.Cell>{tr.id}</Table.Cell>*/}
                         <Table.Cell>{tr.productName}</Table.Cell>
                         <Table.Cell>{tr.price}</Table.Cell>
                         <Table.Cell>{tr.quantity}</Table.Cell>

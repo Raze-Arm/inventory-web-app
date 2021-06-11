@@ -18,7 +18,7 @@ class Index extends React.Component {
         return (
             <React.Fragment>
                 <Table.Row>
-                    <Table.HeaderCell>شناسه</Table.HeaderCell>
+                    {/*<Table.HeaderCell>شناسه</Table.HeaderCell>*/}
                     <Table.HeaderCell>مشتری</Table.HeaderCell>
                     <Table.HeaderCell>قیمت کل</Table.HeaderCell>
                     <Table.HeaderCell>تاریخ</Table.HeaderCell>
@@ -35,7 +35,7 @@ class Index extends React.Component {
                 const totalPrice =_.reduce(i?.transactions, (result, value) => result + parseFloat(value.price), 0.0);
                 return (
                     <Table.Row key={i.id}>
-                        <Table.Cell>{i.id}</Table.Cell>
+                        {/*<Table.Cell>{i.id}</Table.Cell>*/}
                         <Table.Cell>{i?.customer?.firstName} {i?.customer?.lastName}</Table.Cell>
                         <Table.Cell>{totalPrice || 0}</Table.Cell>
                         <Table.Cell>{convertToPersianNumber(moment(i.createdDate, 'YYYY/MM/DD hh:mm').locale('fa').format('hh:mm , YYYY/MM/DD'))}</Table.Cell>
