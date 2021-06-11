@@ -1,8 +1,9 @@
 import Api from '../apis/inventory-api';
+const VER ='/v1'
 
 
 export const fetchTransactionPage = async ({page, size,sort, search}) => {
-    const response = await Api.get(`/transaction` , { params: {
+    const response = await Api.get(VER +`/transaction` , { params: {
             page,
             size,
             sort,
@@ -12,7 +13,7 @@ export const fetchTransactionPage = async ({page, size,sort, search}) => {
 }
 
 export const fetchSaleTransactionPage = async ({page, size,sort, search}) => {
-    const response = await Api.get(`/transaction/sale` , { params: {
+    const response = await Api.get(VER +`/transaction/sale` , { params: {
             page,
             size,
             sort,
@@ -22,7 +23,7 @@ export const fetchSaleTransactionPage = async ({page, size,sort, search}) => {
 }
 
 export const fetchPurchaseTransactionPage = async ({page, size,sort, search}) => {
-    const response = await Api.get(`/transaction/purchase` , { params: {
+    const response = await Api.get(VER +`/transaction/purchase` , { params: {
             page,
             size,
             sort,

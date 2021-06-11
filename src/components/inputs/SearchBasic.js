@@ -15,11 +15,7 @@ function exampleReducer(state, action) {
             return initialState
         case 'START_SEARCH':
             return { ...state, loading: true, value: action.query }
-
         case 'SET_RESULTS': {
-            // const re = new RegExp(_.escapeRegExp(state.value), 'i')
-            // const isMatch = (result) => re.test(result.title)
-
             return { ...state, loading: false, results:  action.results, }
         }
         case 'UPDATE_SELECTION':
@@ -74,7 +70,7 @@ const  SearchBasic = ({options, getSearchedSources, input, onSelect, label, hasE
     const renderResults = ({title, price,image, description, ...props}) => {
         const img = image ? <div className={'image'}><img src={image}/></div> : '';
         return (
-            <div className={'result'} >
+            <div className={'result'} key={title} >
                 {img}
                 <div className={'content'}>
                     <div className={'title'}>{title}</div>

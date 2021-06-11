@@ -1,7 +1,4 @@
-/**
- * The code was extracted from:
- * https://github.com/davidchambers/Base64.js
- */
+
 
 var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 

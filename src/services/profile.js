@@ -1,9 +1,10 @@
 import Api from '../apis/inventory-api';
 
+const VER ='/v1'
 
 
 export const fetchProfile = async (username) => {
-    const response = await Api.get(`/profile/${username}` ,);
+    const response = await Api.get(VER + `/profile/${username}` ,);
     return response.data;
 }
 
@@ -20,13 +21,13 @@ export const updateProfile = async (profile) => {
     data.append('lastName', profile.lastName);
     data.append('username', profile.username);
     data.append('password', profile.password);
-    const response = await Api.put('/profile', data );
+    const response = await Api.put(VER + '/profile', data );
     return response.data;
 }
 
 
 export const downloadProfilePhoto = async  (username) => {
-    const response = await Api.get(`/download/profile/${username}` , {responseType: "blob" ,});
+    const response = await Api.get(VER + `/download/profile/${username}` , {responseType: "blob" ,});
         let blob = new Blob([response.data] ,);
     return blob;
 }
