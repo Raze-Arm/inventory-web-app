@@ -51,7 +51,7 @@ class Index extends React.Component {
 
         });
         return (
-            _.map(items , (tr) => {
+            _.map(items , (tr, i) => {
                 if(!tr) return ;
                 return (
                     <Table.Row key={tr.id}>

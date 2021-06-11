@@ -19,7 +19,7 @@ class Index extends React.Component {
         return (
             <React.Fragment>
                 <Table.Row textAlign={"center"}>
-                    <Table.HeaderCell>شناسه</Table.HeaderCell>
+                    {/*<Table.HeaderCell>شناسه</Table.HeaderCell>*/}
                     <Table.HeaderCell>نام</Table.HeaderCell>
                     <Table.HeaderCell>تعداد</Table.HeaderCell>
                     <Table.HeaderCell>قیمت</Table.HeaderCell>
@@ -32,7 +32,7 @@ class Index extends React.Component {
     }
     renderRows = (items) => {
         return (
-            _.map(items , (p) => {
+            _.map(items , (p, i) => {
                 if(!p) return ;
 
                 const nameWithImg = p.imageAvailable ? <Header as={'h4'} image>
@@ -41,7 +41,7 @@ class Index extends React.Component {
                 </Header> : p.name;
                 return (
                     <Table.Row key={p.id} textAlign={"center"}>
-                        <Table.Cell>{p.id}</Table.Cell>
+                        {/*<Table.Cell>{p.id}</Table.Cell>*/}
                         <Table.Cell>
                             {nameWithImg}
                         </Table.Cell>
