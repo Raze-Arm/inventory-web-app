@@ -22,7 +22,7 @@ const SearchProduct = ({products,product,getProductPage,getProduct,input,hasErro
         <SearchBasic key={products} input={input} onSelect={onSelect} label={'محصول'}  hasError={hasError} options={_.map(products, (value, key) => ({
             ...value,
             title: value.name,
-            image: value.imageAvailable ? BACKEND_API + `/v1/download/product/${value.id}` : null,
+            image: value.imageAvailable ? BACKEND_API + `/v1/download/small/product/${value.id}` : null,
             description: value.description !== 'null' && 'undefined' ? value.description : ''
         }))} getSearchedSources={(search) => getProductPage({page: 0, size: 5, search})}/>
     );

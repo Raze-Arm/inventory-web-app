@@ -13,7 +13,7 @@ const TR_FIELDS = {
             if(defaultValue) input.value = defaultValue;
             return (
                 <Header as={'h4'} image>
-                    {prod.imageAvailable  ? <Image src={BACKEND_API + `/v1/download/product/${prod.productId}`}  rounded size='mini' /> : ''}
+                    {prod.imageAvailable  ? <Image src={BACKEND_API + `/v1/download/small/product/${prod.productId}`}  rounded size='mini' /> : ''}
                     <Header.Content>{input.value}</Header.Content>
                 </Header>
             );
