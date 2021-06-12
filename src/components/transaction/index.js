@@ -1,8 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import _ from 'lodash';
-import Moment from "react-moment";
-import {Container, Header, Input, Menu, Segment, Table} from "semantic-ui-react";
+import {Container, Header, Image, Input, Menu, Segment, Table} from "semantic-ui-react";
 
 import {getTransactionPage} from "../../actions/transaction";
 import AppPagination from "../AppPagination";
@@ -10,7 +9,8 @@ import PurchaseTransactionPage from "./PurchaseTransactionPage";
 import SaleTransactionPage from "./SaleTransactionPage";
 
 import moment from "jalali-moment";
-import {convertToPersianNumber} from "../../utility/numberConverter";
+import {convertToPersianNumber, numberWithCommas} from "../../utility/numberConverter";
+import {BACKEND_API} from "../../apis/address";
 
 const ALL = 'کل';
 const PURCHASE = 'خرید';
@@ -56,9 +56,14 @@ class Index extends React.Component {
                 return (
                     <Table.Row key={tr.id}>
                         {/*<Table.Cell>{tr.id}</Table.Cell>*/}
-                        <Table.Cell>{tr.productName}</Table.Cell>
-                        <Table.Cell>{tr.price}</Table.Cell>
-                        <Table.Cell>{tr.quantity}</Table.Cell>
+                        <Table.Cell>
+                            <Header as={'h4'} image>
+                                {tr.imageAvailable  ? <Image src={BACKEND_API + `/v1/download/product/${tr.productId}`}  rounded size='mini' /> : ''}
+                                <Header.Content>{tr.productName}</Header.Content>
+                            </Header>
+                        </Table.Cell>
+                        <Table.Cell>{convertToPersianNumber(numberWithCommas(parseFloat(tr.price)))}</Table.Cell>
+                        <Table.Cell>{tr.quantity.toLocaleString('fa')}</Table.Cell>
                         <Table.Cell>{tr.type}</Table.Cell>
                         <Table.Cell>
                             {convertToPersianNumber(moment(tr.createdDate, 'YYYY/MM/DD hh:mm').locale('fa').format('hh:mm , YYYY/MM/DD'))}

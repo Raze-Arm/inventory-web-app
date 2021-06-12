@@ -7,7 +7,7 @@ import {Container, Dimmer, Divider, Header, List, Loader, Segment, Table} from "
 import {getSInvoice} from "../../actions/sale-invoice";
 import Loading from "../Loading";
 import moment from "jalali-moment";
-import {convertToPersianNumber} from "../../utility/numberConverter";
+import {convertToPersianNumber, numberWithCommas} from "../../utility/numberConverter";
 
 class SaleInvoiceShow extends React.Component {
     
@@ -63,8 +63,8 @@ class SaleInvoiceShow extends React.Component {
                             <Table.Row key={index}>
                                 <Table.Cell>{tr.id}</Table.Cell>
                                 <Table.Cell>{tr.productName}</Table.Cell>
-                                <Table.Cell>{tr.quantity}</Table.Cell>
-                                <Table.Cell>{tr.price}</Table.Cell>
+                                <Table.Cell>{tr.quantity.toLocaleString('fa')}</Table.Cell>
+                                <Table.Cell>{convertToPersianNumber(numberWithCommas(parseFloat(tr.price)))}</Table.Cell>
                             </Table.Row>
                         ))}
                     </Table.Body>

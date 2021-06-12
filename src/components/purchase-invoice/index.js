@@ -7,7 +7,7 @@ import {getPInvoicePage} from '../../actions/purchase-invoice';
 import history from "../../history";
 import AppPagination from "../AppPagination";
 import moment from "jalali-moment";
-import {convertToPersianNumber} from "../../utility/numberConverter";
+import {convertToPersianNumber, numberWithCommas} from "../../utility/numberConverter";
 
 class Index extends React.Component {
     state = {search: ''}
@@ -35,7 +35,7 @@ class Index extends React.Component {
                     <Table.Row key={i.id}>
                         {/*<Table.Cell>{i.id}</Table.Cell>*/}
                         <Table.Cell>{i?.supplier?.firstName} {i?.supplier?.lastName}</Table.Cell>
-                        <Table.Cell>{totalPrice || 0}</Table.Cell>
+                        <Table.Cell>{convertToPersianNumber(numberWithCommas(parseFloat(totalPrice))) || 0}</Table.Cell>
                         <Table.Cell>
                             {convertToPersianNumber(moment(i.createdDate, 'YYYY/MM/DD hh:mm').locale('fa').format('hh:mm , YYYY/MM/DD'))}
                         </Table.Cell>

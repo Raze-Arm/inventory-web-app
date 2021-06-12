@@ -24,7 +24,6 @@ const ProductImageInput = ({input, photoUrl, imageAvailable, id}) => {
     } ,[input]);
 
     const src=BACKEND_API + `/v1/download/product/${id}`
-        console.log('id###', src, photo ,imageAvailable);
     if(!photo && imageAvailable) return  <Image id={'product-image'}   style={{ marginLeft: '50vh', margin: 'auto', width: '250px', height: '200px' }} fluid bordered
                                                       label={{ as: 'a', color: 'red', corner: 'right', icon: 'edit' , onClick:  event => onProfileEditClick(event) }}
                                                       src={src}  />;

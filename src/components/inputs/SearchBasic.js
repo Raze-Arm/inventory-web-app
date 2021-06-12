@@ -34,7 +34,6 @@ const  SearchBasic = ({options, getSearchedSources, input, onSelect, label, hasE
 
 
     React.useEffect(() => {
-        console.log('options###', options)
         if(options.length > 0 ) {
             const re = new RegExp(_.escapeRegExp(state.value), 'i')
             const isMatch = (result) => re.test(result.title);

@@ -1,18 +1,22 @@
 import React, {useState} from 'react';
 import _ from 'lodash';
 import {Field, FieldArray} from "redux-form";
-import  {Button, Header, Divider, FormButton, FormField, FormGroup, Input, Table} from "semantic-ui-react";
+import {Button, Divider, FormButton, FormField, FormGroup, Grid, Header, Image, Input, Table} from "semantic-ui-react";
 
 import SearchProduct from "../search/SearchProduct";
+import {BACKEND_API} from "../../apis/address";
 
 
 const TR_FIELDS = {
     product: {
         name: 'productName',
-        render({input, meta, defaultValue}) {
+        render({input, meta, defaultValue,prod}) {
             if(defaultValue) input.value = defaultValue;
             return (
-                <label>{input.value}</label>
+                <Header as={'h4'} image>
+                    {prod.imageAvailable  ? <Image src={BACKEND_API + `/v1/download/product/${prod.productId}`}  rounded size='mini' /> : ''}
+                    <Header.Content>{input.value}</Header.Content>
+                </Header>
             );
         },
     },
@@ -55,35 +59,42 @@ const TransactionForm = (props) => {
 
     const renderProductFields = () => {
         return (
-            <FormGroup  >
-                <SearchProduct  key={'product'} onSelect = {(pr) => {
-                    setTransaction(pr);
-                    setProduct(pr);
-                }} />
+            <Grid  stackable>
+                <Grid.Column width={4}>
+                    <SearchProduct  key={'product'} onSelect = {(pr) => {
+                        setTransaction(pr);
+                        setProduct(pr);
+                    }} />
+                </Grid.Column>
 
-                <FormField key={product.quantity} control={Input}   label={'تعداد'} defaultValue={product.quantity || 0} className={'form-input__rtl'} onChange={(event, {value}) => {
+                <Grid.Column width={3}>
+                    <FormField key={product.quantity} control={Input}   label={'تعداد'} defaultValue={product.quantity || 0} className={'form-input__rtl'} onChange={(event, {value}) => {
                         setTransaction({...transaction, quantity: value});
-                }} />
+                    }} />
+                </Grid.Column>
 
-                <FormField  key={product.price} control={Input} label={'قیمت'} defaultValue={product.price || 0}  className={'form-input__rtl'} onChange={(event, {value}) => {
-                    setTransaction({...transaction, price: value});
+                <Grid.Column width={3}>
+                    <FormField  key={product.price} control={Input} label={'قیمت'} defaultValue={product.price || 0}  className={'form-input__rtl'} onChange={(event, {value}) => {
+                        setTransaction({...transaction, price: value});
+                    }} />
+                </Grid.Column>
 
-                }} />
-
-                <FormField key={product.description} control={Input}  label={'توضیحات'} defaultValue={product.description || ''}  className={'form-input__rtl'} onChange={(event, {value}) => {
-                    setTransaction({...transaction, description: value});
-
-                }} />
-                <FormButton type={'button'} style={{marginTop: '25px'}} color={'green'} floated={"left"}  onClick={() => {
-                    if(!_.find(fieldList.getAll(), {'productId': product.id})){
-
-                        const {id, quantity, price, description} = transaction;
-                       if(quantity > 0) {
-                           fieldList.push({productId: id, productName: product.name, quantity, price,description});
-                       }
-                    }
-                }}>افزودن</FormButton>
-            </FormGroup>
+                <Grid.Column width={4}>
+                    <FormField key={product.description} control={Input}  label={'توضیحات'} defaultValue={product.description || ''}  className={'form-input__rtl'} onChange={(event, {value}) => {
+                        setTransaction({...transaction, description: value});
+                    }} />
+                </Grid.Column>
+                <Grid.Column width={2}>
+                    <FormButton type={'button'} style={{marginTop: '25px'}} color={'green'}   onClick={() => {
+                        if(!_.find(fieldList.getAll(), {'productId': product.id})){
+                            const {id, quantity, price, description} = transaction;
+                            if(quantity > 0) {
+                                fieldList.push({productId: id, productName: product.name, imageAvailable: product.imageAvailable, quantity, price,description});
+                            }
+                        }
+                    }}>افزودن</FormButton>
+                </Grid.Column>
+            </Grid>
         );
     }
 
@@ -100,7 +111,7 @@ const TransactionForm = (props) => {
                             <Table.HeaderCell>تعداد</Table.HeaderCell>
                             <Table.HeaderCell>قیمت</Table.HeaderCell>
                             <Table.HeaderCell>توضیح</Table.HeaderCell>
-                            <Table.HeaderCell></Table.HeaderCell>
+                            <Table.HeaderCell/>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
@@ -113,7 +124,7 @@ const TransactionForm = (props) => {
                                     {_.map(TR_FIELDS, ({name, render, validate}) => (
                                            <Table.Cell key={name}>
                                                 <Field key={name} name={`${tr}.${name}`} component={render}
-                                                       defaultValue={prod[name] || ''} validate={validate}/>
+                                                       defaultValue={prod[name] || ''} prod={prod} validate={validate}/>
                                             </Table.Cell>
                                         )
                                     )}
