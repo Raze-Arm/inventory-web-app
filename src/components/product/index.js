@@ -2,14 +2,13 @@ import React from 'react';
 import {connect} from "react-redux";
 import _ from 'lodash';
 import {Button, Container, Header, Image, Input, Segment, Table} from "semantic-ui-react";
-import Moment from "react-moment";
 
 import {getProductPage} from '../../actions/product';
 import history from "../../history";
 import AppPagination from "../AppPagination";
 
 import moment from "jalali-moment";
-import {convertToPersianNumber} from "../../utility/numberConverter";
+import {convertToPersianNumber, numberWithCommas} from "../../utility/numberConverter";
 import {BACKEND_API} from "../../apis/address";
 class Index extends React.Component {
     state = {search: ''}
@@ -18,13 +17,13 @@ class Index extends React.Component {
     renderHeaders() {
         return (
             <React.Fragment>
-                <Table.Row textAlign={"center"}>
+                <Table.Row >
                     {/*<Table.HeaderCell>شناسه</Table.HeaderCell>*/}
                     <Table.HeaderCell>نام</Table.HeaderCell>
                     <Table.HeaderCell>تعداد</Table.HeaderCell>
                     <Table.HeaderCell>قیمت</Table.HeaderCell>
                     <Table.HeaderCell>قیمت فروش</Table.HeaderCell>
-                    <Table.HeaderCell>تارخ</Table.HeaderCell>
+                    <Table.HeaderCell>تاریخ</Table.HeaderCell>
                     <Table.HeaderCell></Table.HeaderCell>
                 </Table.Row>
             </React.Fragment>
@@ -36,7 +35,7 @@ class Index extends React.Component {
                 if(!p) return ;
 
                 return (
-                    <Table.Row key={p.id} textAlign={"center"}>
+                    <Table.Row key={p.id} >
                         {/*<Table.Cell>{p.id}</Table.Cell>*/}
                         <Table.Cell>
                             <Header as={'h4'} image>
@@ -44,9 +43,9 @@ class Index extends React.Component {
                                 <Header.Content>{p.name}</Header.Content>
                             </Header>
                         </Table.Cell>
-                        <Table.Cell>{p.quantity || 0}</Table.Cell>
-                        <Table.Cell>{p.price || ''}</Table.Cell>
-                        <Table.Cell>{p.salePrice || ''}</Table.Cell>
+                        <Table.Cell>{p.quantity.toLocaleString('fa') || 0}</Table.Cell>
+                        <Table.Cell>{convertToPersianNumber(numberWithCommas(parseFloat(p.price))) || ''}</Table.Cell>
+                        <Table.Cell>{convertToPersianNumber(numberWithCommas(parseFloat(p.salePrice))) || ''}</Table.Cell>
                         <Table.Cell> {p.createdDate ?
                             convertToPersianNumber(moment(p.createdDate, 'YYYY/MM/DD hh:mm').locale('fa').format('hh:mm , YYYY/MM/DD'))
                             : ''}

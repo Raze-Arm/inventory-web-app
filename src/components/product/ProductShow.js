@@ -6,7 +6,7 @@ import {getProduct} from '../../actions/product';
 import Loading from "../Loading";
 
 import moment from "jalali-moment";
-import {convertToPersianNumber} from "../../utility/numberConverter";
+import {convertToPersianNumber, numberWithCommas} from "../../utility/numberConverter";
 import './ProductShow.css'
 import {BACKEND_API} from "../../apis/address";
 
@@ -21,6 +21,7 @@ class ProductShow extends React.Component {
     render() {
         const product = this.props.product;
         if(!product) return <Loading />
+        const {name, price, salePrice, quantity, description , createdDate} = product;
         return (
             <Container>
                 <Segment color={"grey"}>
@@ -30,27 +31,27 @@ class ProductShow extends React.Component {
                     <List id={'product-list'} divided relaxed  >
                         <List.Item >
                             <List.Header>نام</List.Header>
-                            {product.name}
+                            {name}
                         </List.Item>
                         <List.Item>
                             <List.Header>قیمت</List.Header>
-                            {product.price || <br />}
+                            {convertToPersianNumber(numberWithCommas(parseFloat(price))) || <br />}
                         </List.Item>
                         <List.Item>
                             <List.Header>قیمت فروش</List.Header>
-                            {product.salePrice || <br />}
+                            {convertToPersianNumber(numberWithCommas(parseFloat(salePrice))) || <br />}
                         </List.Item>
                         <List.Item>
                             <List.Header>تعداد</List.Header>
-                            {product.quantity || 0}
+                            {quantity?.toLocaleString('fa') || 0}
                         </List.Item>
                         <List.Item>
                             <List.Header>توضیحات</List.Header>
-                            {product.description !== 'null' && 'undefined' ? product.description :  <br />}
+                            {description ? product.description :  <br />}
                         </List.Item>
                         <List.Item>
                             <List.Header>تاریخ</List.Header>
-                            {product.createdDate ? convertToPersianNumber(moment(product.createdDate, 'YYYY/MM/DD hh:mm').locale('fa').format('hh:mm , YYYY/MM/DD')) : <br />}
+                            {createdDate ? convertToPersianNumber(moment(createdDate, 'YYYY/MM/DD hh:mm').locale('fa').format('hh:mm , YYYY/MM/DD')) : <br />}
                         </List.Item>
                     </List>
                 </Segment>

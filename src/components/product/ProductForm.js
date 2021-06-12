@@ -58,7 +58,7 @@ const FIELDS = {
         render({input, meta, ...props}) {
             const hasError = !!(meta.error && meta.touched);
             return (
-                <FormField control={TextArea}  {...input} error={hasError ? meta.error : null} label={'توضیحات'} />
+                <FormField control={TextArea}  {...input}  error={hasError ? meta.error : null} label={'توضیحات'} />
             );
         },
     },
@@ -87,12 +87,12 @@ const ProductForm = (props) => {
                         <Field key={salePrice.name} name={salePrice.name} component={salePrice.render} validate={salePrice.validate} />
                     </Grid.Column>
                     <Grid.Column width={"10"} >
-                        <Field key={image.name} name={image.name} component={image.render} validate={image.validate}  imageAvailable={props.initialValues?.imageAvailable} id={id}/>
+                        <Field key={image.name} name={image.name} component={image.render}  validate={image.validate}  imageAvailable={props.initialValues?.imageAvailable} id={id}/>
 
                     </Grid.Column>
                 </Grid>
 
-                <Field  key={description.name} name={description.name} component={description.render} validate={description.validate} />
+                <Field  key={description.name} name={description.name} component={description.render}  validate={description.validate} />
                 <Button primary  type={'submit'} style={{marginTop: '1rem'}}>{props.type || 'ذخیره'}</Button>
             </Form>
         </Container>

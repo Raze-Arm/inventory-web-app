@@ -26,31 +26,31 @@ export const fetchUserByUsername = async (username) => {
 
 export const postUser = async (user) => {
     const data = new FormData();
-    const userPhoto = user?.photo;
-    if(userPhoto) {
-        data.append('photo',userPhoto);
+    const {firstName, lastName, username, password, role, photo} = user;
+    if(photo) {
+        data.append('photo',photo);
     }
-    data.append('firstName', user.firstName);
-    data.append('lastName', user.lastName);
-    data.append('username', user.username);
-    data.append('password', user.password);
-    data.append('role', user.role);
+    if(firstName)data.append('firstName', firstName);
+    if(lastName)data.append('lastName', lastName);
+    if(username)data.append('username', username);
+    if(password)data.append('password', password);
+    if(role)data.append('role', role);
     const response = await Api.post(VER +'/user', data );
     return response.data;
 }
 
 export const updateUser = async (user) => {
     const data = new FormData();
-    const userPhoto = user?.photo;
-    if(userPhoto) {
-        data.append('photo',userPhoto);
+    const {id, firstName, lastName, username, password, role, photo} = user;
+    if(photo) {
+        data.append('photo',photo);
     }
-    data.append('id',user.id);
-    data.append('firstName', user.firstName);
-    data.append('lastName', user.lastName);
-    data.append('username', user.username);
-    data.append('password', user.password);
-    data.append('role', user.role);
+    if(id)data.append('id',id);
+    if(firstName)data.append('firstName', firstName);
+    if(lastName)data.append('lastName', lastName);
+    if(username)data.append('username', username);
+    if(password)data.append('password', password);
+    if(role)data.append('role', role);
     const response = await Api.put(VER +'/user', data );
     return response.data;
 }

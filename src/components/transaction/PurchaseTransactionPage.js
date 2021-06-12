@@ -2,12 +2,13 @@ import React from 'react';
 import {connect} from "react-redux";
 import _ from 'lodash';
 import Moment from "react-moment";
-import {Grid, Input, Table} from "semantic-ui-react";
+import {Grid, Header, Image, Input, Table} from "semantic-ui-react";
 
 import {getPurchaseTrPage} from "../../actions/transaction";
 import AppPagination from "../AppPagination";
 import moment from "jalali-moment";
-import {convertToPersianNumber} from "../../utility/numberConverter";
+import {convertToPersianNumber, numberWithCommas} from "../../utility/numberConverter";
+import {BACKEND_API} from "../../apis/address";
 
 class PurchaseTransactionPage extends React.Component {
     state =  {search: ''};
@@ -15,7 +16,7 @@ class PurchaseTransactionPage extends React.Component {
         return (
             <React.Fragment>
                 <Table.Row>
-                    <Table.HeaderCell>شناسه</Table.HeaderCell>
+                    {/*<Table.HeaderCell>شناسه</Table.HeaderCell>*/}
                     <Table.HeaderCell>محصول</Table.HeaderCell>
                     <Table.HeaderCell>قیمت</Table.HeaderCell>
                     <Table.HeaderCell>تعداد</Table.HeaderCell>
@@ -32,10 +33,15 @@ class PurchaseTransactionPage extends React.Component {
                 if(!tr) return ;
                 return (
                     <Table.Row key={tr.id}>
-                        <Table.Cell>{tr.id}</Table.Cell>
-                        <Table.Cell>{tr.productName}</Table.Cell>
-                        <Table.Cell>{tr.price}</Table.Cell>
-                        <Table.Cell>{tr.quantity}</Table.Cell>
+                        {/*<Table.Cell>{tr.id}</Table.Cell>*/}
+                        <Table.Cell>
+                            <Header as={'h4'} image>
+                                {tr.imageAvailable  ? <Image src={BACKEND_API + `/v1/download/product/${tr.productId}`}  rounded size='mini' /> : ''}
+                                <Header.Content>{tr.productName}</Header.Content>
+                            </Header>
+                        </Table.Cell>
+                        <Table.Cell>{convertToPersianNumber(numberWithCommas(parseFloat(tr.price)))}</Table.Cell>
+                        <Table.Cell>{tr.quantity.toLocaleString('fa')}</Table.Cell>
                         <Table.Cell>
                             {convertToPersianNumber(moment(tr.createdDate, 'YYYY/MM/DD hh:mm').locale('fa').format('hh:mm , YYYY/MM/DD'))}
                         </Table.Cell>

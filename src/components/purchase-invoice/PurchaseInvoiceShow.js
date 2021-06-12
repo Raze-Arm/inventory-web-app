@@ -1,14 +1,13 @@
 import React from "react";
 import _ from 'lodash';
 import {connect} from "react-redux";
-import Moment from 'react-moment';
 import {Container, Divider, Header, List, Segment, Table} from "semantic-ui-react";
 
 
 import {getPInvoice} from "../../actions/purchase-invoice";
 import Loading from "../Loading";
 import moment from "jalali-moment";
-import {convertToPersianNumber} from "../../utility/numberConverter";
+import {convertToPersianNumber, numberWithCommas} from "../../utility/numberConverter";
 
 class PurchaseInvoiceShow extends React.Component {
 
@@ -62,8 +61,8 @@ class PurchaseInvoiceShow extends React.Component {
                             <Table.Row key={index}>
                                 <Table.Cell>{tr.id}</Table.Cell>
                                 <Table.Cell>{tr.productName}</Table.Cell>
-                                <Table.Cell>{tr.quantity}</Table.Cell>
-                                <Table.Cell>{tr.price}</Table.Cell>
+                                <Table.Cell>{tr.quantity.toLocaleString('fa')}</Table.Cell>
+                                <Table.Cell>{convertToPersianNumber(numberWithCommas(parseFloat(tr.price)))}</Table.Cell>
                             </Table.Row>
                         ))}
                     </Table.Body>

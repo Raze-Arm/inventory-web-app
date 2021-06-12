@@ -12,15 +12,15 @@ export const fetchProfile = async (username) => {
 
 export const updateProfile = async (profile) => {
     const data = new FormData();
-    const profilePhoto = profile?.photo;
-    if(profilePhoto) {
-        data.append('photo',profilePhoto);
+    const {id, firstName, lastName, username, password , photo} = profile;
+    if(photo) {
+        data.append('photo',photo);
     }
-    data.append('id',profile.id);
-    data.append('firstName', profile.firstName);
-    data.append('lastName', profile.lastName);
-    data.append('username', profile.username);
-    data.append('password', profile.password);
+    if(id)data.append('id',id);
+    if(firstName)data.append('firstName', firstName);
+    if(lastName)data.append('lastName', lastName);
+    if(username)data.append('username', username);
+    if(password)data.append('password', password);
     const response = await Api.put(VER + '/profile', data );
     return response.data;
 }

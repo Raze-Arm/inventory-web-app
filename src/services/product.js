@@ -30,24 +30,25 @@ export const downloadProductImage = async (id) => {
 
 export const postProduct = async (product)  => {
     const data = new FormData();
-    const image = product?.image;
+    const { name, price, salePrice, description, image} = product;
     if(image) data.append('image', image);
-    data.append('name', product.name);
-    data.append('price', product.price);
-    data.append('salePrice', product.salePrice);
-    data.append('description', product.description);
+
+    if(name) data.append('name', name);
+    if(price) data.append('price', price);
+    if(salePrice) data.append('salePrice', salePrice);
+    if(description) data.append('description', description);
     const response = await Api.post(VER + `/product`, data);
     return response.data;
 }
 export const updateProduct = async (product) => {
     const data = new FormData();
-    const image = product?.image;
+    const {id, name, price, salePrice, description, image} = product;
     if(image) data.append('image', image);
-    data.append('id', product.id);
-    data.append('name', product.name);
-    data.append('price', product.price);
-    data.append('salePrice', product.salePrice);
-    data.append('description', product.description);
+    if(id) data.append('id', id);
+    if(name) data.append('name', name);
+    if(price) data.append('price', price);
+    if(salePrice) data.append('salePrice', salePrice);
+    if(description) data.append('description', description);
     const response = await Api.put(VER + `/product` , data);
     return response.data;
 }
