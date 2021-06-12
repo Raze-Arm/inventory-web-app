@@ -12,7 +12,6 @@ const ProductImageInput = ({input, photoUrl, imageAvailable, id}) => {
         fileInput.setAttribute("accept", "image/*");
         fileInput.click(); // opening dialog
         fileInput.addEventListener('change', (event) => {
-            console.log(fileInput.files)
             const file = fileInput.files[0]
             setPhoto(file);
             input.onChange(file);
@@ -23,15 +22,20 @@ const ProductImageInput = ({input, photoUrl, imageAvailable, id}) => {
         if(input?.value) setPhoto(input.value);
     } ,[input]);
 
-    const src=BACKEND_API + `/v1/download/product/${id}`
-    if(!photo && imageAvailable) return  <Image id={'product-image'}   style={{ marginLeft: '50vh', margin: 'auto', width: '250px', height: '200px' }} fluid bordered
-                                                      label={{ as: 'a', color: 'red', corner: 'right', icon: 'edit' , onClick:  event => onProfileEditClick(event) }}
-                                                      src={src}  />;
-    else
+    const src= !photo && imageAvailable ? BACKEND_API + `/v1/download/product/${id}` :  photo?.size > 100 ? window.URL.createObjectURL( photo) : placeholder;
+    // if(!photo && imageAvailable) return  <Image id={'product-image'}   style={{ marginLeft: '50vh', margin: 'auto', width: '250px', height: '200px' }} fluid bordered
+    //                                                   label={{ as: 'a', color: 'red', corner: 'right', icon: 'edit' , onClick:  event => onProfileEditClick(event) }}
+    //                                                   src={src}  />;
+    // else
+    // return (
+    //     <Image id={'product-image'}   style={{ marginLeft: '50vh', margin: 'auto', width: '250px', height: '200px' }} fluid bordered
+    //              label={{ as: 'a', color: 'red', corner: 'right', icon: 'edit' , onClick:  event => onProfileEditClick(event) }}
+    //              src={photo !== null && photo?.size > 100 ? window.URL.createObjectURL( photo) : placeholder}  />
+    // );
     return (
         <Image id={'product-image'}   style={{ marginLeft: '50vh', margin: 'auto', width: '250px', height: '200px' }} fluid bordered
-                 label={{ as: 'a', color: 'red', corner: 'right', icon: 'edit' , onClick:  event => onProfileEditClick(event) }}
-                 src={photo !== null && photo?.size > 100 ? window.URL.createObjectURL( photo) : placeholder}  />
+               label={{ as: 'a', color: 'red', corner: 'right', icon: 'edit' , onClick:  event => onProfileEditClick(event) }}
+               src={src}  />
     );
 }
 

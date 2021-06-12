@@ -58,7 +58,7 @@ class Index extends React.Component {
                         {/*<Table.Cell>{tr.id}</Table.Cell>*/}
                         <Table.Cell>
                             <Header as={'h4'} image>
-                                {tr.imageAvailable  ? <Image src={BACKEND_API + `/v1/download/product/${tr.productId}`}  rounded size='mini' /> : ''}
+                                {tr.imageAvailable  ? <Image src={BACKEND_API + `/v1/download/small/product/${tr.productId}`}  rounded size='mini' /> : ''}
                                 <Header.Content>{tr.productName}</Header.Content>
                             </Header>
                         </Table.Cell>
