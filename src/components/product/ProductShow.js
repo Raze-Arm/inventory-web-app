@@ -24,7 +24,7 @@ class ProductShow extends React.Component {
         return (
             <Container>
                 <Segment color={"grey"}>
-                    {product.imageAvailable ? <Image size={"medium"} rounded centered  src={BACKEND_API + `/download/product/${product.id}`} /> : ''}
+                    {product.imageAvailable ? <Image size={"medium"} rounded centered  src={BACKEND_API + `/v1/download/product/${product.id}`} /> : ''}
                     <Header textAlign={"center"}>محصول</Header>
                     <Divider />
                     <List id={'product-list'} divided relaxed  >

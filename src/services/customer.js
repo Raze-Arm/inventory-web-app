@@ -27,7 +27,7 @@ export const postCustomer = async (customer)  => {
     return response.data;
 }
 export const updateCustomer = async (customer) => {
-    const response = await Api.put(VER + `customer` , customer);
+    const response = await Api.put(VER + `/customer` , customer);
     return response.data;
 }
 
