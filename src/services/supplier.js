@@ -28,7 +28,7 @@ export const postSupplier = async (supplier)  => {
 }
 
 export const updateSupplier = async (supplier) => {
-    const response = await Api.put(VER + `supplier` , supplier);
+    const response = await Api.put(VER + `/supplier` , supplier);
     return response.data;
 }
 

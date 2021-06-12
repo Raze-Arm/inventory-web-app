@@ -35,15 +35,14 @@ class Index extends React.Component {
             _.map(items , (p, i) => {
                 if(!p) return ;
 
-                const nameWithImg = p.imageAvailable ? <Header as={'h4'} image>
-                    <Image src={BACKEND_API + `/download/product/${p.id}`}  rounded size='mini' />
-                    <Header.Content>{p.name}</Header.Content>
-                </Header> : p.name;
                 return (
                     <Table.Row key={p.id} textAlign={"center"}>
                         {/*<Table.Cell>{p.id}</Table.Cell>*/}
                         <Table.Cell>
-                            {nameWithImg}
+                            <Header as={'h4'} image>
+                                {p.imageAvailable  ? <Image src={BACKEND_API + `/v1/download/product/${p.id}`}  rounded size='mini' /> : ''}
+                                <Header.Content>{p.name}</Header.Content>
+                            </Header>
                         </Table.Cell>
                         <Table.Cell>{p.quantity || 0}</Table.Cell>
                         <Table.Cell>{p.price || ''}</Table.Cell>

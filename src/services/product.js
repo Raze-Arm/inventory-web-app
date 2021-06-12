@@ -23,7 +23,7 @@ export const fetchProduct = async (id) => {
 }
 
 export const downloadProductImage = async (id) => {
-    const response = await Api.get(VER + `/download/product/${id}`, {responseType: 'blob'});
+    const response = await Api.get(VER + `/v1/download/product/${id}`, {responseType: 'blob'});
     let blob = new Blob([response.data]);
     return blob;
 }
@@ -48,7 +48,7 @@ export const updateProduct = async (product) => {
     data.append('price', product.price);
     data.append('salePrice', product.salePrice);
     data.append('description', product.description);
-    const response = await Api.put(VER + `product` , data);
+    const response = await Api.put(VER + `/product` , data);
     return response.data;
 }
 
