@@ -21,8 +21,10 @@
 .ui.search>.results .result .price {
     float: left;
     direction: ltr;
-    font-size: x-small;
-    padding-left: 1px;
+    font-size: smaller;
+    padding-left: 2px;
+    color: dimgrey;
+
 }
 .ui.search>.results .result .title {
     direction: ltr;

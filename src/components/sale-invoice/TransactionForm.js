@@ -2,9 +2,11 @@ import React, {useState} from 'react';
 import _ from 'lodash';
 import {Field, FieldArray} from "redux-form";
 import {Button, Divider, FormButton, FormField, FormGroup, Grid, Header, Image, Input, Table} from "semantic-ui-react";
+import NumberFormat from 'react-number-format';
 
 import SearchProduct from "../search/SearchProduct";
 import {BACKEND_API} from "../../apis/address";
+import {numberFormatter} from "../../utility/numberConverter";
 
 const TR_FIELDS = {
     product: {
@@ -34,7 +36,7 @@ const TR_FIELDS = {
         render({input, meta, defaultValue}) {
             if(defaultValue) input.value = defaultValue;
             return (
-                <label>{input.value}</label>
+                <label>{numberFormatter(input.value)}</label>
             );
         },
 
@@ -87,12 +89,21 @@ const TransactionForm = (props) => {
                 </Grid.Column>
 
                 <Grid.Column width={3}>
-                    <FormField  key={product.price} control={Input}  label={'قیمت'} defaultValue={product.price || 0}  className={'form-input__rtl'} onChange={(event, {value}) => {
-                        setTrProduct({...trProduct, price: value});
-                    }} />
+                    <div className={'ui form field'}>
+                        <label>قیمت</label>
+                        <NumberFormat  key={product.price}  thousandSeparator={true} defaultValue={product.price || 0}     className={'form-input__rtl'} onChange={(event) => {
+                            setTrProduct({...trProduct, price: event.target.value});
+                        }} />
+                    </div>
+
                 </Grid.Column>
                 <Grid.Column width={3}>
-                    <FormField   key={`sale${product.price}`} control={Input} disabled     label={'قیمت فروش'} defaultValue={product.price || 0} className={'form-input__rtl'} />
+                    <div className={'ui form field'}>
+                        <label>قیمت فروش</label>
+                        <NumberFormat  key={product.price}  thousandSeparator={true} disabled defaultValue={product.salePrice || 0}     className={'form-input__rtl'} onChange={(event) => {
+                            setTrProduct({...trProduct, price: event.target.value});
+                        }} />
+                    </div>
                 </Grid.Column>
 
                 <Grid.Column width={3}>

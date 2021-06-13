@@ -4,15 +4,19 @@
     text-align: right;
 }
 
+
 .form-input__rtl input {
-    direction: inherit !important;
-    text-align: inherit !important;
+    direction: rtl !important;
+    text-align: right !important;
 }
 
 input {
-    direction: inherit !important;
-    text-align: inherit !important;
+
+    direction: rtl !important;
+    text-align: right !important;
 }
+
+
 
 .ui.vertical.menu .active.item {
     background-color: #3dabff !important;

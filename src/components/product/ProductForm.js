@@ -6,6 +6,7 @@ import {Button, Container, FormField, Grid, Input, TextArea} from "semantic-ui-r
 
 import * as validator from '../../utility/formValidators';
 import ProductImageInput from "../inputs/ProductImageInput";
+import {numberFormatter, numberParser, numberWithCommas} from "../../utility/numberConverter";
 
 
 const FIELDS = {
@@ -14,7 +15,7 @@ const FIELDS = {
         render({input, meta, ...props}) {
             const hasError = !!(meta.error && meta.touched);
             return (
-                <FormField control={Input} {...input} error={hasError ? meta.error : null} label={'نام'} />
+                <FormField  control={Input} {...input} error={hasError ? meta.error : null} label={'نام'} />
             );
         },
         validate: [
@@ -36,7 +37,11 @@ const FIELDS = {
             validator.number,
             validator.minValue(0),
             validator.maxLength(30),
-        ]
+        ],
+        formatter: (num) => num ? numberWithCommas(num) : '',
+        parse: (num) => num ? num.replace(/,/g , '') : ''
+
+
     },
     salePrice: {
         name: 'salePrice',
@@ -51,7 +56,7 @@ const FIELDS = {
             validator.number,
             validator.minValue(0),
             validator.maxLength(30),
-        ]
+        ],
     },
     description: {
         name: 'description',
@@ -78,13 +83,13 @@ const ProductForm = (props) => {
     const {id} = useParams();
     return (
         <Container>
-            <Form className={'ui form error'} onSubmit={props.handleSubmit}>
+            <Form className={'ui form error'} onSubmit={props.handleSubmit} >
 
                 <Grid stackable style={{marginBottom: '40px'}}>
                     <Grid.Column width={"6"}>
                         <Field key={name.name} name={name.name} component={name.render} validate={name.validate} />
-                        <Field key={price.name} name={price.name} component={price.render} validate={price.validate} />
-                        <Field key={salePrice.name} name={salePrice.name} component={salePrice.render} validate={salePrice.validate} />
+                        <Field key={price.name} name={price.name} component={price.render} validate={price.validate}  format={numberFormatter} parse={numberParser}/>
+                        <Field key={salePrice.name} name={salePrice.name} component={salePrice.render} validate={salePrice.validate} format={numberFormatter} parse={numberParser} />
                     </Grid.Column>
                     <Grid.Column width={"10"} >
                         <Field key={image.name} name={image.name} component={image.render}  validate={image.validate}  imageAvailable={props.initialValues?.imageAvailable} id={id}/>

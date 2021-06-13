@@ -15,3 +15,7 @@ export  const convertToPersianNumber = (input) => {
 export const  numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+export const numberFormatter = (num) => num ? numberWithCommas(num) : '';
+
+export const numberParser =  (num) => num ? num.replace(/,/g , '') : '';

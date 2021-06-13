@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 import {getProductPage, getProduct} from '../../actions/product';
 import SearchInput from "../inputs/SearchInput";
-import SearchBasic from "../inputs/SearchBasic";
+import CustomSearch from "../inputs/CustomSearch";
 import {BACKEND_API} from "../../apis/address";
 
 
@@ -19,7 +19,7 @@ const SearchProduct = ({products,product,getProductPage,getProduct,input,hasErro
     }, [product]);
     return (
 
-        <SearchBasic key={products} input={input} onSelect={onSelect} label={'محصول'}  hasError={hasError} options={_.map(products, (value, key) => ({
+        <CustomSearch key={products} input={input} onSelect={onSelect} label={'محصول'} hasError={hasError} options={_.map(products, (value, key) => ({
             ...value,
             title: value.name,
             image: value.imageAvailable ? BACKEND_API + `/v1/download/small/product/${value.id}` : null,

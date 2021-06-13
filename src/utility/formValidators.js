@@ -37,3 +37,5 @@ export const phoneNumber = value =>
     value && !/^(0|[1-9][0-9]{9})$/i.test(value)
         ? 'شماره تلفن نامعتبر است ، باید 10 رقم باشد'
         : undefined
+
+
