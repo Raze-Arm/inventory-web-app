@@ -3,8 +3,7 @@ import {connect} from 'react-redux';
 import _ from 'lodash';
 
 import {getSupplierPage, getSupplier} from '../../actions/supplier';
-import SearchInput from "../inputs/SearchInput";
-import SearchBasic from "../inputs/SearchBasic";
+import CustomSearch from "../inputs/CustomSearch";
 import {Grid} from "semantic-ui-react";
 
 
@@ -29,16 +28,9 @@ const SearchSupplier = ({suppliers,supplier,getSupplierPage,getSupplier,input,ha
         <React.Fragment>
             <div className={"inline field"}>
 
-                {/*<SearchInput key={"suppliers"} hasError={hasError} input={input}*/}
-                {/*             placeholder={"نام فروشنده"}*/}
-                {/*             label={"فروشنده"} options={_.map(suppliers, (value,key) => ({id: value.id , name: `${value.firstName}  ${value.lastName}`}))}*/}
-                {/*             onSearchChange={(search) => getSupplierPage({page: 0,size: 5,search})}*/}
-                {/*             defaultSearchQuery={defaultValue|| ''}*/}
-                {/*/>*/}
-
                 <Grid>
                     <Grid.Column width={"4"}>
-                        <SearchBasic key={suppliers} input={input} onSelect={onSelect} label={'فروشنده'} hasError={hasError} options={_.map(suppliers, (value, key) => ({
+                        <CustomSearch key={suppliers} input={input} onSelect={onSelect} label={'فروشنده'} hasError={hasError} options={_.map(suppliers, (value, key) => ({
                             title: value.firstName + " " + value.lastName,
                             ...value
                         }))} getSearchedSources={(search) => getSupplierPage({page: 0, size: 5, search})}/>

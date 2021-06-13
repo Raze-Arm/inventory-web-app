@@ -1,12 +1,14 @@
 import _ from 'lodash'
 import React from 'react'
-import { Search, Grid, Header, Segment } from 'semantic-ui-react';
-import './SearchBasic.css'
+import { Search, } from 'semantic-ui-react';
+import './CustomSearch.css'
+import {convertToPersianNumber, numberWithCommas} from "../../utility/numberConverter";
 
 const initialState = {
     loading: false,
     results: [],
     value: {title: ''},
+    error: false,
 }
 
 function exampleReducer(state, action) {
@@ -18,6 +20,12 @@ function exampleReducer(state, action) {
         case 'SET_RESULTS': {
             return { ...state, loading: false, results:  action.results, }
         }
+        case 'SET_ERROR': {
+            const {error ,stopLoading} = action;
+            if(stopLoading)
+                return  {...state , error: error, loading: false , results: error? [] : state.results};
+            else return {...state , error: error , results: error? [] : state.results};
+        }
         case 'UPDATE_SELECTION':
             const  selectedItem = _.find(state.results, r => r.title === action.selection.title  );
             return { ...state, value:  selectedItem }
@@ -28,9 +36,11 @@ function exampleReducer(state, action) {
 }
 
 
-const  SearchBasic = ({options, getSearchedSources, input, onSelect, label, hasError}) =>  {
+const  CustomSearch = ({options, getSearchedSources, input, onSelect, label, hasError}) =>  {
     const [state, dispatch] = React.useReducer(exampleReducer, initialState)
-    const { loading, results, value } = state
+    const { loading, results, value, error } = state;
+
+
 
 
     React.useEffect(() => {
@@ -48,9 +58,16 @@ const  SearchBasic = ({options, getSearchedSources, input, onSelect, label, hasE
     }, [value]);
 
     const timeoutRef = React.useRef();
+    const loadingTimerRef = React.useRef();
     const handleSearchChange = React.useCallback((e, data) => {
-        clearTimeout(timeoutRef.current)
+        clearTimeout(timeoutRef.current);
+        clearTimeout(loadingTimerRef.current);
         dispatch({ type: 'START_SEARCH', query: data.value })
+        dispatch({type: 'SET_ERROR', error: false})
+        loadingTimerRef.current = setTimeout(() => {
+            dispatch({type: 'SET_ERROR', error: true, stopLoading: true})
+        }, 10000);
+
         timeoutRef.current = setTimeout(() => {
             if (data.value.length === 0) {
                 dispatch({ type: 'CLEAN_QUERY' })
@@ -73,7 +90,7 @@ const  SearchBasic = ({options, getSearchedSources, input, onSelect, label, hasE
                 {img}
                 <div className={'content'}>
                     <div className={'title'}>{title}</div>
-                    <div className={'price'}>{price}</div>
+                    <div  className={'price'}>{price ? convertToPersianNumber(numberWithCommas(parseFloat(price))) : ''}</div>
                     <div className={'description'}>{description}</div>
                 </div>
             </div>
@@ -81,12 +98,16 @@ const  SearchBasic = ({options, getSearchedSources, input, onSelect, label, hasE
     }
 
     return (
-                <div className={`ui field  ${hasError ? 'error' : ''}`}>
+                <div className={`ui field  ${hasError || error ? 'error' : ''}`}>
                     <label>{label || ''}</label>
                     <Search
                         loading={loading}
-                        onResultSelect={(e, data) =>
-                            dispatch({ type: 'UPDATE_SELECTION', selection: data.result })
+                        onResultSelect={(e, data) => {
+                            dispatch({type: 'UPDATE_SELECTION', selection: data.result});
+                            dispatch({type: 'SET_ERROR', error: false , stopLoading: true})
+                            clearTimeout(loadingTimerRef.current);
+
+                        }
                         }
                         fluid
                         resultRenderer={renderResults}
@@ -103,4 +124,4 @@ const  SearchBasic = ({options, getSearchedSources, input, onSelect, label, hasE
 }
 
 
-export default SearchBasic;
+export default CustomSearch;

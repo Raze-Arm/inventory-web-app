@@ -5,6 +5,8 @@ import {Button, Divider, FormButton, FormField, FormGroup, Grid, Header, Image, 
 
 import SearchProduct from "../search/SearchProduct";
 import {BACKEND_API} from "../../apis/address";
+import {convertToPersianNumber, numberFormatter, numberParser} from "../../utility/numberConverter";
+import NumberFormat from "react-number-format";
 
 
 const TR_FIELDS = {
@@ -35,7 +37,7 @@ const TR_FIELDS = {
         render({input, meta, defaultValue}) {
             if(defaultValue) input.value = defaultValue;
             return (
-               <label>{input.value}</label>
+               <label>{convertToPersianNumber(input.value)}</label>
             );
         },
 
@@ -74,9 +76,13 @@ const TransactionForm = (props) => {
                 </Grid.Column>
 
                 <Grid.Column width={3}>
-                    <FormField  key={product.price} control={Input} label={'قیمت'} defaultValue={product.price || 0}  className={'form-input__rtl'} onChange={(event, {value}) => {
-                        setTransaction({...transaction, price: value});
-                    }} />
+
+                    <div className={'ui form field'}>
+                        <label>قیمت</label>
+                        <NumberFormat  key={product.price}  thousandSeparator={true} defaultValue={product.price || 0}     className={'form-input__rtl'} onChange={(event) => {
+                            setTransaction({...transaction, price: event.target.value});
+                        }} />
+                    </div>
                 </Grid.Column>
 
                 <Grid.Column width={4}>
