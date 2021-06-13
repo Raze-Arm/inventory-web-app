@@ -4,7 +4,6 @@ import _ from 'lodash';
 
 import {getSupplierPage, getSupplier} from '../../actions/supplier';
 import CustomSearch from "../inputs/CustomSearch";
-import {Grid} from "semantic-ui-react";
 
 
 
@@ -26,17 +25,11 @@ const SearchSupplier = ({suppliers,supplier,getSupplierPage,getSupplier,input,ha
     }, [supplier]);
     return (
         <React.Fragment>
-            <div className={"inline field"}>
-
-                <Grid>
-                    <Grid.Column width={"4"}>
-                        <CustomSearch key={suppliers} input={input} onSelect={onSelect} label={'فروشنده'} hasError={hasError} options={_.map(suppliers, (value, key) => ({
-                            title: value.firstName + " " + value.lastName,
-                            ...value
-                        }))} getSearchedSources={(search) => getSupplierPage({page: 0, size: 5, search})}/>
-                    </Grid.Column>
-                </Grid>
-
+            <div style={{width: "220px", marginRight: "5px"}}>
+                <CustomSearch key={suppliers} input={input} onSelect={onSelect} label={'فروشنده'} hasError={hasError} options={_.map(suppliers, (value, key) => ({
+                    title: value.firstName + " " + value.lastName,
+                    ...value
+                }))} getSearchedSources={(search) => getSupplierPage({page: 0, size: 5, search})}/>
             </div>
         </React.Fragment>
     );

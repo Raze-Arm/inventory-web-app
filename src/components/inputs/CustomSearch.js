@@ -105,10 +105,9 @@ const  CustomSearch = ({options, getSearchedSources, input, onSelect, label, has
                         onResultSelect={(e, data) => {
                             dispatch({type: 'UPDATE_SELECTION', selection: data.result});
                             dispatch({type: 'SET_ERROR', error: false , stopLoading: true})
-                            clearTimeout(loadingTimerRef.current);
+                            clearTimeout(loadingTimerRef.current);}
+                        }
 
-                        }
-                        }
                         fluid
                         resultRenderer={renderResults}
                         noResultsMessage={<span >بدون نتیجه</span>}
