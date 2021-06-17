@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useRef, useReducer} from "react";
 import {connect} from "react-redux";
 import  _ from 'lodash';
-import { Comment, Divider, Form, Grid, Header, Icon, Image, Segment} from "semantic-ui-react";
+import { Comment, Form, Grid, Header, Icon, Image, Segment} from "semantic-ui-react";
 
 import placeholder from '../../images/placeholder.png';
 import './ChatBox.css'
