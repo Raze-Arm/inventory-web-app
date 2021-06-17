@@ -1,9 +1,13 @@
 FROM node:alpine as builder
 WORKDIR '/app'
 COPY ./package.json ./
-RUN npm install
+RUN npm cache clean --force
+RUN  npm install --registry=https://registry.npmjs.org
+
 ARG BACKEND_API
+ARG WEBSOCKET_API
 ENV REACT_APP_BACKEND_API  ${BACKEND_API}
+ENV REACT_APP_WEBSOCKET_API ${WEBSOCKET_API}
 
 COPY . .
 RUN npm run build
