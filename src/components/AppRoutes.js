@@ -40,9 +40,14 @@ import UserShow from "./user/UserShow";
 
 import UserActivityPage from "./activity";
 
+import Chat from './chat';
+
 import './App.css';
+import {Header} from "semantic-ui-react";
 
 const AppRoutes = () => {
+
+
 
 
     return (
@@ -50,11 +55,13 @@ const AppRoutes = () => {
             <NavigationBar />
 
             <div id={'app'} style={{margin: '83px 60px 0 0', paddingRight: '25px'}}>
+                <Chat />
                 <AppBreadcrumb   />
                 <Switch>
                     <Route exact path={'/'} component={requireAuth(Home)} />
 
                     <Route exact path={'/profile/history'} component={requireAuth(UserActivityPage)} />
+
 
                     <Route exact path={'/profile'} component={requireAuth(ProfileUpdate)} />
                     <Route exact path={'/user'} component={requireAuth(UserPage, 'ROLE_ADMIN')} />
@@ -95,7 +102,9 @@ const AppRoutes = () => {
                     <Route exact path={'/supplier/update/:id'} component={requireAuth(SupplierUpdate)} />
                     <Route exact path={'/supplier/delete/:id'} component={requireAuth(SupplierDelete)} />
                     <Route exact path={'/supplier/show/:id'} component={requireAuth(SupplierShow)} />
-
+                    <Route  path={'/'} >
+                        <Header size={"large"} textAlign={"center"}> صفحه یافت نشد</Header>
+                    </Route>
                 </Switch>
             </div>
         </React.Fragment>

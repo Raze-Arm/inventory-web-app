@@ -64,6 +64,7 @@ function*  logoutFlow() {
         yield fork(logout);
         yield put(logoutSuccess());
         localStorage.removeItem('token');
+        localStorage.removeItem('chat');
         Api.defaults.headers.common['Authorization'] = '';
     }catch (e) {
     }finally {
