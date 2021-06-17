@@ -75,7 +75,7 @@ const ChatBox  = ({token, username, state, dispatch}) => {
             }
 
             client.onStompError = function (frame) {
-                console.log('Details', frame.body);
+                console.log('Details', frame.body, frame.command);
             }
 
             client.activate();
