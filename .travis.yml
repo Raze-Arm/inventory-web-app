@@ -18,12 +18,15 @@ script:
   - docker run -e CI=true razear/inventory-web-app-dev npm test
 
 after_success:
-  - docker build  --build-arg BACKEND_API=$BACKEND_API -t razear/mega-electric-web-app:latest -t razear/mega-electric-web-app:$SHA -f Dockerfile .
-  - docker push razear/mega-electric-web-app:$SHA
-  - docker push razear/mega-electric-web-app:latest
+  - docker build  --build-arg BACKEND_API=http://localhost:3050/api --build-arg WEBSOCKET_API=ws://localhost:3050/api -t razear/mega-electric-web-app-dev:latest -t razear/mega-electric-web-app:$SHA -f Dockerfile .
+  - docker push razear/mega-electric-web-app-dev:$SHA
+  - docker push razear/mega-electric-web-app-dev:latest
 before_deploy:
   - fandogh login --username $FANDOGH_USERNAME --password $FANDOGH_PASSWORD
   - fandogh namespace active --name $FANDOGH_NAMESPACE
+  - docker build  --build-arg BACKEND_API=$BACKEND_API --build-arg WEBSOCKET_API=$WEBSOCKET_API -t razear/mega-electric-web-app:latest -t razear/mega-electric-web-app:$SHA -f Dockerfile .
+  - docker push razear/mega-electric-web-app:$SHA
+  - docker push razear/mega-electric-web-app:latest
 deploy:
   provider: script
   script: bash ./deploy.sh

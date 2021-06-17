@@ -7,7 +7,8 @@ import placeholder from '../../images/placeholder.png';
 import './ChatBox.css'
 import {convertToPersianNumber} from "../../utility/numberConverter";
 import {Client,} from "@stomp/stompjs";
-import {BACKEND_API} from "../../apis/address";
+import SockJS from 'sockjs-client';
+import {BACKEND_API, WEBSOCKET_API} from "../../apis/address";
 
 
 
@@ -41,21 +42,31 @@ const ChatBox  = ({token, username, state, dispatch}) => {
     useEffect(() => {
         const chat = localStorage.getItem("chat");
         if(chat) {
-            console.log('chat###', JSON.parse(chat))
             dispatch({type: 'SET_STATE', state: JSON.parse(chat)})
         }
 
         if(token) {
+            // const client = new Client({
+            //     brokerURL: `${WEBSOCKET_API}/secured/chat/websocket`, connectHeaders: {login: username, Authorization: token} ,
+            //     // brokerURL: `wss://localhost:8080/secured/chat/websocket`, connectHeaders: {login: username, Authorization: token} ,
+            //     reconnectDelay: 10000,
+            //     heartbeatIncoming: 4000,
+            //     heartbeatOutgoing: 4000,
+            //
+            // },  );
+            const client = Client().webSocketFactory = function () {
+                return new SockJS(`${WEBSOCKET_API.replace('ws://', 'http://')}/secured/chat/websocket`)
+            }
 
-            const client = new Client({
-                brokerURL: `wss://localhost:8080/secured/chat/websocket`, connectHeaders: {login: username, Authorization: token} ,
-                reconnectDelay: 10000,
-                heartbeatIncoming: 4000,
-                heartbeatOutgoing: 4000,
-            },  ); // cause of withWebSockjs append on server side
+            // const client = new Client({
+            //     brokerURL: `${WEBSOCKET_API}/secured/chat/websocket`, connectHeaders: {login: username, Authorization: token} ,
+            //     // brokerURL: `wss://localhost:8080/secured/chat/websocket`, connectHeaders: {login: username, Authorization: token} ,
+            //     reconnectDelay: 10000,
+            //     heartbeatIncoming: 4000,
+            //     heartbeatOutgoing: 4000,
+            // },  ); // cause of withWebSockjs append on server side
             clientRef.current = client;
             client.onConnect = function (fra) {
-                console.log('stomp client connected successfully');
                 client.subscribe('/secured/user/queue/messages'    , (m) => {
                     const message = JSON.parse(m.body);
                     console.log('received message', message);
@@ -66,15 +77,14 @@ const ChatBox  = ({token, username, state, dispatch}) => {
                     console.log('received users', userList);
                     setUserList(_.mapKeys(userList, "id"));
                 })
-                // client.publish({destination: '/app/secured/user', body: JSON.stringify({from: username, to: 'admin', text: 'hello'})});
             }
 
-
-            window.onbeforeunload = function() {
-
-                console.log('disconnecting ....');
-                client.forceDisconnect();
-            };
+            // if(typeof  WebSocket !== 'function') {
+            //     client.webSocketFactory = function () {
+            //         return new SockJS(`${WEBSOCKET_API.replace('ws://', 'http://')}/secured/chat/websocket`)
+            //     }
+            // }
+            //
             client.activate();
             return  () => client.deactivate();
         }
