@@ -46,25 +46,14 @@ const ChatBox  = ({token, username, state, dispatch}) => {
         }
 
         if(token) {
-            // const client = new Client({
-            //     brokerURL: `${WEBSOCKET_API}/secured/chat/websocket`, connectHeaders: {login: username, Authorization: token} ,
-            //     // brokerURL: `wss://localhost:8080/secured/chat/websocket`, connectHeaders: {login: username, Authorization: token} ,
-            //     reconnectDelay: 10000,
-            //     heartbeatIncoming: 4000,
-            //     heartbeatOutgoing: 4000,
-            //
-            // },  );
-            const client = Client().webSocketFactory = function () {
-                return new SockJS(`${WEBSOCKET_API.replace('ws://', 'http://')}/secured/chat/websocket`)
-            }
 
-            // const client = new Client({
-            //     brokerURL: `${WEBSOCKET_API}/secured/chat/websocket`, connectHeaders: {login: username, Authorization: token} ,
-            //     // brokerURL: `wss://localhost:8080/secured/chat/websocket`, connectHeaders: {login: username, Authorization: token} ,
-            //     reconnectDelay: 10000,
-            //     heartbeatIncoming: 4000,
-            //     heartbeatOutgoing: 4000,
-            // },  ); // cause of withWebSockjs append on server side
+            const client = new Client({
+                brokerURL: `${WEBSOCKET_API}/secured/chat/websocket`, connectHeaders: {login: username, Authorization: token} ,
+                // brokerURL: `wss://localhost:8080/secured/chat/websocket`, connectHeaders: {login: username, Authorization: token} ,
+                reconnectDelay: 15000,
+                heartbeatIncoming: 4000,
+                heartbeatOutgoing: 4000,
+            },  ); // cause of withWebSockjs append on server side
             clientRef.current = client;
             client.onConnect = function (fra) {
                 client.subscribe('/secured/user/queue/messages'    , (m) => {
@@ -79,12 +68,16 @@ const ChatBox  = ({token, username, state, dispatch}) => {
                 })
             }
 
-            // if(typeof  WebSocket !== 'function') {
-            //     client.webSocketFactory = function () {
-            //         return new SockJS(`${WEBSOCKET_API.replace('ws://', 'http://')}/secured/chat/websocket`)
-            //     }
-            // }
-            //
+            if(typeof  WebSocket !== 'function') {
+                client.webSocketFactory = function () {
+                    return new SockJS(`${WEBSOCKET_API.replace('ws://', 'http://')}/secured/chat/websocket`)
+                }
+            }
+
+            client.onStompError = function (frame) {
+                console.log('Details', frame.body);
+            }
+
             client.activate();
             return  () => client.deactivate();
         }
