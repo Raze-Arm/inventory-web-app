@@ -3,12 +3,12 @@ import {connect} from "react-redux";
 import  _ from 'lodash';
 import { Comment, Form, Grid, Header, Icon, Image, Segment} from "semantic-ui-react";
 
-import placeholder from '../../images/placeholder.png';
 import './ChatBox.css'
 import {convertToPersianNumber} from "../../utility/numberConverter";
 import {Client,} from "@stomp/stompjs";
 import SockJS from 'sockjs-client';
 import {BACKEND_API, WEBSOCKET_API} from "../../apis/address";
+import {AppImage} from "../AppImage";
 
 
 
@@ -46,7 +46,6 @@ const ChatBox  = ({token, username, state, dispatch}) => {
         }
 
         if(token) {
-
             const client = new Client({
                 brokerURL: `${WEBSOCKET_API}/secured/chat/websocket`, connectHeaders: {login: username, Authorization: token} ,
                 // brokerURL: `wss://localhost:8080/secured/chat/websocket`, connectHeaders: {login: username, Authorization: token} ,
@@ -90,6 +89,12 @@ const ChatBox  = ({token, username, state, dispatch}) => {
 
         setMsg('');
     }
+    const onChangeMessage = (e) => {
+        const msg = e.target.value;
+        setMsg(msg);
+        if(msg.length > 0)clientRef.current.publish({destination: '/app/secured/user', body: JSON.stringify({from: username, to: user.username, typing: true})});
+        else clientRef.current.publish({destination: '/app/secured/user', body: JSON.stringify({from: username, to: user.username, typing: false})})
+    }
     //
     useEffect(() => {
         const co = document.getElementById('comment');
@@ -98,13 +103,15 @@ const ChatBox  = ({token, username, state, dispatch}) => {
 
 
     const renderChat = () => {
+        const userMsgList =msgList[user.username];
+        const messages = userMsgList?.items;
         return (
             <React.Fragment>
 
                 <Comment.Group >
 
                     <Comment  id={'comment'}>
-                        {_.map(msgList[user.username], ({from, date, msg}, i) => {
+                        {_.map(messages , ({from, date, msg}, i) => {
                             return (
                                 <Comment.Content className={`${from !== username ? 'grey' : 'green'}`} key={i}>
                                     <Comment.Author>{msg}
@@ -113,11 +120,10 @@ const ChatBox  = ({token, username, state, dispatch}) => {
                                 </Comment.Content>
                             );
                         })}
-
                     </Comment>
                     <Grid style={{margin : 0, padding: 0, height: '45px'}}>
                         <Grid.Column width={11} style={{padding: 0 , backgroundColor: 'white'}}>
-                            <Form.TextArea id={'input_message'} type={'text'} value={msg}   onChange={(e) => setMsg(e.target.value)} onKeyDown={handleKeyDown} />
+                            <Form.TextArea id={'input_message'} type={'text'} value={msg}   onChange={onChangeMessage} onKeyDown={handleKeyDown} />
                         </Grid.Column>
                         <Grid.Column width={5} style={{padding: 0}}>
                             <div id={'custom_btn'} onClick={() => sendMsg()} >ارسال</div>
@@ -129,10 +135,10 @@ const ChatBox  = ({token, username, state, dispatch}) => {
         );
     }
 
-    const renderUserItem = (id, name ,description ,photoAvailable) => {
+    const renderUserItem = (id, name ,description ) => {
         return (
             <div style={{height: '50px'}}>
-                <Image floated={"right"} circular src={photoAvailable ? `${BACKEND_API}/v1/download/small/user/${id}` : placeholder}  size={"mini"}  />
+                <AppImage floated={"right"} circular src={`${BACKEND_API}/v1/download/small/user/${id}` }   size={"mini"}  />
                 <div  >
                     <Header size={"small"} floated={"right"} >
                         {name}
@@ -150,7 +156,7 @@ const ChatBox  = ({token, username, state, dispatch}) => {
                 {_.map(userList, (u, i) => {
                     return (
                         <Segment key={i} onClick={() => dispatch({type: 'SET_USER', user: u})}>
-                            {renderUserItem(u.id,u.firstName + " " + u.lastName,'Online', u.photoAvailable  )}
+                            {renderUserItem(u.id,u.firstName + " " + u.lastName,'Online',  )}
                         </Segment>
                     );
                 })}
