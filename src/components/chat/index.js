@@ -111,8 +111,8 @@ const Index = () => {
         const userMsgList =msgList[user.username];
         const typing = userMsgList?.typing;
         return (
-            <div  >
-            <AppImage  size={"mini"}  floated={"right"} style={{padding: '0' , margin: '0', display: 'inline-block'}} src={`${BACKEND_API}/v1/download/small/user/${id}`} circular  />
+            <div  style={{paddingBottom: '10px'}} >
+            <AppImage  floated={"right"} style={{height: '40px', width: '40px' , borderRadius: '50px', padding: '0' , margin: '0', display: 'inline-block'}} src={`${BACKEND_API}/v1/download/small/user/${id}`}   />
                 <Header size={"medium"} floated={"right"} style={{
                     paddingTop: '4px',
                     paddingRight: '2px',
@@ -127,10 +127,10 @@ const Index = () => {
 
     const renderDefaultHeader = () => {
         return (
-            <React.Fragment >
+            <div style={{padding: '10px 3px'}} >
                 کاربرات آنلاین
-                <Icon name={'close'} onClick={closeChatBox}  corner={"top left"} link style={{float: 'left'}} />
-            </React.Fragment>
+                <Icon  name={'close'} onClick={closeChatBox}  corner={"top left"} link style={{float: 'left'}} />
+            </div>
         );
     }
 
