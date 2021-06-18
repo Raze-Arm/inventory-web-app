@@ -14,20 +14,38 @@ export const initialState = {
 
 export function msgReducer(state, action) {
     const {message} = action;
-    const mo = moment(new Date().getTime()) ;
+
+    const mo = moment(parseInt(message?.date)) ;
     const d = mo.tz('Asia/Tehran').format('HH:mm');
 
     switch (action.type) {
 
         case 'USER_MSG': {
-            const userMsgList =  state.msgList[message.from]?.items ;
-            const items = message.text ? [...userMsgList || [] , {from: message.from , date: d, msg: message.text}] : userMsgList;
-            return {...state, msgList: {...state.msgList, [message.from]: {items: items  , typing: message?.typing || false} } }
+            const username = !message.error ? message.from : message.to;
+            const userMsgList =  state.msgList[username]?.items ;
+            const items = message.text ? {...userMsgList || {} ,[message.date]: {from: message.from , date: d, msg: message.text, error: message.error}} : userMsgList;
+            return {...state,
+                msgList: {
+                    ...state.msgList,
+                    [username]: {items: items, typing: message?.typing || false}
+                }
+            }
         }
         case 'OWN_MSG': {
             const userMsgList =  state.msgList[message.to]?.items ;
             const typing =  state.msgList[message.to]?.typing ;
-            return {...state, msgList: {...state.msgList, [message.to]: {items: [...userMsgList || [] , {from: message.from , date: d, msg: message.text}], typing} } }
+            return {
+                ...state,
+                msgList: {
+                    ...state.msgList,
+                    [message.to]: {
+                        items: {
+                            ...userMsgList || [],
+                            [message.date]: {from: message.from, date: d, msg: message.text}
+                        }, typing
+                    }
+                }
+            }
         }
         case 'SET_USER': {
             return  {...state , user: action.user}
