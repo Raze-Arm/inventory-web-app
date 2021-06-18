@@ -8,17 +8,20 @@ import {showErrorMessage, stopLoadingScreen} from '../actions/app-message';
 import history from "../history";
 
 const Loading = ({showErrorMessage, stopLoadingScreen}) => {
-    // const [active, setActive] = useState(false);
     const handleClose = () => {
         // setActive(false);
         // stopLoadingScreen();
     };
 
+    console.log('history#', history)
+
 
     useEffect(() => {
        const ref=  setTimeout(() => {
-            showErrorMessage({title: 'Error', content: 'Please try again later'});
-            history.goBack();
+            showErrorMessage({title: 'ناموفق', content: 'لطفا بعداً دوباره امتحان کنید'});
+           if(history.location.pathname === '/login') history.push('/');
+           else history.goBack();
+
         }, 5000);
         return () => {
             clearTimeout(ref);
@@ -31,10 +34,10 @@ const Loading = ({showErrorMessage, stopLoadingScreen}) => {
 
     return (
         <Dimmer style={{opacity: '0.7'}} active onClickOutside={handleClose} page>
-            <React.Fragment>
-                <Image src={loading}  width='50px' style={{marginBottom: '2px'}} />
-                <div>Loading</div>
-            </React.Fragment>
+            <div  >
+                <Image src={loading}  width='50px' style={{marginBottom: '2px', margin: 'auto'}} />
+                <div >در حال بارگیری</div>
+            </div>
         </Dimmer>
     );
 }

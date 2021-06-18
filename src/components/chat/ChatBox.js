@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useRef, useReducer} from "react";
 import {connect} from "react-redux";
 import  _ from 'lodash';
-import { Comment, Form, Grid, Header, Icon, Image, Segment} from "semantic-ui-react";
+import {Comment, Form, Grid, Header, Icon, Label, Segment} from "semantic-ui-react";
 
 import './ChatBox.css'
 import {convertToPersianNumber} from "../../utility/numberConverter";
@@ -84,8 +84,9 @@ const ChatBox  = ({token, username, state, dispatch}) => {
 
     const sendMsg = () => {
         if(!msg || msg.trim() === '') return ;
-        dispatch({type: 'OWN_MSG', message: {from: username, to: user.username , text: msg}})
-        clientRef.current.publish({destination: '/app/secured/user', body: JSON.stringify({from: username, to: user.username, text: msg})});
+        const date = new Date().getTime();
+        dispatch({type: 'OWN_MSG', message: {from: username, to: user.username , text: msg, date: date}})
+        clientRef.current.publish({destination: '/app/secured/user', body: JSON.stringify({from: username, to: user.username, text: msg ,date: date})});
 
         setMsg('');
     }
@@ -111,11 +112,12 @@ const ChatBox  = ({token, username, state, dispatch}) => {
                 <Comment.Group >
 
                     <Comment  id={'comment'}>
-                        {_.map(messages , ({from, date, msg}, i) => {
+                        {_.map(messages , ({from, date, msg,error}, i) => {
                             return (
                                 <Comment.Content className={`${from !== username ? 'grey' : 'green'}`} key={i}>
                                     <Comment.Author>{msg}
                                         <span style={{wordWrap: 'normal'}}>{convertToPersianNumber(date)}</span>
+                                        {error ?  <div style={{marginTop: '2px'}}><Icon name={'exclamation circle'} color={"red"} /></div> : '' }
                                     </Comment.Author>
                                 </Comment.Content>
                             );
@@ -123,7 +125,7 @@ const ChatBox  = ({token, username, state, dispatch}) => {
                     </Comment>
                     <Grid style={{margin : 0, padding: 0, height: '45px'}}>
                         <Grid.Column width={11} style={{padding: 0 , backgroundColor: 'white'}}>
-                            <Form.TextArea id={'input_message'} type={'text'} value={msg}   onChange={onChangeMessage} onKeyDown={handleKeyDown} />
+                            <Form.TextArea maxLength="80" id={'input_message'} type={'text'} value={msg}   onChange={onChangeMessage} onKeyDown={handleKeyDown} />
                         </Grid.Column>
                         <Grid.Column width={5} style={{padding: 0}}>
                             <div id={'custom_btn'} onClick={() => sendMsg()} >ارسال</div>
@@ -140,15 +142,14 @@ const ChatBox  = ({token, username, state, dispatch}) => {
             <div style={{height: '50px'}}>
                 <AppImage floated={"right"} circular src={`${BACKEND_API}/v1/download/small/user/${id}` }   size={"mini"}  />
                 <div  >
-                    <Header size={"small"} floated={"right"} >
+                    <Header size={"small"} floated={"right"} style={{wordWrap: 'break-word', overflow: 'hidden', whiteSpace: 'nowrap' , textOverflow: 'ellipsis' , width: '13em', height: '55px'}} >
                         {name}
-                        <Header.Subheader >{description}</Header.Subheader>
+                        <Header.Subheader   style={{textOverflow: 'ellipsis'}}>{description}</Header.Subheader>
                     </Header>
                 </div>
             </div>
         );
     }
-
     return (
         <React.Fragment>
 
@@ -156,7 +157,7 @@ const ChatBox  = ({token, username, state, dispatch}) => {
                 {_.map(userList, (u, i) => {
                     return (
                         <Segment key={i} onClick={() => dispatch({type: 'SET_USER', user: u})}>
-                            {renderUserItem(u.id,u.firstName + " " + u.lastName,'Online',  )}
+                            {renderUserItem(u.id,u.firstName + " " + u.lastName, _.findLast(msgList[u.username]?.items)?.msg,  )}
                         </Segment>
                     );
                 })}

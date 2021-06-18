@@ -2,7 +2,7 @@ import React from "react";
 import {Field, reduxForm} from "redux-form";
 import {connect} from 'react-redux';
 import _ from 'lodash';
-import {Button, Container, Form, Grid, Header, Icon, Input, Segment} from "semantic-ui-react";
+import {Button, Container, Form, Grid,} from "semantic-ui-react";
 
 import * as validator from '../../utility/formValidators';
 import {login} from "../../actions/auth";
@@ -68,6 +68,7 @@ class Login extends React.Component{
     }
 
     onSubmit = ({username, password}) => {
+        console.log('submit', username, password)
         this.props.login({username, password});
     }
 
@@ -75,7 +76,6 @@ class Login extends React.Component{
 
 
     render() {
-        console.log('props#', this.props)
         const {isLoading, handleSubmit}  = this.props;
         if(isLoading) return <Loading />;
 
@@ -102,11 +102,9 @@ class Login extends React.Component{
                                         return <Field key={index} name={name} component={render} validate={validate} normalize={normalize} />;
                                     })}
 
-                                    <div  className={' field '} >
-                                        <Button type={'submit'} id="LinkButton1" className="ui teal right labeled icon button fluid"
+                                        <Button type={'submit'}  id="LinkButton1" className="ui field teal right labeled icon button fluid"
                                         >ورود <i className="icon sign in"/></Button>
 
-                                    </div>
 
                                 </Form>
                             </div>

@@ -15,8 +15,10 @@ const getAuth = state => state.auth;
 function* authWatcher() {
     while (true) {
         try {
+            console.log('login load1')
             const token = yield call(autoLoginFlow);
             if(!token) {
+                console.log('login load')
                 const {payload} = yield take(LOGIN.LOAD);
                 yield put(showLoadingScreen());
                 const task = yield fork(loginFlow, payload);
