@@ -11,7 +11,7 @@ export const AppImage = ({src, ...props}) => {
     }, [src])
 
     return (
-        <Image src={imageSrc}  onError={(e) => setImgSrc(placeholder)}  {...props}    />
+        <Image src={imageSrc}  onError={(e) => setImgSrc(placeholder)} {...props}       />
 
     );
 }

@@ -140,7 +140,7 @@ const ChatBox  = ({token, username, state, dispatch}) => {
     const renderUserItem = (id, name ,description ) => {
         return (
             <div style={{height: '50px'}}>
-                <AppImage floated={"right"} circular src={`${BACKEND_API}/v1/download/small/user/${id}` }   size={"mini"}  />
+                <AppImage floated={"right"} style={{height: 40, width: 40 , borderRadius: '50px'}} src={`${BACKEND_API}/v1/download/small/user/${id}` }     />
                 <div  >
                     <Header size={"small"} floated={"right"} style={{wordWrap: 'break-word', overflow: 'hidden', whiteSpace: 'nowrap' , textOverflow: 'ellipsis' , width: '13em', height: '55px'}} >
                         {name}
