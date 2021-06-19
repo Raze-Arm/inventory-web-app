@@ -74,10 +74,10 @@ const NavigationBar = ({username, profile, history}) => {
     return (
       <React.Fragment>
           <Menu  inverted  style={{backgroundColor: '#2496ed' ,paddingTop: '7px',direction: 'rtl', position: 'fixed', zIndex: '1000', margin: '0', width: '100%', height: '63px'}}  >
-              <Menu.Item name={BARS} style={{width: '80.7px'}}  active={showSidebar } onClick={() => setShowSidebar(!showSidebar)}  >
+              <Menu.Item id={'nav_bars'} name={BARS} style={{width: '80.7px'}}  active={showSidebar } onClick={() => setShowSidebar(!showSidebar)}  >
                   <Icon name={'bars'} size={"large"}/>
               </Menu.Item>
-              <Menu.Item name={HOME} active={activeItem === HOME} onClick={onClickHandler} >
+              <Menu.Item name={HOME} style={{width: '81px', justifyContent: 'center'}}  active={activeItem === HOME} onClick={onClickHandler} >
                   خانه
               </Menu.Item>
 

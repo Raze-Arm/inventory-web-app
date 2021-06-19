@@ -54,7 +54,7 @@ class PurchaseTransactionPage extends React.Component {
     onSearch = (e ,{value}) => {
         this.debouncedSearch((search) => this.setState({...this.state, search}), value );
     }
-    debouncedSearch = _.throttle((onSearch, value) => onSearch(value), 1000,{ leading: false });
+    debouncedSearch = _.throttle((onSearch, value) => onSearch(value), 500,{ leading: false });
     render() {
         return (
             <React.Fragment>

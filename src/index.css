@@ -1,3 +1,16 @@
+@font-face {
+    font-family: 'iransan';
+    src: url("https://cdn.time.ir/Fonts/IRANSansLight.woff");
+}
+/*https://cdn.time.ir/Fonts/IRANSansBold.woff*/
+@font-face {
+    font-family: 'iransan';
+    src: url("https://cdn.time.ir/Fonts/IRANSansBold.woff");
+    font-weight: bold;
+}
+* {
+    font-family: 'iransan',Arial, Helvetica, sans-serif;
+}
 
 .ui * {
     direction: rtl;
