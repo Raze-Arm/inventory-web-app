@@ -6,6 +6,7 @@ import {BACKEND_API} from "./address";
 console.log(BACKEND_API);
 const api = axios.create({
     baseURL: BACKEND_API,
+    withCredentials: true,
 });
 
 api.interceptors.response.use(function (response) {

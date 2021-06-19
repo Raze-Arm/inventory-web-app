@@ -128,7 +128,7 @@ const Index = () => {
     const renderDefaultHeader = () => {
         return (
             <div style={{padding: '10px 3px'}} >
-                کاربرات آنلاین
+                کاربران آنلاین
                 <Icon  name={'close'} onClick={closeChatBox}  corner={"top left"} link style={{float: 'left'}} />
             </div>
         );
