@@ -14,18 +14,18 @@ export const activityReducer = (state = INITIAL_VALUES,  action ) => {
     switch (action.type) {
         case GET_USER_ACTIVITY_PAGE.SUCCESS: {
             const data = action.payload;
-            return {...state,items: {...state.items ,..._.mapKeys(data.content, 'id')} ,   totalPages: data.totalPages, totalElements: data.totalElements};
+            return {...state,items: {...state.items ,..._.mapKeys(data.content, 'createdDate')} ,   totalPages: data.totalPages, totalElements: data.totalElements};
 
         }
         case GET_ACTIVITY_PAGE.SUCCESS: {
             const data = action.payload;
-            return {...state,items: {...state.items ,..._.mapKeys(data.content, 'id')} ,   totalPages: data.totalPages, totalElements: data.totalElements};
+            return {...state,items: {...state.items ,..._.mapKeys(data.content, 'createdDate')} ,   totalPages: data.totalPages, totalElements: data.totalElements};
 
         }
 
         case GET_ACTIVITY_PAGE_BY_USERNAME.SUCCESS: {
             const data = action.payload;
-            return {...state,items: {...state.items ,..._.mapKeys(data.content, 'id')} ,   totalPages: data.totalPages, totalElements: data.totalElements};
+            return {...state,items: {...state.items ,..._.mapKeys(data.content, 'createdDate')} ,   totalPages: data.totalPages, totalElements: data.totalElements};
 
         }
 
