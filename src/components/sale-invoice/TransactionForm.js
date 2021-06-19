@@ -91,7 +91,7 @@ const TransactionForm = (props) => {
                 <Grid.Column width={3}>
                     <div className={'ui form field'}>
                         <label>قیمت</label>
-                        <NumberFormat  key={product.price}  thousandSeparator={true} defaultValue={product.price || 0}     className={'form-input__rtl'} onChange={(event) => {
+                        <NumberFormat decimalScale={0}  key={product.price}  thousandSeparator={true} defaultValue={product.price || 0}     className={'form-input__rtl'} onChange={(event) => {
                             setTrProduct({...trProduct, price: event.target.value});
                         }} />
                     </div>
@@ -100,7 +100,7 @@ const TransactionForm = (props) => {
                 <Grid.Column width={3}>
                     <div className={'ui form field'}>
                         <label>قیمت فروش</label>
-                        <NumberFormat  key={product.price}  thousandSeparator={true} disabled defaultValue={product.salePrice || 0}     className={'form-input__rtl'} onChange={(event) => {
+                        <NumberFormat decimalScale={0}  maxLength={30} key={product.price}  thousandSeparator={true} disabled defaultValue={product.salePrice || 0}     className={'form-input__rtl'} onChange={(event) => {
                             setTrProduct({...trProduct, price: event.target.value});
                         }} />
                     </div>

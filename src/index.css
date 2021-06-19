@@ -27,3 +27,9 @@ input {
 .ui.menu .ui.dropdown .menu>.item .icon:not(.dropdown) {
     margin: 0 0.8rem!important;
 }
+
+
+.red-header .ui.modal>.header {
+    background-color: red;
+    color: white;
+}

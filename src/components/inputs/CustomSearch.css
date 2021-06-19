@@ -1,3 +1,10 @@
+.ui.search>.results .result:hover {
+    background-color: #cfd0d2;
+}
+.ui.search>.results .result.active {
+    background-color: #cfd0d2;
+}
+
 .ui.search>.results .result .content {
     text-align: left !important;
 }
@@ -33,5 +40,7 @@
 .ui.search>.results .result .description {
     float: left;
 }
+
+
 
 

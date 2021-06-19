@@ -42,6 +42,7 @@ const convertToFarsi = (str) => {
         case  'history': farsiStr = 'تاریخچه';
             break;
     }
+    if(farsiStr === str) return  ''
     return farsiStr;
 }
 
@@ -58,13 +59,15 @@ const AppBreadcrumb  = () => {
                     if(!p) return ;
                     const active =  !notRoutablePaths.includes(p) && !_.isNumber(p);
                     const isLast = (i === paths.length-1);
+                    const section = convertToFarsi(p);
+                    if(!section) return ;
                     return (
                         <React.Fragment key={i}>
-                            <Breadcrumb.Divider />
+                             <Breadcrumb.Divider />
                             {/*{!isLast ? <Breadcrumb.Divider /> : null}*/}
                             {active && !isLast ? <Breadcrumb.Section onClick={() => history.push(`/${p}`)} link
-                                                                     active={isLast}>{convertToFarsi(p)}</Breadcrumb.Section> :
-                                <Breadcrumb.Section active={isLast}>{convertToFarsi(p)}</Breadcrumb.Section>}
+                                                                     active={isLast}>{section}</Breadcrumb.Section> :
+                                <Breadcrumb.Section  active={isLast}>{section}</Breadcrumb.Section>}
 
                         </React.Fragment>
                     );
