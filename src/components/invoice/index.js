@@ -43,7 +43,7 @@ class Index extends React.Component {
                     <Table.Row key={i.id}>
                         {/*<Table.Cell>{i.id}</Table.Cell>*/}
                         <Table.Cell>{i.name}</Table.Cell>
-                        <Table.Cell>{i.type}</Table.Cell>
+                        <Table.Cell>{i.type.trim() === 'sale' ? 'فروش' : 'خرید'}</Table.Cell>
                         <Table.Cell>
                             {convertToPersianNumber(moment(i.createdDate, 'YYYY/MM/DD hh:mm').locale('fa').format('hh:mm - YYYY/MM/DD'))}
                         </Table.Cell>

@@ -7,6 +7,7 @@ import {Button, Container, FormField, Grid, Input, TextArea} from "semantic-ui-r
 import * as validator from '../../utility/formValidators';
 import ProductImageInput from "../inputs/ProductImageInput";
 import {numberFormatter, numberParser, numberWithCommas} from "../../utility/numberConverter";
+import NumberFormat from "react-number-format";
 
 
 const FIELDS = {
@@ -29,7 +30,11 @@ const FIELDS = {
         render({input, meta, ...props}) {
             const hasError = !!(meta.error && meta.touched);
             return (
-                <FormField control={Input} {...input} error={hasError ? meta.error : null} label={'قیمت'} />
+                <div className={`ui form field ${hasError ? 'error' : ''}  `}>
+                    <label>قیمت</label>
+                    <NumberFormat decimalScale={0} {...input}  maxLength={30}   thousandSeparator={true} defaultValue={0}   className={'form-input__rtl'}  />
+                    {hasError ? <div className="ui pointing red basic label">{meta.error}</div> : ''}
+                </div>
             );
         },
         validate: [
@@ -47,8 +52,13 @@ const FIELDS = {
         name: 'salePrice',
         render({input, meta, ...props}) {
             const hasError = !!(meta.error && meta.touched);
+            console.log('has error', hasError)
             return (
-                <FormField control={Input} {...input} error={hasError ? meta.error : null} label={'قیمت فروش'} />
+                <div className={`ui form field ${hasError ? 'error' : ''}  `} >
+                    <label>قیمت فروش</label>
+                    <NumberFormat decimalScale={0} {...input} maxLength={30}   className={`form-input__rtl`}   thousandSeparator={true} defaultValue={0}       />
+                    {hasError ? <div className="ui pointing red basic label">{meta.error}</div> : ''}
+                </div>
             );
         },
         validate: [

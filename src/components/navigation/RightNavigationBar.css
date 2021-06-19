@@ -1,8 +1,13 @@
-
+#nav_bars {
+    display: none;
+}
 
 
 @media (max-width: 550px) {
     #right-nav {
         display: none;
+    }
+    #nav_bars {
+        display: block;
     }
 }

@@ -48,11 +48,11 @@ class SaleInvoiceShow extends React.Component {
         if(!transactions) return ;
         return (
             <Segment color={"blue"}>
-                <Header>Transactions</Header>
+                <Header>تراکنش ها</Header>
                 <Table>
                     <Table.Header>
                         <Table.Row>
-                            <Table.HeaderCell>شناسه</Table.HeaderCell>
+                            {/*<Table.HeaderCell>شناسه</Table.HeaderCell>*/}
                             <Table.HeaderCell>نام محصول</Table.HeaderCell>
                             <Table.HeaderCell>تعداد</Table.HeaderCell>
                             <Table.HeaderCell>قیمت</Table.HeaderCell>
@@ -61,7 +61,7 @@ class SaleInvoiceShow extends React.Component {
                     <Table.Body>
                         {_.map(transactions, (tr, index) => (
                             <Table.Row key={index}>
-                                <Table.Cell>{tr.id}</Table.Cell>
+                                {/*<Table.Cell>{tr.id}</Table.Cell>*/}
                                 <Table.Cell>{tr.productName}</Table.Cell>
                                 <Table.Cell>{tr.quantity.toLocaleString('fa')}</Table.Cell>
                                 <Table.Cell>{convertToPersianNumber(numberWithCommas(parseFloat(tr.price)))}</Table.Cell>

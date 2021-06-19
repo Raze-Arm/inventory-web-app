@@ -6,6 +6,7 @@ import * as validator from '../../utility/formValidators';
 import {Button, Container, FormField,  Input} from "semantic-ui-react";
 import ImageInput from "../inputs/ImageInput";
 import PasswordStrengthBar from "react-password-strength-bar";
+import PasswordInput from "../inputs/PasswordInput";
 
 const FIELDS = {
     photo: {
@@ -50,7 +51,7 @@ const FIELDS = {
             const hasError = !!(meta.error && meta.touched);
             return (
                 <React.Fragment>
-                    <FormField control={Input}   {...input} fluid icon={'lock'} iconPosition={'left'} placeholder={'رمز عبور'} label={'رمز عبور'} type={'password'} error={hasError ? meta.error : null} />
+                    <PasswordInput {...input}  error={hasError ? meta.error : null}/>
                     <PasswordStrengthBar password={input.value} style={{width: '300px'}} />
                 </React.Fragment>
 

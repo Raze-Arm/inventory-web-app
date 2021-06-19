@@ -64,7 +64,7 @@ class Index extends React.Component {
                         </Table.Cell>
                         <Table.Cell>{convertToPersianNumber(numberWithCommas(parseFloat(tr.price)))}</Table.Cell>
                         <Table.Cell>{tr.quantity.toLocaleString('fa')}</Table.Cell>
-                        <Table.Cell>{tr.type}</Table.Cell>
+                        <Table.Cell>{tr.type.trim() === 'sale' ? 'فروش' : 'خرید'}</Table.Cell>
                         <Table.Cell>
                             {convertToPersianNumber(moment(tr.createdDate, 'YYYY/MM/DD hh:mm').locale('fa').format('hh:mm , YYYY/MM/DD'))}
                         </Table.Cell>
@@ -99,7 +99,7 @@ class Index extends React.Component {
     onSearch = (e ,{value}) => {
         this.debouncedSearch((search) => this.setState({...this.state, search}), value );
     }
-    debouncedSearch = _.throttle((onSearch, value) => onSearch(value), 1000,{ leading: false });
+    debouncedSearch = _.throttle((onSearch, value) => onSearch(value), 500,{ leading: false });
     renderTransactions = () => {
         return (
             <React.Fragment>

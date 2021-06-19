@@ -1,6 +1,6 @@
 import React, {useState, useEffect, createRef} from "react";
 import _ from 'lodash';
-import { Pagination, Table} from "semantic-ui-react";
+import  {Loader, Pagination, Table, Dimmer} from "semantic-ui-react";
 import './AppPagination.css';
 import {convertToPersianNumber} from "../utility/numberConverter";
 
@@ -14,7 +14,7 @@ const SamplePagination = ({itemList, fetchPage, renderHeaders, renderRows, pageC
     const [fetchSize, setFetchSize] = useState(100);
     const [perPage, setPerPage] = useState(10);
     const [counter, setCounter] =useState(0);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const paginationRef  = createRef();
 
 
@@ -76,8 +76,24 @@ const SamplePagination = ({itemList, fetchPage, renderHeaders, renderRows, pageC
     }, [paginationRef]);
 
 
-    if(loading) return 'loading';
 
+
+    const renderLoader = () => {
+        return (
+              <tr>
+                  <td width={16} height={'200px'}>
+                      <Dimmer    active inverted>
+                          <Loader inline  size='medium'>در حال بارگیری</Loader>
+                      </Dimmer>
+                  </td>
+              </tr>
+        );
+    }
+
+
+
+    let showNav = paginateTotalPages > 1 ? undefined : null;
+    let showFirstAndLast = paginateTotalPages > 2 ? undefined : null;
     return (
         <React.Fragment  >
             <Table celled textAlign={"left"}   structured   id={'pagination'}  compact   style={{margin: 'auto', marginTop: '10px', }}  >
@@ -87,15 +103,22 @@ const SamplePagination = ({itemList, fetchPage, renderHeaders, renderRows, pageC
 
                 </thead>
                 <tbody>
-                {renderRows(pageItems)}
+
+                {loading ? renderLoader() : renderRows(pageItems)}
                 </tbody>
                 <tfoot >
                 <Table.Row textAlign={"center"} >
                     <th    colSpan={'100%'} >
-                        <Pagination    totalPages={paginateTotalPages}
-                                      onPageChange={handlePageClick}
-                                      activePage={currentPage + 1}
-                                       ref={paginationRef}
+                        <Pagination
+                            firstItem={showFirstAndLast}
+                            lastItem={showFirstAndLast}
+                            pageItem={showNav}
+                            prevItem={showNav}
+                            nextItem={showNav}
+                            totalPages={paginateTotalPages}
+                            onPageChange={handlePageClick}
+                            activePage={currentPage + 1}
+                            ref={paginationRef}
                         />
                     </th>
                     <th style={{border: '1px solid grey', fontSize: 'x-small'}}>

@@ -18,13 +18,11 @@ function exampleReducer(state, action) {
         case 'START_SEARCH':
             return { ...state, loading: true, value: action.query }
         case 'SET_RESULTS': {
-            return { ...state, loading: false, results:  action.results, }
+            return { ...state, loading: false , error: false, results:  action.results, }
         }
-        case 'SET_ERROR': {
-            const {error ,stopLoading} = action;
-            if(stopLoading)
-                return  {...state , error: error, loading: false , results: error? [] : state.results};
-            else return {...state , error: error , results: error? [] : state.results};
+        case 'STOP_LOADING': {
+            const hasError = !_.find(state.results, ({title}) => title.includes(state.value.title));
+                return  {...state , error: hasError, loading: false , results: hasError? [] : state.results};
         }
         case 'UPDATE_SELECTION':
             const  selectedItem = _.find(state.results, r => r.title === action.selection.title  );
@@ -59,15 +57,18 @@ const  CustomSearch = ({options, getSearchedSources, input, onSelect, label, has
 
     const timeoutRef = React.useRef();
     const loadingTimerRef = React.useRef();
+
+
     const handleSearchChange = React.useCallback((e, data) => {
+        console.log('results####', data)
         clearTimeout(timeoutRef.current);
         clearTimeout(loadingTimerRef.current);
         dispatch({ type: 'START_SEARCH', query: data.value })
-        dispatch({type: 'SET_ERROR', error: false})
-        loadingTimerRef.current = setTimeout(() => {
-            dispatch({type: 'SET_ERROR', error: true, stopLoading: true})
-        }, 10000);
 
+        loadingTimerRef.current = setTimeout(() => {
+                dispatch({type: 'STOP_LOADING'})
+
+        }, 10000);
         timeoutRef.current = setTimeout(() => {
             if (data.value.length === 0) {
                 dispatch({ type: 'CLEAN_QUERY' })
@@ -86,7 +87,7 @@ const  CustomSearch = ({options, getSearchedSources, input, onSelect, label, has
     const renderResults = ({title, price,image, description, ...props}) => {
         const img = image ? <div className={'image'}><img src={image}/></div> : '';
         return (
-            <div className={'result'} key={title} >
+            <div  className={'result'} key={title} >
                 {img}
                 <div className={'content'}>
                     <div className={'title'}>{title}</div>
@@ -104,10 +105,9 @@ const  CustomSearch = ({options, getSearchedSources, input, onSelect, label, has
                         loading={loading}
                         onResultSelect={(e, data) => {
                             dispatch({type: 'UPDATE_SELECTION', selection: data.result});
-                            dispatch({type: 'SET_ERROR', error: false , stopLoading: true})
+                            dispatch({type: 'STOP_LOADING'})
                             clearTimeout(loadingTimerRef.current);}
                         }
-
                         fluid
                         resultRenderer={renderResults}
                         noResultsMessage={<span >بدون نتیجه</span>}

@@ -27,8 +27,8 @@ class SaleInvoiceDelete extends React.Component {
     renderActions = () => {
         return (
             <React.Fragment >
-                <Button color={"red"} onClick={() => this.onCancel()} >لغو</Button>
-                <Button color={"green"} onClick={() => this.onDelete()} >حذف</Button>
+                <Button  onClick={() => this.onCancel()} >لغو</Button>
+                <Button color={"red"} onClick={() => this.onDelete()} >حذف</Button>
             </React.Fragment>
         );
     }
@@ -39,6 +39,7 @@ class SaleInvoiceDelete extends React.Component {
 
         return  (
             <Modal
+                redHeader={true}
                 title={"صورتحساب فروش را حذف کنید"}
                 content={`آیا مطمئن هستید ، می خواهید صورتحساب فروش را حذف کنید:${invoice.id}`}
                 actions={this.renderActions()}
