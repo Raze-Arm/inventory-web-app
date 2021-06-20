@@ -2,7 +2,7 @@ import React from "react";
 import {Field, reduxForm} from "redux-form";
 import {connect} from 'react-redux';
 import _ from 'lodash';
-import {Button, Container, Form, Grid,} from "semantic-ui-react";
+import {Button, Container, Form, Grid, Input,} from "semantic-ui-react";
 
 import * as validator from '../../utility/formValidators';
 import {login} from "../../actions/auth";
@@ -10,6 +10,7 @@ import Loading from "../Loading";
 import logo from '../../images/logo192.png'
 
 import './Login.css';
+import PasswordInput from "../inputs/PasswordInput";
 
 
 const FIELDS  = {
@@ -18,7 +19,7 @@ const FIELDS  = {
         render({input , meta}) {
             const hasError = !!(meta.error && meta.touched);
             return (
-                <Form.Input required {...input} fluid icon={'user'} iconPosition={'left'} placeholder={'نام کاربری'} error={hasError ? meta.error : null} />
+                <Form.Field required  control={Input }{...input}  icon={'user'} iconPosition={'left'} label={'نام کاربری'} placeholder={'نام کاربری'} error={hasError ? meta.error : null} />
             );
         },
         validate: [
@@ -32,7 +33,9 @@ const FIELDS  = {
         render({input , meta}) {
             const hasError = !!(meta.error && meta.touched);
             return (
-                <Form.Input required {...input} fluid icon={'lock'} iconPosition={'left'} placeholder={'رمز عبور'} type={'password'} error={hasError ? meta.error : null} />
+                // <Form.Input required {...input} fluid icon={'lock'} iconPosition={'left'} placeholder={'رمز عبور'} type={'password'} error={hasError ? meta.error : null} />
+                <PasswordInput {...input}  error={hasError ? meta.error : null}/>
+
             );
         },
         validate: [
