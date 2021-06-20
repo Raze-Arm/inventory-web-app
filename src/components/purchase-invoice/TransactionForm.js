@@ -70,7 +70,7 @@ const TransactionForm = (props) => {
                 </Grid.Column>
 
                 <Grid.Column width={3}>
-                    <FormField key={product.quantity} control={Input}   label={'تعداد'} defaultValue={1} className={'form-input__rtl'} onChange={(event, {value}) => {
+                    <FormField key={product.quantity} control={Input}   label={'تعداد'} defaultValue={0} className={'form-input__rtl'} onChange={(event, {value}) => {
                         setTransaction({...transaction, quantity: value});
                     }} />
                 </Grid.Column>
