@@ -15,8 +15,8 @@ const getAuth = state => state.auth;
 function* authWatcher() {
     while (true) {
         try {
-            const token = yield call(autoLoginFlow);
-            if(!token) {
+            const userInfo = yield call(autoLoginFlow);
+            if(!userInfo) {
                 const {payload} = yield take(LOGIN.LOAD);
                 yield put(showLoadingScreen());
                 const task = yield fork(loginFlow, payload);
@@ -41,12 +41,12 @@ function* authWatcher() {
 function* loginFlow(action) {
     const {username,password} = action;
     try {
-        const token = yield call(login, {username,password});
-        yield put(loginSuccess(token));
+        const userInfo = yield call(login, {username,password});
+        yield put(loginSuccess(userInfo));
         yield put(stopLoadingScreen());
-        Api.defaults.headers.common['Authorization'] = token;
+        // Api.defaults.headers.common['Authorization'] = token;
         yield put(getProfilePhoto(username));
-        localStorage.setItem('token', token);
+        localStorage.setItem('user_info', userInfo);
         history.push('/');
     } catch (e) {
         yield put(loginFailed('e'));
@@ -63,7 +63,7 @@ function*  logoutFlow() {
     try {
         yield fork(logout);
         yield put(logoutSuccess());
-        localStorage.removeItem('token');
+        localStorage.removeItem('user_info');
         localStorage.removeItem('chat');
         Api.defaults.headers.common['Authorization'] = '';
     }catch (e) {
@@ -74,18 +74,18 @@ function*  logoutFlow() {
 
 
 function* autoLoginFlow() {
-    const token = localStorage.getItem('token');
-    if (token) {
-        yield put(loginSuccess(token));
+    const userInfo = localStorage.getItem('user_info');
+    if (userInfo) {
+        yield put(loginSuccess(userInfo));
         yield put(stopLoadingScreen());
-        Api.defaults.headers.common['Authorization'] = token;
-        const decoded = jwtDecode(token);
+        // Api.defaults.headers.common['Authorization'] = token;
+        const decoded = jwtDecode(userInfo);
         yield put(getProfilePhoto(decoded.sub));
         // history.push('/');
         yield take([LOGOUT.LOAD]);
         yield put(stopLoadingScreen());
         yield call(logoutFlow);
-        return token;
+        return userInfo;
     }
 
 }

@@ -4,8 +4,9 @@ import Api from  '../apis/inventory-api';
 
 export const login = async ({username ,password}) => {
     const response = await Api.post('/login', {username, password});
-    const token = response.headers.authorization;
-    return token;
+
+    const userInfo = response.headers['user_info'];
+    return userInfo;
 }
 
 export const logout = async () => {

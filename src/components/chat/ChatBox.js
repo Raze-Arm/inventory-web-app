@@ -16,7 +16,7 @@ import {AppImage} from "../AppImage";
 
 
 
-const ChatBox  = ({token, username, state, dispatch}) => {
+const ChatBox  = ({ username, state, dispatch}) => {
     const [userList, setUserList] = useState({});
     const [msg, setMsg ] = useState('');
     const clientRef = useRef();
@@ -45,13 +45,12 @@ const ChatBox  = ({token, username, state, dispatch}) => {
             dispatch({type: 'SET_STATE', state: JSON.parse(chat)})
         }
 
-        if(token) {
             const client = new Client({
-                brokerURL: `${WEBSOCKET_API}/secured/chat/websocket`, connectHeaders: {login: username, Authorization: token} ,
-                // brokerURL: `wss://localhost:8080/secured/chat/websocket`, connectHeaders: {login: username, Authorization: token} ,
+                brokerURL: `${WEBSOCKET_API}/secured/chat/websocket`, connectHeaders: {login: username} ,
                 reconnectDelay: 15000,
                 heartbeatIncoming: 4000,
                 heartbeatOutgoing: 4000,
+
             },  ); // cause of withWebSockjs append on server side
             clientRef.current = client;
             client.onConnect = function (fra) {
@@ -79,7 +78,6 @@ const ChatBox  = ({token, username, state, dispatch}) => {
 
             client.activate();
             return  () => client.deactivate();
-        }
     }, []);
 
     const sendMsg = () => {
@@ -168,8 +166,8 @@ const ChatBox  = ({token, username, state, dispatch}) => {
 }
 
 const mapStateToProps = (state) => {
-    const {username ,token} =  state.auth;
-    return {token, username};
+    const {username} =  state.auth;
+    return { username};
 }
 
 

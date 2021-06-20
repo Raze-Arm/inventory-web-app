@@ -5,8 +5,8 @@ export const login = ({username, password}) => {
     return {type: LOGIN.LOAD, payload: {username, password}};
 }
 
-export const loginSuccess = (token) => {
-    return {type: LOGIN.SUCCESS, payload: token };
+export const loginSuccess = (userInfo) => {
+    return {type: LOGIN.SUCCESS, payload: userInfo };
 }
 
 export const loginFailed = (error) => {
