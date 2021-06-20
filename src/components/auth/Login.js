@@ -19,7 +19,7 @@ const FIELDS  = {
         render({input , meta}) {
             const hasError = !!(meta.error && meta.touched);
             return (
-                <Form.Field required  control={Input }{...input}  icon={'user'} iconPosition={'left'} label={'نام کاربری'} placeholder={'نام کاربری'} error={hasError ? meta.error : null} />
+                <Form.Field   control={Input }{...input}  icon={'user'} iconPosition={'left'} label={'نام کاربری'} placeholder={'نام کاربری'} error={hasError ? meta.error : null} />
             );
         },
         validate: [
@@ -71,7 +71,6 @@ class Login extends React.Component{
     }
 
     onSubmit = ({username, password}) => {
-        console.log('submit', username, password)
         this.props.login({username, password});
     }
 

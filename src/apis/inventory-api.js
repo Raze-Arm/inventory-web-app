@@ -17,7 +17,7 @@ api.interceptors.response.use(function (response) {
         console.log('unauthenticated user');
     }
     if(error.response.status === 403) {
-        store.dispatch(showModalErrorMessage({title: 'غیر مجاز' , content: 'متأسفانه ، درخواست شما قابل انجام نیست' , details: error}))
+        store.dispatch(showModalErrorMessage({title: 'غیر مجاز' , content: 'متأسفانه ، درخواست شما قابل انجام نیست' , details: error.response.data}))
     }
     // return error;
     return Promise.reject(error)
