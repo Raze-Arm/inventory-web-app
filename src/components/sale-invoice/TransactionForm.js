@@ -63,66 +63,78 @@ const TransactionForm = (props) => {
     const renderProductFields = () => {
         return (
             <Grid  stackable  >
-                <Grid.Column width={3}>
-                    <SearchProduct  key={'product'} onSelect = {(pr) => {
-                        setTrProduct(pr);
-                        setProduct(pr);
-                    }} />
-                </Grid.Column>
-
-                <Grid.Column width={2}>
-                    <FormField  key={product.quantity}   control={Input} error={!!fieldsError.quantity ? fieldsError.quantity : false}  label={'تعداد'} defaultValue={product.quantity || 0} className={'form-input__rtl'} onChange={(event, {value}) => {
-                        if(value > product.quantity) {
-
-                            setFieldsError({quantity: 'ناموجود'});
-                            setTrProduct({...trProduct, quantity: 0});
-                        }
-                        else {
-                            setTrProduct({...trProduct, quantity: value});
-                            setFieldsError({quantity: ''})
-                        }
-                    }} />
-                </Grid.Column>
-
-                <Grid.Column width={2}>
-                    <FormField   key={`available${product.quantity}`}  control={Input} disabled    label={'موجود'} defaultValue={product.quantity || 0} className={'form-input__rtl'} />
-                </Grid.Column>
-
-                <Grid.Column width={3}>
-                    <div className={'ui form field'}>
-                        <label>قیمت</label>
-                        <NumberFormat decimalScale={0}  key={product.price}  thousandSeparator={true} defaultValue={product.price || 0}     className={'form-input__rtl'} onChange={(event) => {
-                            setTrProduct({...trProduct, price: event.target.value});
+                <Grid.Row reversed={"mobile vertically"}>
+                    <Grid.Column width={4}>
+                        <SearchProduct  key={'product'} onSelect = {(pr) => {
+                            setTrProduct(pr);
+                            setProduct(pr);
                         }} />
-                    </div>
+                    </Grid.Column>
 
-                </Grid.Column>
-                <Grid.Column width={3}>
-                    <div className={'ui form field'}>
-                        <label>قیمت فروش</label>
-                        <NumberFormat decimalScale={0}  maxLength={30} key={product.price}  thousandSeparator={true} disabled defaultValue={product.salePrice || 0}     className={'form-input__rtl'} onChange={(event) => {
-                            setTrProduct({...trProduct, price: event.target.value});
-                        }} />
-                    </div>
-                </Grid.Column>
+                    <Grid.Column width={3}>
+                        <FormField  key={product.quantity}   control={Input} error={!!fieldsError.quantity ? fieldsError.quantity : false}  label={'تعداد'} defaultValue={product.quantity || 0} className={'form-input__rtl'} onChange={(event, {value}) => {
+                            if(value > product.quantity) {
 
-                <Grid.Column width={3}>
-                    <FormField key={product.description} control={Input}   label={'توضیحات'} defaultValue={product.description || ''}  className={'form-input__rtl'} onChange={(event, {value}) => {
-                        setTrProduct({...trProduct, description: value});
-                    }} />
-                </Grid.Column>
-                <Grid.Column width={1}>
-                    <FormButton  type={'button'}  color={'green'}   onClick={() => {
-                        if(!_.find(fieldList.getAll(), {'productId': product.id})){
-
-                            const {id, quantity, price, description} = trProduct;
-                            if(quantity > 0) {
-                                setProduct({...product, quantity: product.quantity - parseInt(quantity)})
-                                fieldList.push({productId: id, productName: product.name, imageAvailable: product.imageAvailable, quantity, price, description});
+                                setFieldsError({quantity: 'ناموجود'});
+                                setTrProduct({...trProduct, quantity: 0});
                             }
-                        }
-                    }}>افزودن</FormButton>
-                </Grid.Column>
+                            else {
+                                setTrProduct({...trProduct, quantity: value});
+                                setFieldsError({quantity: ''})
+                            }
+                        }} />
+                    </Grid.Column>
+
+                    <Grid.Column width={3}>
+                        <div className={'ui form field'}>
+                            <label>تعداد</label>
+                            <NumberFormat   decimalScale={0} key={`available${product.quantity}`}  style={{border: '1px solid grey'}}    disabled    label={'موجود'} defaultValue={product.quantity || 0} className={'form-input__rtl'} />
+                        </div>
+                    </Grid.Column>
+
+
+
+                    <Grid.Column width={5}>
+                        <FormField key={product.description} control={Input}   label={'توضیحات'} defaultValue={product.description || ''}  className={'form-input__rtl'} onChange={(event, {value}) => {
+                            setTrProduct({...trProduct, description: value});
+                        }} />
+                    </Grid.Column>
+                </Grid.Row>
+
+                <Grid.Row>
+                    <Grid.Column width={4}>
+                        <div className={'ui form field'}>
+                            <label>قیمت</label>
+                            <NumberFormat decimalScale={0}  key={product.price}  thousandSeparator={true} defaultValue={product.price || 0}     className={'form-input__rtl'} onChange={(event) => {
+                                setTrProduct({...trProduct, price: event.target.value});
+                            }} />
+                        </div>
+
+                    </Grid.Column>
+                    <Grid.Column width={4}>
+                        <div className={'ui form field'}>
+                            <label>قیمت فروش</label>
+                            <NumberFormat decimalScale={0}  style={{border: '1px solid grey'}} maxLength={30} key={product.price}  thousandSeparator={true} disabled defaultValue={product.salePrice || 0}     className={'form-input__rtl'} onChange={(event) => {
+                                setTrProduct({...trProduct, price: event.target.value});
+                            }} />
+                        </div>
+                    </Grid.Column>
+                </Grid.Row>
+
+                <Grid.Row>
+                    <Grid.Column width={1}>
+                        <FormButton  type={'button'}  color={'green'}   onClick={() => {
+                            if(!_.find(fieldList.getAll(), {'productId': product.id})){
+
+                                const {id, quantity, price, description} = trProduct;
+                                if(quantity > 0) {
+                                    setProduct({...product, quantity: product.quantity - parseInt(quantity)})
+                                    fieldList.push({productId: id, productName: product.name, imageAvailable: product.imageAvailable, quantity, price, description});
+                                }
+                            }
+                        }}>افزودن</FormButton>
+                    </Grid.Column>
+                </Grid.Row>
             </Grid>
         );
     }
