@@ -203,7 +203,7 @@ class Index extends React.Component {
 
                 <Header>تراکنش</Header>
                 {this.renderTransactionNavigation()}
-                <Segment  secondary  basic style={{ margin: '0', padding: '0'}} >
+                <Segment  secondary  basic style={{ margin: '0'}} >
 
                     {this.renderAllTransactions()}
 
