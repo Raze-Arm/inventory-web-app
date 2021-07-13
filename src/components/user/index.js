@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import _ from 'lodash';
-import {Button, Container, Header, Input, Segment, Table} from "semantic-ui-react";
+import {Button, Card, Container, Grid, Header, Input, Segment, Table} from "semantic-ui-react";
 
 import {getUserPage} from "../../actions/user";
 import history from "../../history";
@@ -12,6 +12,50 @@ import {convertToPersianNumber} from "../../utility/numberConverter";
 
 class Index extends React.Component {
     state = {search: ''}
+
+
+    renderSmall = (items) => {
+        return (
+            <React.Fragment key={'mobile'}     >
+                {_.map(items ,(u, i) => {
+                    return (
+                        <Card fluid raised key={i}>
+                            <Grid celled    padded >
+                                <Grid.Row >
+                                    <Grid.Column as={'b'} width={8}>شناسه</Grid.Column><Grid.Column width={8}>{u.id}</Grid.Column>
+                                </Grid.Row>
+                                <Grid.Row >
+                                    <Grid.Column as={'b'} width={8}>نام</Grid.Column><Grid.Column width={8}>{u.firstName}</Grid.Column>
+                                </Grid.Row>
+                                <Grid.Row >
+                                    <Grid.Column as={'b'} width={8}>نام خانوادگی</Grid.Column><Grid.Column width={8}>{u.lastName}</Grid.Column>
+                                </Grid.Row>
+                                <Grid.Row >
+                                    <Grid.Column as={'b'} width={8}>نام کاربری</Grid.Column><Grid.Column width={8}>{u.username}</Grid.Column>
+                                </Grid.Row>
+                                <Grid.Row >
+                                    <Grid.Column as={'b'} width={8}>نقش</Grid.Column><Grid.Column width={8}>{u.role}</Grid.Column>
+                                </Grid.Row>
+                                <Grid.Row key={u.createdDate}>
+                                    <Grid.Column as={'b'} width={8}>تاریخ</Grid.Column>
+                                    <Grid.Column width={8}>{u.createdDate ?
+                                        convertToPersianNumber(moment(u.createdDate, 'YYYY/MM/DD hh:mm').locale('fa').format('hh:mm , YYYY/MM/DD'))
+                                        : ''}</Grid.Column>
+                                </Grid.Row>
+                                <Grid.Row key={'actions'} >
+                                    <Grid.Column>
+                                        <Button color={"green"} inverted onClick={() => history.push(`/user/show/${u.id}`)}  >نمایش</Button>
+                                        <Button color={"blue"} inverted onClick={() => history.push(`/user/update/${u.id}`)}  >ویرایش</Button>
+                                        <Button color={"red"}  inverted onClick={() => history.push(`/user/delete/${u.id}`)}>حذف</Button>
+                                    </Grid.Column>
+                                </Grid.Row>
+                            </Grid>
+                        </Card>
+                    )
+                })}
+            </React.Fragment>
+        );
+    }
 
     renderHeaders() {
         return (
@@ -72,6 +116,7 @@ class Index extends React.Component {
                         <AppPagination fetchPage={({page, size}) => this.props.getUserPage({page, size})}
                                        itemList={Object.values(this.props.users)} totalElements={this.props.totalElements}
                                        search={this.state.search}
+                                       renderSmallDevices={this.renderSmall}
                                        renderHeaders={this.renderHeaders()}
                                        renderRows={this.renderRows} pageCount={this.props.pageCount}/>
                     </React.Fragment>

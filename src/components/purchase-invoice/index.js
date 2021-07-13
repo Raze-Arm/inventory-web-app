@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import _ from 'lodash';
-import {Button, Container, Header, Input, Segment, Table} from "semantic-ui-react";
+import {Button, Card, Container, Grid, Header, Input, Segment, Table} from "semantic-ui-react";
 
 import {getPInvoicePage} from '../../actions/purchase-invoice';
 import history from "../../history";
@@ -11,6 +11,42 @@ import {convertToPersianNumber, numberWithCommas} from "../../utility/numberConv
 
 class Index extends React.Component {
     state = {search: ''}
+
+    renderSmall = (items) => {
+        return (
+            <React.Fragment key={'mobile'}     >
+                {_.map(items ,(p, i) => {
+                    const totalPrice =_.reduce(p?.transactions, (result, value) => result + parseFloat(value.price), 0.0);
+                    return (
+                        <Card fluid raised key={i}>
+                            <Grid celled    padded >
+                                <Grid.Row key={p?.supplier?.firstName}>
+                                    <Grid.Column as={'b'} width={8}>تامین کننده</Grid.Column><Grid.Column width={8}>{p?.supplier?.firstName} {p?.supplier?.lastName}</Grid.Column>
+                                </Grid.Row>
+                                <Grid.Row key={`p.${i}`}>
+                                    <Grid.Column as={'b'} width={8}>قیمت کل</Grid.Column><Grid.Column width={8}>{convertToPersianNumber(numberWithCommas(parseFloat(totalPrice))) || 0}</Grid.Column>
+                                </Grid.Row>
+
+                                <Grid.Row key={p.createdDate}>
+                                    <Grid.Column as={'b'} width={8}>تاریخ</Grid.Column>
+                                    <Grid.Column width={8}>{p.createdDate ?
+                                        convertToPersianNumber(moment(p.createdDate, 'YYYY/MM/DD hh:mm').locale('fa').format('hh:mm , YYYY/MM/DD'))
+                                        : ''}</Grid.Column>
+                                </Grid.Row>
+                                <Grid.Row key={'actions'} >
+                                    <Grid.Column>
+                                        <Button color={"green"} inverted onClick={() => history.push(`/purchase-invoice/show/${i.id}`)}  >نمایش</Button>
+                                        <Button color={"red"} inverted onClick={() => history.push(`/purchase-invoice/delete/${i.id}`)}>حذف</Button>
+                                    </Grid.Column>
+                                </Grid.Row>
+                            </Grid>
+                        </Card>
+                    )
+                })}
+            </React.Fragment>
+        );
+    }
+
 
     renderHeaders() {
         return (
@@ -63,6 +99,7 @@ class Index extends React.Component {
                 <AppPagination fetchPage={({page, size}) => this.props.getPInvoicePage({page, size})}
                                itemList={Object.values(this.props.invoices)} totalElements={this.props.totalElements}
                                search={this.state.search}
+                               renderSmallDevices={this.renderSmall}
                                renderHeaders={this.renderHeaders()}
                                renderRows={this.renderRows} pageCount={this.props.pageCount}/>
 
@@ -82,6 +119,7 @@ class Index extends React.Component {
                     <AppPagination fetchPage={({page, size}) => this.props.getPInvoicePage({page, size})}
                                    itemList={Object.values(this.props.invoices)} totalElements={this.props.totalElements}
                                    search={this.state.search}
+                                   renderSmallDevices={this.renderSmall}
                                    renderHeaders={this.renderHeaders()}
                                    renderRows={this.renderRows} pageCount={this.props.pageCount}/>
 

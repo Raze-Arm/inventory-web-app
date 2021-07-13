@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import _ from 'lodash';
-import {Header, Image, Input, Table} from "semantic-ui-react";
+import {Card, Grid, Header, Image, Input, Table} from "semantic-ui-react";
 
 import {getSaleTrPage} from "../../actions/transaction";
 import AppPagination from "../AppPagination";
@@ -10,7 +10,46 @@ import {convertToPersianNumber, numberWithCommas} from "../../utility/numberConv
 import {BACKEND_API} from "../../apis/address";
 
 class  SaleTransactionPage extends  React.Component {
-    state = {search: ''}
+    state = {search: ''};
+
+    renderSmall = (items) => {
+        return (
+            <React.Fragment key={'mobile'}     >
+                {_.map(items ,(tr, i) => {
+                    return (
+                        <Card fluid raised key={i}>
+                            <Grid celled    padded >
+                                <Grid.Row key={tr.productName}>
+                                    <Grid.Column as={'b'} width={8}>محصول</Grid.Column>
+                                    <Grid.Column width={8}>
+                                        <Header as={'h4'} image>
+                                            {tr.imageAvailable  ? <Image src={BACKEND_API + `/v1/download/small/product/${tr.productId}`}  rounded size='mini' /> : ''}
+                                            <Header.Content>{tr.productName}</Header.Content>
+                                        </Header>
+                                    </Grid.Column>
+                                </Grid.Row>
+                                <Grid.Row key={tr.price}>
+                                    <Grid.Column as={'b'} width={8}>قیمت</Grid.Column><Grid.Column width={8}>{convertToPersianNumber(numberWithCommas(parseFloat(tr.price)))}</Grid.Column>
+                                </Grid.Row>
+                                <Grid.Row key={tr.quantity}>
+                                    <Grid.Column as={'b'} width={8}>تعداد</Grid.Column><Grid.Column width={8}>{tr.quantity.toLocaleString('fa')}</Grid.Column>
+                                </Grid.Row>
+                                <Grid.Row key={tr.createdDate}>
+                                    <Grid.Column as={'b'} width={8}>تاریخ</Grid.Column>
+                                    <Grid.Column width={8}>{tr.createdDate ?
+                                        convertToPersianNumber(moment(tr.createdDate, 'YYYY/MM/DD hh:mm').locale('fa').format('hh:mm , YYYY/MM/DD'))
+                                        : ''}</Grid.Column>
+                                </Grid.Row>
+
+                            </Grid>
+                        </Card>
+                    )
+                })}
+            </React.Fragment>
+        );
+    }
+
+
     renderHeaders() {
         return (
             <React.Fragment>
@@ -60,6 +99,7 @@ class  SaleTransactionPage extends  React.Component {
                 <AppPagination fetchPage={({page, size}) => this.props.getSaleTrPage({page, size})}
                                itemList={Object.values(this.props.transactions)} totalElements={this.props.totalElements}
                                search={this.state.search}
+                               renderSmallDevices={this.renderSmall}
                                renderHeaders={this.renderHeaders()}
                                renderRows={this.renderRows} pageCount={this.props.pageCount}/>
             </React.Fragment>

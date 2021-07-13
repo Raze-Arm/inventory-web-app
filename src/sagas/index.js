@@ -10,14 +10,14 @@ import profileWatcher from './profile';
 import userWatcher from './user';
 import activityWatcher from './activity';
 import authWatcher from "./auth";
-
+import securityWatcher from './user-security'
 
 export default function* () {
     yield all(
         [purchaseInvoiceWatcher, saleInvoiceWatcher, supplierWatcher
             , customerWatcher, productWatcher, invoiceWatcher
             , transactionWatcher, authWatcher, profileWatcher
-            , userWatcher, activityWatcher]
+            , userWatcher, activityWatcher, securityWatcher]
     );
 }
 

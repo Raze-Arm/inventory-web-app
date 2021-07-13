@@ -1,4 +1,4 @@
-import {GET_PROFILE_PHOTO, GET_PROFILE, UPDATE_PROFILE} from "./types";
+import { GET_PROFILE, UPDATE_PROFILE} from "./types";
 
 
 
@@ -30,14 +30,4 @@ export const updateProfileFailed = (error) => {
 }
 
 
-export const getProfilePhoto = (username) => {
-    return {type: GET_PROFILE_PHOTO.LOAD, payload: username};
-}
 
-export const getProfilePhotoSuccess = (photo) => {
-    return {type: GET_PROFILE_PHOTO.SUCCESS, payload: photo};
-}
-
-export const getProfilePhotoError = (error) => {
-    return {type: GET_PROFILE_PHOTO.FAILED, payload: error};
-}

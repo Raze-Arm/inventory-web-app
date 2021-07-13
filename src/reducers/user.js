@@ -1,10 +1,9 @@
 import _ from  'lodash';
 import {
-    DELETE_USER, GET_PHOTO_BY_USERNAME,
+    DELETE_USER,
     GET_USER,
     GET_USER_BY_USERNAME,
     GET_USER_PAGE,
-    GET_USER_PHOTO,
     SAVE_USER,
     UPDATE_USER
 } from "../actions/types";
@@ -30,18 +29,7 @@ export const userReducer = (state = INITIAL_VALUES, action) => {
         case GET_USER_BY_USERNAME.SUCCESS: {
             return {...state, items: {...state.items, [action.payload.id] : {...action.payload}}};
         }
-        case GET_USER_PHOTO.SUCCESS: {
-            const {id, photo} = action.payload;
-            const user = state.items[id];
 
-            return {...state, items: {...state.items, [id] : {...user, photo}}}
-        }
-        case GET_PHOTO_BY_USERNAME.SUCCESS: {
-            const {username, photo} = action.payload;
-            const user = _.find(state.items, (i) => i.username = username);
-            return {...state, items: {...state.items, [user.id] : {...user, photo}}}
-
-        }
         case SAVE_USER.SUCCESS: {
             return {...state, items: {...state.items, [action.payload.id] : {...action.payload}}}
 

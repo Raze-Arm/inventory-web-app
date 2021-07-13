@@ -13,10 +13,11 @@ import {
 } from "semantic-ui-react";
 import moment from "jalali-moment";
 import {convertToPersianNumber} from "../../utility/numberConverter";
-import {getUser, getUserByUsername, getUserPhoto, getPhotoByUsername} from '../../actions/user';
+import {getUser, getUserByUsername} from '../../actions/user';
 import Loading from "../Loading";
 import  './UserShow.css';
 import UserActivity from "./UserActivity";
+import {BACKEND_API} from "../../apis/address";
 const PROFILE = 'مشخصات';
 const HISTORY = 'تاریخچه';
 
@@ -30,13 +31,11 @@ const UserShow = (props) => {
         const id = props.match.params.id;
         if(id) {
             props.getUser(id);
-            props.getUserPhoto(id);
         }else {
             const {search} = props.location;
             const match = search.match(/username=(.*)/);
             const username = match?.[1];
             props.getUserByUsername(username);
-            props.getPhotoByUsername(username);
         }
     }, []);
 
@@ -50,7 +49,8 @@ const UserShow = (props) => {
         return (
             <Segment className={'custom-segment'} color={"grey"} textAlign={"center"}>
                 <Header>کاربر</Header>
-                {user.photo ? <Image rounded centered src={window.URL.createObjectURL(user.photo) } /> : ''}
+                {/*{user.photo ? <Image rounded centered src={window.URL.createObjectURL(user.photo) } /> : ''}*/}
+                {user.imageAvailable ? <Image rounded centered src={BACKEND_API + `/v1/download/user/${user.username}` } /> : ''}
                 <Divider />
                 <List divided   relaxed>
 
@@ -112,8 +112,7 @@ const mapStateToProps = (state, props) => {
     const match = search.match(/username=(.*)/);
     const username = match?.[1];
     const user = id ? state.user.items[id] : _.find(items, (i) => i.username = username );
-    console.log('user##', user)
     return {user: user};
 }
 
-export default connect(mapStateToProps, {getUser, getUserByUsername, getUserPhoto, getPhotoByUsername})(UserShow);
+export default connect(mapStateToProps, {getUser, getUserByUsername})(UserShow);

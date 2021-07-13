@@ -6,7 +6,7 @@ import {Dimmer, Loader} from "semantic-ui-react";
 
 import ProfileUpdateForm from './ProfileUpdateForm';
 
-import {getProfile, updateProfile, getProfilePhoto} from "../../actions/profile";
+import {getProfile, updateProfile} from "../../actions/profile";
 
 import {SubmissionError} from "redux-form";
 
@@ -16,7 +16,6 @@ class ProfileUpdate extends React.Component {
         const username = this.props.username;
         if(username) {
             this.props.getProfile(username);
-            this.props.getProfilePhoto(username);
         }
     }
 
@@ -57,4 +56,4 @@ const mapStateToProps =(state, props) => {
 }
 
 
-export default connect(mapStateToProps, {getProfile, updateProfile, getProfilePhoto})(ProfileUpdate);
+export default connect(mapStateToProps, {getProfile, updateProfile})(ProfileUpdate);

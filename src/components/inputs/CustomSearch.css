@@ -1,9 +1,4 @@
-.ui.search>.results .result:hover {
-    background-color: #cfd0d2;
-}
-.ui.search>.results .result.active {
-    background-color: #cfd0d2;
-}
+
 
 .ui.search>.results .result .content {
     text-align: left !important;
@@ -16,7 +11,7 @@
 }
 .ui.search>.results .result  {
 
-    padding: 0.85714286em 1.14285714em;
+    padding: 0.8em 1.14285714em;
     padding-left: 10px;
     padding-right: 0;
     color: rgba(0, 0, 0, 0.87);
@@ -24,6 +19,19 @@
     border-bottom: 1px solid rgba(34, 36, 38, 0.15) !important;
     line-height: 1.33;
 }
+
+.ui.search>.results .result:hover {
+    background-color: #cfd0d2;
+    border-right: 3px solid deepskyblue ;
+}
+.ui.search>.results .result.active {
+    background-color: #cfd0d2;
+    border-right: 3px solid deepskyblue ;
+}
+.ui.search>.results .result .content:hover {
+    border-right: 0;
+}
+
 .ui.search>.results .result .price {
     float: left;
     direction: ltr;

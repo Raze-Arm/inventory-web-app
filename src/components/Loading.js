@@ -13,7 +13,6 @@ const Loading = ({showErrorMessage, stopLoadingScreen}) => {
         // stopLoadingScreen();
     };
 
-    console.log('history#', history)
 
 
     useEffect(() => {

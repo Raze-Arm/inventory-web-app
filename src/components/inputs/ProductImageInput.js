@@ -4,7 +4,7 @@ import placeholder from "../../images/placeholder.png";
 import './ProductImageInput.css'
 import {BACKEND_API} from "../../apis/address";
 
-const ProductImageInput = ({input, photoUrl, imageAvailable, id}) => {
+const ProductImageInput = ({input, imageAvailable, id}) => {
     const [photo, setPhoto] = useState(null);
     const onProfileEditClick =() => {
         const fileInput = document.createElement("input");

@@ -1,11 +1,23 @@
 import React, {useState, useEffect, createRef} from "react";
 import _ from 'lodash';
-import  {Loader, Pagination, Table, Dimmer} from "semantic-ui-react";
+import {Loader, Pagination, Table, Dimmer, Grid} from "semantic-ui-react";
 import './AppPagination.css';
 import {convertToPersianNumber} from "../utility/numberConverter";
 
+import {createMedia} from "@artsy/fresnel";
+import Responsive from "semantic-ui-react/dist/commonjs/addons/Responsive";
 
-const SamplePagination = ({itemList, fetchPage, renderHeaders, renderRows, pageCount, totalElements, search = ''}) => {
+const {MediaContextProvider, Media} = createMedia({
+    breakpoints: {
+        zero: 0,
+        sm: 400,
+        md: 768,
+        lg: 1024,
+        xl: 1192,
+    }
+});
+
+const SamplePagination = ({itemList, fetchPage, renderSmallDevices, renderHeaders, renderRows, pageCount, totalElements, search = ''}) => {
     const [offset, setOffset] = useState(0);
     const [items, setItems] = useState([]);
     const [pageItems, setPageItems] = useState([]);
@@ -68,12 +80,6 @@ const SamplePagination = ({itemList, fetchPage, renderHeaders, renderRows, pageC
 
     }
 
-    useEffect(() => {
-        if(paginationRef.current) {
-            const elements = document.querySelectorAll('.ui.pagination.menu .item');
-            _.forEach(elements, (e, i) => e.innerHTML = convertToPersianNumber(e.innerHTML))
-        }
-    }, [paginationRef]);
 
 
 
@@ -90,22 +96,42 @@ const SamplePagination = ({itemList, fetchPage, renderHeaders, renderRows, pageC
         );
     }
 
-
-
-    let showNav = paginateTotalPages > 1 ? undefined : null;
-    let showFirstAndLast = paginateTotalPages > 2 ? undefined : null;
     return (
         <React.Fragment  >
-            <Table celled textAlign={"left"}   structured   id={'pagination'}  compact   style={{margin: 'auto', marginTop: '10px', }}  >
-                <thead>
+            <ResponsiveContainer key={'reponsive'} renderHeaders={renderHeaders} renderSmallDevices={renderSmallDevices} loading={loading}   renderLoader={renderLoader}  renderRows={renderRows} pageItems={pageItems}
+                                      paginateTotalPages={paginateTotalPages}  handlePageClick={handlePageClick}  currentPage={currentPage}  paginationRef={paginationRef}  perPage={perPage}  totalElements={totalElements} />
+        </React.Fragment>
+    );
+}
 
-                {renderHeaders}
+const  pageAttr = (paginateTotalPages) =>  {
+    let showNav = paginateTotalPages > 1 ? undefined : null;
+    let showFirstAndLast = paginateTotalPages > 2 ? undefined : null;
+    return {showNav, showFirstAndLast};
+}
 
-                </thead>
-                <tbody>
+const DesktopContainer = ({renderHeaders, loading,  renderLoader, renderRows, pageItems
+                              , paginateTotalPages, handlePageClick, currentPage, paginationRef, perPage, totalElements}) => {
+    let {showNav, showFirstAndLast} = pageAttr(paginateTotalPages);
+    useEffect(() => {
+        if (paginationRef.current) {
+            const elements = document.querySelectorAll('.ui.pagination.menu .item');
+            _.forEach(elements, (e, i) => e.innerHTML = convertToPersianNumber(e.innerHTML))
+        }
+    }, [paginationRef]);
+    return (
+        <React.Fragment  >
+            <Table  celled textAlign={"left"}   structured   id={'pagination'}  compact   style={{margin: 'auto', marginTop: '10px', }}  >
 
-                {loading ? renderLoader() : renderRows(pageItems)}
-                </tbody>
+                <Table.Header fullWidth>
+
+                 {renderHeaders}
+
+                </Table.Header>
+                 <tbody>
+
+                 {loading ? renderLoader() : renderRows(pageItems)}
+                 </tbody>
                 <tfoot >
                 <Table.Row textAlign={"center"} >
                     <th    colSpan={'100%'} >
@@ -131,5 +157,49 @@ const SamplePagination = ({itemList, fetchPage, renderHeaders, renderRows, pageC
         </React.Fragment>
     );
 }
+
+const MobileContainer = ({renderSmallDevices, pageItems
+                             , paginateTotalPages, handlePageClick, currentPage, paginationRef, perPage, totalElements}) => {
+    let {showNav, showFirstAndLast} = pageAttr(paginateTotalPages);
+    useEffect(() => {
+        if (paginationRef.current) {
+            const elements = document.querySelectorAll('.ui.pagination.menu .item');
+            _.forEach(elements, (e, i) => e.innerHTML = convertToPersianNumber(e.innerHTML))
+        }
+    }, [paginationRef]);
+    return (
+        <div style={{marginTop: '7px'}} key={'mobile'} >
+
+                {renderSmallDevices(pageItems)}
+
+                        <Pagination
+                            firstItem={showFirstAndLast}
+                            lastItem={showFirstAndLast}
+                            pageItem={showNav}
+                            prevItem={showNav}
+                            nextItem={showNav}
+                            totalPages={paginateTotalPages}
+                            onPageChange={handlePageClick}
+                            activePage={currentPage + 1}
+                            ref={paginationRef}
+                        />
+                        <span style={{color: '#778899',  }}>{(currentPage * perPage + pageItems.length).toLocaleString('fa')} از {totalElements.toLocaleString('fa')}</span>
+
+        </div>
+    );
+}
+
+const ResponsiveContainer = (props ) =>
+     (
+        <MediaContextProvider>
+            <Media key={'xl'} greaterThanOrEqual={'md'}>
+                <DesktopContainer {...props} />
+            </Media>
+            <Media key={'md'} lessThan={'md'}>
+                <MobileContainer {...props} />
+            </Media>
+        </MediaContextProvider>
+    );
+
 
 export default SamplePagination;

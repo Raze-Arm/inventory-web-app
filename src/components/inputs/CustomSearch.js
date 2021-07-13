@@ -87,7 +87,8 @@ const  CustomSearch = ({options, getSearchedSources, input, onSelect, label, has
     const renderResults = ({title, price,image, description, ...props}) => {
         const img = image ? <div className={'image'}><img src={image}/></div> : '';
         return (
-            <div  className={'result'} key={title} >
+            // <div  className={'result'} key={title} >
+            <div   key={title} >
                 {img}
                 <div className={'content'}>
                     <div className={'title'}>{title}</div>

@@ -15,13 +15,12 @@ import {
     fetchUserPage,
     postUser,
     updateUser,
-    downloadUserPhoto,
     deleteUser,
-    fetchUserByUsername, downloadPhotoByUsername
+    fetchUserByUsername
 } from '../services/user';
 import {
-    deleteUserSuccess, getPhotoByUsernameSuccess, getUserByUsernameSuccess,
-    getUserPageSuccess, getUserPhotoSuccess,
+    deleteUserSuccess, getUserByUsernameSuccess,
+    getUserPageSuccess,
     getUserSuccess,
     saveUserSuccess,
     updateUserSuccess
@@ -36,8 +35,7 @@ function* userWatcher() {
     yield takeEvery(SAVE_USER.LOAD, saveUserFlow);
     yield takeEvery(UPDATE_USER.LOAD, updateUserFlow);
     yield takeEvery(DELETE_USER.LOAD, deleteUserFlow);
-    yield takeEvery(GET_USER_PHOTO.LOAD , getUserPhotoFlow);
-    yield takeEvery(GET_PHOTO_BY_USERNAME.LOAD, getPhotoByUsernameFlow);
+
 }
 
 function* getUserPageFlow(action) {
@@ -120,30 +118,6 @@ function* deleteUserFlow(action) {
     }
 }
 
-function* getUserPhotoFlow(action) {
-    const id = action.payload;
-    try {
-        const photo = yield call(downloadUserPhoto, id);
-        console.log('user photo ', photo);
-        yield put(getUserPhotoSuccess({id, photo}));
-    }catch (e) {
-        console.log('error', e);
-        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: e}));
-    }
-}
-
-function* getPhotoByUsernameFlow(action) {
-    const username = action.payload;
-
-    try {
-        const photo = yield call(downloadPhotoByUsername, username);
-        console.log('user photo', photo);
-        yield put(getPhotoByUsernameSuccess({username, photo}));
-    }catch (e) {
-        console.log('error', e);
-        yield put(showModalErrorMessage({title: 'خطا' , content: 'متأسفانه ، خطای غیرمنتظره ای روی داد لطفا بعداً امتحان کنید', details: e}));
-    }
-}
 
 
 export default userWatcher();

@@ -11,9 +11,9 @@ import PasswordInput from "../inputs/PasswordInput";
 const FIELDS = {
     photo: {
         name: 'photo',
-        render({input, meta}) {
+        render({input, meta, initialValues, ...props}) {
             return (
-                <ImageInput input={input} />
+                <ImageInput input={input}  imageAvailable={initialValues?.imageAvailable} username={initialValues?.username} {...props} />
             );
         }
     },
@@ -41,6 +41,21 @@ const FIELDS = {
         },
         validate: [
             validator.required,
+            validator.minLength(3),
+            validator.maxLength(30),
+        ]
+    },
+    email: {
+        name: 'email',
+        render({input, meta}) {
+            const hasError = !!(meta.error && meta.touched);
+            return (
+                <FormField control={Input } required {...input} fluid icon={'mail'} iconPosition={'left'} placeholder={'ایمیل'} label={'ایمیل'} error={hasError ? meta.error : null}  />
+            );
+        },
+        validate: [
+            validator.required,
+            validator.email,
             validator.minLength(3),
             validator.maxLength(30),
         ]
@@ -89,7 +104,7 @@ const ProfileUpdateForm  = (props) => {
             <Form className={'ui form error'} onSubmit={props.handleSubmit}>
                 {_.map(FIELDS, ({name ,render ,validate}) => {
                     return (
-                        <Field key={name} name={name} component={render} validate={validate}/>
+                        <Field key={name} name={name} component={render} validate={validate} initialValues={props.initialValues}/>
                     );
                 })}
                 <Button primary  type={'submit'}  style={{marginTop: '1rem'}}>Update</Button>

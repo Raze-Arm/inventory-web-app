@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import _ from 'lodash';
-import {Button, Container, Header, Image, Input, Segment, Table} from "semantic-ui-react";
+import {Button, Card, Container, Grid, Header, Image, Input, Segment, Table} from "semantic-ui-react";
 
 import {getProductPage} from '../../actions/product';
 import history from "../../history";
@@ -14,10 +14,58 @@ class Index extends React.Component {
     state = {search: ''}
 
 
+
+    renderSmall = (items) => {
+        return (
+            <React.Fragment key={'mobile'}     >
+                {_.map(items ,(p, i) => {
+                    return (
+                        <Card fluid raised key={i}>
+                           <Grid celled    padded key={i}>
+                               <Grid.Row key={p.name}>
+                                   <Grid.Column as={'b'} width={8}>نام</Grid.Column>
+                                   <Grid.Column width={8}>
+                                       <Header as={'h4'} image>
+                                           {p.imageAvailable  ? <Image src={BACKEND_API + `/v1/download/small/product/${p.id}`}  rounded size='mini' /> : ''}
+                                           <Header.Content>{p.name}</Header.Content>
+                                       </Header>
+                                   </Grid.Column>
+                               </Grid.Row>
+                               <Grid.Row key={p.quantity}>
+                                   <Grid.Column as={'b'} width={8}>تعداد</Grid.Column><Grid.Column width={8}>{p.quantity}</Grid.Column>
+                               </Grid.Row>
+                               <Grid.Row key={p.price}>
+                                   <Grid.Column as={'b'} width={8}>قیمت</Grid.Column><Grid.Column width={8}>{p.price}</Grid.Column>
+                               </Grid.Row>
+                               <Grid.Row key={p.salePrice} >
+                                   <Grid.Column as={'b'} width={8}>تعداد</Grid.Column><Grid.Column width={8}>{p.salePrice}</Grid.Column>
+                               </Grid.Row>
+                               <Grid.Row key={p.createdDate}>
+                                   <Grid.Column as={'b'} width={8}>تاریخ</Grid.Column>
+                                   <Grid.Column width={8}>{p.createdDate ?
+                                       convertToPersianNumber(moment(p.createdDate, 'YYYY/MM/DD hh:mm').locale('fa').format('hh:mm , YYYY/MM/DD'))
+                                       : ''}</Grid.Column>
+                               </Grid.Row>
+                               <Grid.Row key={'actions'} >
+                                   <Grid.Column>
+                                       <Button color={"green"} inverted onClick={() => history.push(`/product/show/${p.id}`)}  >نمایش</Button>
+                                       <Button color={"blue"} inverted onClick={() => history.push(`/product/update/${p.id}`)}  >ویرایش</Button>
+                                       <Button color={"red"}  inverted onClick={() => history.push(`/product/delete/${p.id}`)}>حذف</Button>
+                                   </Grid.Column>
+                               </Grid.Row>
+                           </Grid>
+                        </Card>
+                    )
+                })}
+            </React.Fragment>
+        );
+    }
+
+
     renderHeaders() {
         return (
             <React.Fragment>
-                <Table.Row >
+                <Table.Row  >
                     {/*<Table.HeaderCell>شناسه</Table.HeaderCell>*/}
                     <Table.HeaderCell>نام</Table.HeaderCell>
                     <Table.HeaderCell>تعداد</Table.HeaderCell>
@@ -77,6 +125,7 @@ class Index extends React.Component {
                         <AppPagination fetchPage={({page, size}) => this.props.getProductPage({page, size})}
                                        itemList={Object.values(this.props.products)} totalElements={this.props.totalElements}
                                        search={this.state.search}
+                                       renderSmallDevices={this.renderSmall}
                                        renderHeaders={this.renderHeaders()}
                                        renderRows={this.renderRows} pageCount={this.props.pageCount}/>
                     </React.Fragment>

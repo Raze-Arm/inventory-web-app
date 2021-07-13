@@ -1,12 +1,10 @@
 import {take , call ,fork,put, cancel, cancelled ,select} from 'redux-saga/effects';
 import history from "../history";
 
-import Api from '../apis/inventory-api';
 import {LOGIN, LOGOUT} from "../actions/types";
 import {login, logout} from "../services/auth";
 import {loginFailed, loginSuccess, logoutSuccess} from "../actions/auth";
 import { showLoadingScreen, showModalErrorMessage, stopLoadingScreen} from "../actions/app-message";
-import {getProfilePhoto} from "../actions/profile";
 import jwtDecode from "../utility/jwt-decode";
 
 const getAuth = state => state.auth;
@@ -44,8 +42,7 @@ function* loginFlow(action) {
         const userInfo = yield call(login, {username,password});
         yield put(loginSuccess(userInfo));
         yield put(stopLoadingScreen());
-        // Api.defaults.headers.common['Authorization'] = token;
-        yield put(getProfilePhoto(username));
+
         localStorage.setItem('user_info', userInfo);
         history.push('/');
     } catch (e) {
@@ -65,7 +62,6 @@ function*  logoutFlow() {
         yield put(logoutSuccess());
         localStorage.removeItem('user_info');
         localStorage.removeItem('chat');
-        Api.defaults.headers.common['Authorization'] = '';
     }catch (e) {
     }finally {
 
@@ -78,10 +74,7 @@ function* autoLoginFlow() {
     if (userInfo) {
         yield put(loginSuccess(userInfo));
         yield put(stopLoadingScreen());
-        // Api.defaults.headers.common['Authorization'] = token;
-        const decoded = jwtDecode(userInfo);
-        yield put(getProfilePhoto(decoded.sub));
-        // history.push('/');
+
         yield take([LOGOUT.LOAD]);
         yield put(stopLoadingScreen());
         yield call(logoutFlow);
