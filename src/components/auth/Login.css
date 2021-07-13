@@ -5,3 +5,160 @@
 .ui.button {
     margin-bottom: 10px;
 }
+
+.sky {
+    height: 40vh;
+    background: #b3f1fe;
+}
+
+.ocean {
+    height: 10vh;
+    background: #0fa3c1;
+}
+
+.beach {
+    height: 50vh;
+    background: #fed67f;
+}
+
+.beach-container {
+    position: absolute;
+    bottom: 10vh;
+    left: calc(50% - 220px);
+    width: 440px;
+    height: 240px;
+}
+.beach-container .beach__ball {
+    overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    background: #fff;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+.beach-container .beach__ball:before, .beach-container .beach__ball:after {
+    position: absolute;
+    top: -15px;
+    height: 120%;
+    content: "";
+    border-radius: 100%;
+    transform: rotate(-45deg);
+}
+.beach-container .beach__ball:before {
+    left: 24px;
+    width: 70%;
+    background: #483D8B;
+}
+.beach-container .beach__ball:after {
+    left: 55px;
+    width: 30%;
+    background: inherit;
+}
+.beach-container .umbrella__fabric {
+    overflow: hidden;
+    position: absolute;
+    top: 38px;
+    right: -71px;
+    width: 310px;
+    height: 105px;
+    background: #b22222;
+    border-radius: 171px 171px 0 0;
+    transform: rotate(45deg);
+}
+.beach-container .umbrella__fabric:before, .beach-container .umbrella__fabric:after {
+    position: absolute;
+    top: 0;
+    height: 295px;
+    content: "";
+    border-radius: 100%;
+}
+.beach-container .umbrella__fabric:before {
+    left: 45px;
+    width: 69%;
+    background: #fff;
+}
+.beach-container .umbrella__fabric:after {
+    left: 113px;
+    width: 25%;
+    background: #b22222;
+}
+.beach-container .umbrella__handle {
+    position: absolute;
+    bottom: -20px;
+    right: 164px;
+    width: 15px;
+    height: 170px;
+    background: #c0c0c0;
+    transform: rotate(45deg);
+}
+.beach-container .beach__bucket {
+    position: absolute;
+    bottom: 0;
+    left: 145px;
+    width: 75px;
+    border-top: 80px solid darkcyan;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+}
+.beach-container .beach__bucket:after {
+    position: absolute;
+    top: -100px;
+    left: -10px;
+    width: 85px;
+    height: 20px;
+    content: "";
+    background: #005858;
+}
+.beach-container .beach__bucket .sand__shuffle {
+    position: absolute;
+    top: -155px;
+    left: -10px;
+    width: 47px;
+    height: 30px;
+    background: #ff4500;
+    border-radius: 0 0 23px 23px;
+    transform: rotate(-15deg);
+}
+.beach-container .beach__bucket .sand__shuffle:before, .beach-container .beach__bucket .sand__shuffle:after {
+    position: absolute;
+    content: "";
+}
+.beach-container .beach__bucket .sand__shuffle:before {
+    top: 10px;
+    left: 10px;
+    width: 60%;
+    height: 30%;
+    background: #fed67f;
+    border-radius: 0 0 23px 23px;
+}
+.beach-container .beach__bucket .sand__shuffle:after {
+    top: 29px;
+    left: 19px;
+    width: 10px;
+    height: 30px;
+    background: #ff4500;
+}
+.beach-container .beach__bucket .bucket__handle {
+    z-index: 1;
+    position: absolute;
+    top: -96px;
+    right: 27px;
+    width: 12px;
+    height: 12px;
+    background: #00c8c8;
+    border-radius: 100%;
+}
+.beach-container .beach__bucket .bucket__handle:before {
+    position: absolute;
+    top: -5px;
+    right: -17px;
+    width: 5px;
+    height: 65px;
+    content: "";
+    background: #002f2f;
+    border-radius: 5px;
+    transform: rotate(-43deg);
+}

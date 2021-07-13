@@ -61,7 +61,7 @@ const ChatBox  = ({ username, state, dispatch}) => {
                 })
                 client.subscribe('/queue/users'    , (m) => {
                     const userList = _.filter(JSON.parse(m.body) , (u) => u.username !== username)
-                    console.log('received users', userList);
+                    // console.log('received users', userList);
                     setUserList(_.mapKeys(userList, "id"));
                 })
             }

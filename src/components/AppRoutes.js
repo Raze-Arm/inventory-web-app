@@ -43,7 +43,9 @@ import UserActivityPage from "./activity";
 import Chat from './chat';
 
 import './App.css';
-import {Header} from "semantic-ui-react";
+
+import NotFoundPage from "./404Page";
+
 
 const AppRoutes = () => {
 
@@ -103,7 +105,8 @@ const AppRoutes = () => {
                     <Route exact path={'/supplier/delete/:id'} component={requireAuth(SupplierDelete)} />
                     <Route exact path={'/supplier/show/:id'} component={requireAuth(SupplierShow)} />
                     <Route  path={'/'} >
-                        <Header size={"large"} textAlign={"center"}> صفحه یافت نشد</Header>
+                        <NotFoundPage />
+                        {/*<Header size={"large"} textAlign={"center"}> صفحه یافت نشد</Header>*/}
                     </Route>
                 </Switch>
             </div>

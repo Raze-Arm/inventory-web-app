@@ -4,6 +4,7 @@ import {connect}  from "react-redux";
 import {Icon, Menu, Dropdown, Image} from "semantic-ui-react";
 import RightNavigationBar from "./RightNavigationBar";
 import AppSidebar from "./AppSidebar";
+import {BACKEND_API} from "../../apis/address";
 
 
 const HOME = '';
@@ -59,17 +60,19 @@ const NavigationBar = ({username, profile, history}) => {
         setActiveItem(PROFILE);
     }
 
-    const renderProfileImage= () => {
-        const photo = profile?.photo;
-            return (
-                <React.Fragment>
-                    {username}
-                    {photo ? <Image avatar src={URL.createObjectURL(profile.photo)}/> :
-                        <Icon size={"big"} name={'user circle'}/>}
-                </React.Fragment>
-            );
-
-    }
+    // const renderProfileImage= () => {
+    //         return (
+    //             <ProfileImage username={username} />
+    //             // <React.Fragment >
+    //             //     {username}
+    //             //     {/*{profile.imageAvailable ?*/}
+    //             //         <Image avatar src={BACKEND_API + `/v1/download/small/user/${username}`} onError="javascript:this.src='images/placeholder.png'" />
+    //             //         {/*// :*/}
+    //             //         {/*// <Icon size={"big"} name={'user circle'}/>}*/}
+    //             // </React.Fragment>
+    //         );
+    //
+    // }
 
     return (
       <React.Fragment>
@@ -82,7 +85,7 @@ const NavigationBar = ({username, profile, history}) => {
               </Menu.Item>
 
               <Menu.Item  position={'left'}>
-                  <Dropdown trigger={renderProfileImage()} inline>
+                  <Dropdown trigger={<ProfileImage username={username}/>} inline>
                       <Dropdown.Menu>
                           <Dropdown.Item onClick={onProfileClick} text='مشخصات' as={'a'}/>
                           <Dropdown.Divider/>
@@ -97,6 +100,21 @@ const NavigationBar = ({username, profile, history}) => {
           <RightNavigationBar  selectedItem={activeItem} setSelectedItem={navigate } />
           <AppSidebar visible={showSidebar} setVisible={() => setShowSidebar(false)}  selectedItem={activeItem} setSelectedItem={navigate}/>
       </React.Fragment>
+    );
+
+}
+
+
+const ProfileImage = ({username}) => {
+    const [hasImage , setHasImage] = useState(true);
+
+    return (
+        <React.Fragment key={hasImage}>
+            {username}
+            {hasImage ? <Image avatar src={BACKEND_API + `/v1/download/small/user/${username}`} onError={() => setHasImage(false)} /> :
+                <Icon size={"big"} name={'user circle'}/>
+            }
+        </React.Fragment>
     );
 
 }

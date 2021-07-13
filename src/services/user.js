@@ -26,12 +26,13 @@ export const fetchUserByUsername = async (username) => {
 
 export const postUser = async (user) => {
     const data = new FormData();
-    const {firstName, lastName, username, password, role, photo} = user;
+    const {firstName, lastName, email, username, password, role, photo} = user;
     if(photo) {
         data.append('photo',photo);
     }
     if(firstName)data.append('firstName', firstName);
     if(lastName)data.append('lastName', lastName);
+    if(email)data.append('email', email);
     if(username)data.append('username', username);
     if(password)data.append('password', password);
     if(role)data.append('role', role);
@@ -41,13 +42,14 @@ export const postUser = async (user) => {
 
 export const updateUser = async (user) => {
     const data = new FormData();
-    const {id, firstName, lastName, username, password, role, photo} = user;
+    const {id, firstName, lastName, email, username, password, role, photo} = user;
     if(photo) {
         data.append('photo',photo);
     }
     if(id)data.append('id',id);
     if(firstName)data.append('firstName', firstName);
     if(lastName)data.append('lastName', lastName);
+    if(email)data.append('email', email);
     if(username)data.append('username', username);
     if(password)data.append('password', password);
     if(role)data.append('role', role);
@@ -56,16 +58,7 @@ export const updateUser = async (user) => {
 }
 
 
-export const downloadUserPhoto = async  (id) => {
-    const response = await Api.get(VER +`/download/user/${id}` , {responseType: "blob" , });
-    let blob = new Blob([response.data] ,);
-    return blob;
-}
-export const downloadPhotoByUsername = async (username) => {
-    const response = await Api.get(VER +`/download/user`, {params: {username}, responseType: 'blob'});
-    let blob = new Blob([response.data]);
-    return blob;
-}
+
 
 export const deleteUser = async  (id) => {
     const response = Api.delete(VER +`/user/${id}`);

@@ -1,0 +1,123 @@
+
+
+.tv-frame {
+    position: absolute;
+    left: 0;
+    top: -200px;
+    right: 0;
+    bottom: 0;
+    width: 330px;
+    height: 220px;
+    box-sizing: border-box;
+    padding: 10px;
+    border-right: 80px solid #ad7443;
+    border-top: 30px solid #ad7443;
+    border-left: 30px solid #ad7443;
+    border-bottom: 30px solid #ad7443;
+    border-radius: 20px;
+    margin: auto;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0.45)), linear-gradient(to right bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0));
+    background-color: #666;
+    box-shadow: 0 0 50px rgba(255, 252, 234, 0.3), inset 0px 0px 30px rgba(255, 252, 234, 0.3);
+    animation: light .2s linear infinite;
+}
+
+.tv-frame::before {
+    position: absolute;
+    content: '۴۰۴';
+    text-shadow: 2px 2px #000;
+    width: 50px;
+    height: 20px;
+    left: 30px;
+    top: 65px;
+    font-size: 100px;
+    white-space: pre;
+    color: white;
+    opacity: 1;
+    animation: fade 1s linear infinite;
+}
+
+.tv-frame::after {
+    content: '__\A__\A__';
+    font-size: 40px;
+    font-weight: bold;
+    position: absolute;
+    color: #614126;
+    right: -60px;
+    top: 100px;
+    white-space: pre;
+    line-height: 10px;
+}
+
+.buttons {
+    position: absolute;
+    width: 30px;
+    right: -50px;
+}
+
+.buttons::before {
+    content: '⚇';
+    position: absolute;
+    color: #db9356;
+    font-size: 30px;
+    background-color: #614126;
+    border: 1px solid transparent;
+    border-radius: 30px;
+    top: 10px;
+}
+
+.buttons::after {
+    content: '⚇';
+    position: absolute;
+    color: #db9356;
+    font-size: 30px;
+    top: 60px;
+    left: 3px;
+    transform: rotate(60deg);
+    background-color: #614126;
+    border: 1px solid transparent;
+    border-radius: 30px;
+}
+
+.aerial {
+    position: absolute;
+    width: 100px;
+    height: 40px;
+    background-color: #db9356;
+    margin: auto;
+    top: -70px;
+    left: 80px;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+}
+
+.aerial::before {
+    content: '\|';
+    color: #614126;
+    font-size: 100px;
+    position: absolute;
+    top: -30px;
+    transform: rotate(-30deg);
+}
+
+.aerial::after {
+    content: '\|';
+    color: #614126;
+    font-size: 100px;
+    transform: rotate(30deg);
+    position: absolute;
+    top: -30px;
+    left: 75px;
+}
+
+@keyframes fade {
+    0%,100% { opacity: 0.5 }
+    50% { opacity: 0.7 }
+}
+
+@keyframes light {
+
+    0%, 100% { opacity: 0.8 }
+    50% { opacity: 1 }
+
+}

@@ -9,10 +9,11 @@ import Login from "./auth/Login";
 import Logout from "./auth/Logout";
 
 import AppRoutes from "./AppRoutes";
-import Loading from "./Loading";
 import ModalErrorMessage from "./app-message/ModalErrorMessage";
-import {Image} from "semantic-ui-react";
+import PasswordRecoveryPage from "./auth/PasswordRecoveryPage";
 
+
+import './404Page.css';
 
 class App extends React.Component {
 
@@ -28,6 +29,7 @@ class App extends React.Component {
                     <Router history={history}>
                         <Switch>
                             <Route exact path={'/login'} component={Login} />
+                            <Route  path={'/login/passwordrecovery/:success?'} component={PasswordRecoveryPage} />
                             <Route exact path={'/logout'} component={Logout} />
                             <AppRoutes />
                         </Switch>

@@ -33,6 +33,10 @@ export const LOGOUT = {
 }
 
 
+export const USER_SECURITY = {
+    FORGOT: 'USER SECURITY FORGOT',
+    RESET: 'USER SECURITY RESET',
+}
 
 
 //////////////////////////////////////////////////////////////////////////////Customer
@@ -243,16 +247,6 @@ export const UPDATE_USER = {
     SUCCESS: 'UPDATE USER SUCCESS',
     FAILED: 'UPDATE USER FAILED'
 }
-export const GET_USER_PHOTO = {
-    LOAD: 'GET USER PHOTO LOAD',
-    SUCCESS: 'GET USER PHOTO SUCCESS',
-    FAILED: 'GET USER PHOTO FAILED'
-}
-export const GET_PHOTO_BY_USERNAME = {
-    LOAD: 'GET PHOTO BY USERNAME LOAD',
-    SUCCESS: 'GET PHOTO BY USERNAME SUCCESS',
-    FAILED: 'GET PHOTO BY USERNAME FAILED'
-}
 export const DELETE_USER = {
     LOAD: 'DELETE USER LOAD',
     SUCCESS: 'DELETE USER SUCCESS',
@@ -271,11 +265,7 @@ export const UPDATE_PROFILE = {
     FAILED: 'UPDATE USER PROFILE FAILED'
 }
 
-export const GET_PROFILE_PHOTO = {
-    LOAD: 'GET PROFILE PHOTO LOAD',
-    SUCCESS: 'GET PROFILE PHOTO SUCCESS',
-    FAILED: 'GET PROFILE PHOTO FAILED'
-}
+
 //////////////////////////////////////////////////////////////////////////////PROFILE
 export const GET_USER_ACTIVITY_PAGE = {
     LOAD: 'GET USER ACTIVITY PAGE LOAD',

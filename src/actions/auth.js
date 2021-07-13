@@ -1,4 +1,4 @@
-import {LOGIN, LOGOUT} from "./types";
+import {LOGIN, LOGOUT, RESET_PASSWORD, USER_SECURITY} from "./types";
 
 
 export const login = ({username, password}) => {
@@ -24,4 +24,14 @@ export const logoutSuccess = () => {
 }
 export const logoutFailed = (error) => {
     return {type: LOGOUT.FAILED, payload: error};
+}
+
+
+
+export const forgotPasswordRequest = ({username, email}) => {
+    return {type: USER_SECURITY.FORGOT, payload: {username, email} };
+}
+
+export const resetPasswordRequest = ({username, password, email, token, confirmCode}) => {
+    return {type: USER_SECURITY.RESET, payload: {username, password, email, token, confirmCode}};
 }
