@@ -109,7 +109,7 @@ class Index extends React.Component {
     render() {
         return (
             <Container style={{width: '80%', margin: 'auto', marginTop: '1rem'}} >
-                <Segment  secondary   basic style={{ marginRight: '20px', padding: '0'}} >
+                <Segment  secondary   basic style={{ marginRight: '20px'}} >
                     <Header>کاربر</Header>
                     <React.Fragment>
                         <Input icon='search' style={{marginBottom: '10px'}}  placeholder='جستجو...' onChange={this.onSearch}  />

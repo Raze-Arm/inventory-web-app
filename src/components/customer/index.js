@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import _ from 'lodash';
 import {Button, Card, Container, Grid, Header, Input, Segment, Table} from "semantic-ui-react";
-import Moment from "react-moment";
+
 
 import { getCustomerPage} from "../../actions/customer";
 import history from "../../history";
@@ -101,7 +101,7 @@ class Index extends React.Component {
     render() {
         return (
             <Container style={{width: '80%', margin: 'auto', marginTop: '1rem'}} >
-                <Segment  secondary basic  style={{ margin: '0', padding: '0'}} >
+                <Segment  secondary basic  style={{ margin: '0'}} >
                     <Header >مشتری</Header>
 
                     <React.Fragment>

@@ -3,7 +3,6 @@ import store from "../store";
 import {logout} from "../actions/auth";
 import {showModalErrorMessage} from "../actions/app-message";
 import {BACKEND_API} from "./address";
-import {put} from "redux-saga/effects";
 const api = axios.create({
     baseURL: BACKEND_API,
     withCredentials: true,

@@ -116,7 +116,7 @@ class Index extends React.Component {
         return (
             <Container style={{width: '80%', margin: 'auto', marginTop: '1rem'}}>
                 < Header >صورتحساب</Header>
-                <Segment  secondary  basic style={{ margin: '0', padding: '0'}} >
+                <Segment  secondary  basic style={{ margin: '0'}} >
                     <Input icon='search' placeholder='جستجو...' onChange={this.onSearch}  />
                     <AppPagination fetchPage={({page, size}) => this.props.getSInvoicePage({page, size})}
                                    itemList={Object.values(this.props.invoices)} totalElements={this.props.totalElements}

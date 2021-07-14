@@ -9,7 +9,7 @@ import SaleInvoicePage from '../sale-invoice';
 import history from "../../history";
 import AppPagination from "../AppPagination";
 import moment from "jalali-moment";
-import {convertToPersianNumber, numberWithCommas} from "../../utility/numberConverter";
+import {convertToPersianNumber} from "../../utility/numberConverter";
 
 const ALL = 'همه';
 const PURCHASE = 'خرید';
@@ -137,7 +137,7 @@ class Index extends React.Component {
             <Container style={{width: '80%', margin: 'auto', marginTop: '1rem'}}>
                 < Header >صورتحساب</Header>
                 {this.renderInvoiceNavigation()}
-                <Segment  secondary  basic style={{ margin: '0', padding: '0'}} >
+                <Segment  secondary  basic style={{ margin: '0'}} >
 
 
                     {activeItem === ALL && this.renderAllInvoices()}

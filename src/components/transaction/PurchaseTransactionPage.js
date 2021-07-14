@@ -1,14 +1,14 @@
 import React from 'react';
 import {connect} from "react-redux";
 import _ from 'lodash';
-import {Button, Card, Grid, Header, Image, Input, Table} from "semantic-ui-react";
+import {Card, Grid, Header, Image, Input, Table} from "semantic-ui-react";
 
 import {getPurchaseTrPage} from "../../actions/transaction";
 import AppPagination from "../AppPagination";
 import moment from "jalali-moment";
 import {convertToPersianNumber, numberWithCommas} from "../../utility/numberConverter";
 import {BACKEND_API} from "../../apis/address";
-import history from "../../history";
+
 
 class PurchaseTransactionPage extends React.Component {
     state =  {search: ''};
